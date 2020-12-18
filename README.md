@@ -11,11 +11,13 @@ These are scripts that automate the user flow of purchasing an item.
 
 ### Add your account login credentials.
 
-To run these scripts, an online account setup with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information where required. Each script uses the first few lines to specifies user specific information (lines 1 - 6)
+To run these scripts, an online account setup with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information where required. Each script uses the first few lines to specify user specific information (lines 1 - 6)  
 
+#### Note  
+ 
 ***Do not include your payment information.***  
-All payment information should be setup by using a web browser, logging into the account, and adding a payment option. Not in the scripts. 
-
+All payment information should be setup by using a web browser, logging into the account, and adding a payment option. Not in the scripts.  
+Avoid cheking in personal account information to this repo / branches if you decide to contribute. 
 
 ## Installation
 
