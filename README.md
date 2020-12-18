@@ -1,4 +1,4 @@
-# Puppet-Purchase Auto Purchase Scripts  
+# Puppet-Purchase: Auto Purchase Scripts  
 
 puppet-purchase is a bot that automate the process of purchasing an item from BestBuy / Target. In attempt to combat scalping, I've created puppet-purchase bot and am making  publicly available. Not perfect, but has helped me. Please share && contribute.     
      
