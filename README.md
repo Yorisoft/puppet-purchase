@@ -31,7 +31,7 @@ npm install
 ## Usage
 
 
-```python
+```bash
 # Navigate to a script using a command line, and run script
 cd /path/to/file.js
 node <file>.js
