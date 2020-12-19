@@ -36,7 +36,7 @@ cd /path/to/file.js
 node <file>.js
 ```
 
-# Alternatively, run file from current directory
+Alternatively, run file from current directory
 ```bash
 node /path/to/file.js
 ```
