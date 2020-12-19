@@ -30,13 +30,14 @@ npm install
 
 ## Usage
 
-
+Navigate to a script using a command line, and run script
 ```bash
-# Navigate to a script using a command line, and run script
 cd /path/to/file.js
 node <file>.js
+```
 
 # Alternatively, run file from current directory
+```bash
 node /path/to/file.js
 ```
 
