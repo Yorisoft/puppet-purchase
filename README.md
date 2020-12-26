@@ -1,7 +1,8 @@
-# Auto Purchase Scripts
+# Puppet-Purchase: Auto Purchase Scripts  
 
+puppet-purchase is a bot that automate the process of purchasing an item from BestBuy / Target. In attempt to combat scalping, I've created puppet-purchase bot and am making  publicly available. Not perfect, but has helped me. Please share && contribute.     
+     
 These are scripts that automate the user flow of purchasing an item.     
-
 - Navigate to site  
 - Signin to account  
 - Navigate to item listing page  
@@ -11,11 +12,13 @@ These are scripts that automate the user flow of purchasing an item.
 
 ### Add your account login credentials.
 
-To run these scripts, an online account setup with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information where required. Each script uses the first few lines to specifies user specific information (lines 1 - 6)
+To run these scripts, an online account setup with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information where required. Each script uses the first few lines to specify user specific information (lines 1 - 6)  
 
+#### Note  
+ 
 ***Do not include your payment information.***  
-All payment information should be setup by using a web browser, logging into the account, and adding a payment option. Not in the scripts. 
-
+All payment information should be setup by using your web browser, logging into the account, and adding a payment option. Not in the scripts.  
+Avoid cheking in personal account information to this repo / branches if you decide to contribute. 
 
 ## Installation
 
@@ -27,13 +30,14 @@ npm install
 
 ## Usage
 
-
-```python
-# Navigate to a script using a command line, and run script
+Navigate to a script using a command line, and run script
+```bash
 cd /path/to/file.js
 node <file>.js
+```
 
-# Alternatively, run file from current directory
+Alternatively, run file from current directory
+```bash
 node /path/to/file.js
 ```
 
