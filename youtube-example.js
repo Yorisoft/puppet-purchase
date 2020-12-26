@@ -1,7 +1,7 @@
 const myemail = '';   // Enter email. ex - const myemail = 'myEmail@email.com';
 const mypassw = '';   // Enter password. ex - const mypassw = 'password';
 let snapShotPath =    // ex, '/Users/me/Documents/<this_folder>/record/screen_shots/'
-'/<path_to_project>/record/screen_shots/' + 
+'../../record/screen_shots/' + 
   `${timeStamp}` +
   ".png";
 
