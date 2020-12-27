@@ -1,5 +1,4 @@
 const Spinner = require('cli-spinner');
-const puppeteer = require('puppeteer');
 const colors = require('colors');
 const myInfo = require('./myInfo');
 
@@ -115,11 +114,11 @@ async function checkoutCart(page) {
     }
    
     // Checkout = 'Moment of truth..';
-    const chekout_bttn_selector_2 = 'button.btn.btn-lg.btn-block.btn-primary.button__fast-track';
-    await page.focus(chekout_bttn_selector_1);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(10000);
-    await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+    //const chekout_bttn_selector_2 = 'button.btn.btn-lg.btn-block.btn-primary.button__fast-track';
+    //await page.focus(chekout_bttn_selector_1);
+   // await page.keyboard.press('Enter');
+    //await page.waitForTimeout(10000);
+    //await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
 }
 
 module.exports = {
