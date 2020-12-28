@@ -6,9 +6,7 @@ const myInboxPass = ''; // Enter inbox password. ex - const myInboxPass = '<pass
 const myloc = ''; // Enter zip code. ex - const myloc = '01234';
 const mycvv = '';    // Enter payment cvv. ex - const mycvv = '123';
 const listingURL = '';
-let snapShotPath =
-  '${workspaceFolder}../../record/screen_shots/bestbuy/' +
-  `${timeStamp}`;
+let snapShotPath = '../../record/screen_shots/bestbuy/' + `${timeStamp}`;
 
 module.exports = {
     myemail,

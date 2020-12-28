@@ -70,10 +70,9 @@ async function logIn(page) {
   //security code
   await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
   await page.type(utils.selectors.get('securityCode_input_selector'), securityCode, { delay: 100 });
-  //submit
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
+  //submit
   await page.$eval(utils.selectors.get('singin_selector_1'), (el) => el.click());
-
   await page.waitForTimeout(500);
   console.log('Signed in succesfully ..'.yellow);
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_success.png` });
@@ -89,34 +88,35 @@ async function checkoutCart(page) {
   //shipping
   await page.waitForSelector(utils.selectors.get('checkout_bttns'));
   let bttns = await page.$$(utils.selectors.get('checkout_bttns'));
+  await page.waitForTimeout(500);
   
   await bttns[0].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
-  await page.waitForTimeout(500);
-  console.log('shipping');
+  console.log('Done w. shipping');
 
   //delivery
+  await page.waitForTimeout(500);
   await bttns[1].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
-  await page.waitForTimeout(500);
-  console.log('delivery');
+  console.log('Done w. Delivery');
 
-  // Input credit-card  cvv
+  // Input credit-card  cvv 
+  await page.waitForTimeout(500);
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
     await page.$eval(utils.selectors.get('cvv_bttn_selector'), (el) => el.click());
     await page.type(utils.selectors.get('cvv_bttn_selector'), myInfo.mycvv);
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
-  // Review
+  // Review  card card-add-new
   await bttns[2].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+review_page.png` });
-  await page.waitForTimeout(500);
-  console.log('Review');
+  console.log('Done w. Review');
 
   let checkout = 'Moment of truth..';
-  //await page.focus(utils.selectors.get('placeOrder_selector'));
+  await page.waitForSelector(utils.selectors.get('placeOrder_selector'));
+  await page.focus(utils.selectors.get('placeOrder_selector'));
   //await page.keyboard.press('Enter');
-  //await page.waitForTimeout(3000);
+  await page.waitForTimeout(30000);
   //await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
   console.log(checkout);
 }
