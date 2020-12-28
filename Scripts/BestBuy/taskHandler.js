@@ -113,8 +113,8 @@ async function checkoutCart(page) {
         await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
     }
     const chekout_bttn_selector_2 = 'button.btn.btn-lg.btn-block.btn-primary.button__fast-track';
-    await page.focus(chekout_bttn_selector_2);
     await page.waitForSelector(chekout_bttn_selector_2);
+    await page.focus(chekout_bttn_selector_2);
     await page.keyboard.press('Enter');
     await page.waitForTimeout(10000);
     await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
