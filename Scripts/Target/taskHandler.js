@@ -96,9 +96,9 @@ async function checkoutCart(page) {
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
 
     // Checkout = 'Moment of truth..';
-    await page.$eval(utils.selectors.get('chekout_bttn_selector_2'), (el) => el.click());
-    await page.waitForTimeout(3000);
-    await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+    //await page.$eval(utils.selectors.get('chekout_bttn_selector_2'), (el) => el.click());
+    //await page.waitForTimeout(3000);
+    //await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
 }
 
 module.exports = {

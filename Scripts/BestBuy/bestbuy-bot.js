@@ -7,12 +7,10 @@ const colors = require('colors');
 async function addToCart(page) {
     const add_cart_bttn_selector = 'button.btn.btn-primary.btn-lg.btn-block.btn-leading-ficon.add-to-cart-button';
     await page.waitForSelector(add_cart_bttn_selector);
-
-    await page.focus(add_cart_bttn_selector);
-    await page.keyboard.press('Enter');
+    await page.$$(add_cart_bttn_selector, (el) => el.click());
     console.log('Item added to cart ..');
 
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
     await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 }
 
@@ -24,12 +22,8 @@ async function addToCart(page) {
         //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
     });
     const page = await browser.newPage();
-    await page.goto('https://www.bestbuy.com', { waitUntil: 'networkidle2' });
-    await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
-
+    await page.goto('https://www.bestbuy.com');
     await taskHandler.logIn(page);
-    await page.waitForTimeout(500);
-    console.log('Signed in succesfully ..'.yellow);
 
     // TESTING - Comment out when done.
     // await cleanUpAccount(page);
@@ -45,15 +39,14 @@ async function addToCart(page) {
         mySpinner.start();
 
         try {
-            console.log('\n[1/4] .. Navigating to listing page ..'.bgCyan);
-            await page.waitForTimeout({ waitUntil: 'domcontentloaded' });
-
+            console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
+            await page.goto(myInfo.listingURL);
             await page.waitForTimeout(500);
-            await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
             await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
             // Checking to see if listing is out of stock
             const outOfStock_selector = 'div.fulfillment-add-to-cart-button';
+            await page.waitForSelector(outOfStock_selector);
             let stocks = await page.$eval(outOfStock_selector, (element) => { return element.innerHTML });
             let isOutOfStock = stocks.includes('Sold Out');
             console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
@@ -68,20 +61,21 @@ async function addToCart(page) {
                 isOutOfStock = await taskHandler.findListing(page, npage);
                 await npage.close();               
             }
-            console.log('\nListing is in stock !!'.bgCyan);
+            console.log('\nListing is in stock !!'.bgBlue);
             
             // Add listing to cart
-            console.log('\n[2/4] .. Adding item to cart ..'.bgCyan);
+            console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
             await addToCart(page);
 
             // Navigate to cart
-            console.log('\n[3/4] .. Navigating to cart ..'.bgCyan);
+            console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
             const cartURL = 'https://www.bestbuy.com/cart';
-            await page.goto(cartURL, { waitUntil: 'networkidle2' });
+            await page.goto(cartURL);
+            await page.waitForTimeout(500);
             await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
             //Checkout listing
-            console.log('\n[4/4] .. Checking out cart ..'.bgCyan);
+            console.log('\n[4/4] .. Checking out cart ..'.bgBlue);
             await taskHandler.checkoutCart(page);
 
             // Ctrl+C && Celebrate

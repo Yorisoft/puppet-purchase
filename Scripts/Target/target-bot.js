@@ -40,7 +40,7 @@ async function addToCart(page) {
   let amountOrdered = 0;
   while (amountOrdered < 1) {
     try {
-      console.log('\n[1/4] .. Navigating to listing page ..'.bgCyan);
+      console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
       await page.screenshot({ path: `${myInfo.snapShotPathPath}+listing_page.png` });
 
@@ -59,21 +59,21 @@ async function addToCart(page) {
 
         whileLoopCounter++;
       }
-      console.log('\nListing is in stock !!'.bgCyan);
+      console.log('\nListing is in stock !!'.bgBlue);
 
       // Add listing to cart
-      console.log('\n[2/4] .. Adding item to cart ..'.bgCyan);
+      console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
       await page.waitForTimeout(500);
       await addToCart(page);
 
       // Navigate to cart
-      console.log('\n[3/4] .. Navigating to cart ..'.bgCyan);
+      console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
       const cartURL = 'https://www.target.com/co-cart';
       await page.goto(cartURL, { waitUntil: 'networkidle2' });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
-      console.log('\n[4/4] .. Checking out cart ..'.bgCyan);
+      console.log('\n[4/4] .. Checking out cart ..'.bgBlue);
       await page.waitForTimeout(500);
       await taskHandler.checkoutCart(page);
 
