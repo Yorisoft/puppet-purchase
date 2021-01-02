@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                cleanWs
+                cleanWs()
                 sh 'Hello World'
             }
         }
