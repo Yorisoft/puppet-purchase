@@ -1,5 +1,4 @@
 pipeline {
-    cleanWs()
     agent { 
         dockerfile {
         args '-v $HOME/src:/src'
@@ -9,6 +8,7 @@ pipeline {
         stage('Hello') {
             steps {
                 sh 'Hello World'
+                cleanWs()
             }
         }
         stage('Setup Personal Info : bestbuy-bot') {
