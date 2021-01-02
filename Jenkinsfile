@@ -1,9 +1,9 @@
 pipeline {
-    cleanWs()
     agent {  dockerfile true }
     stages {
         stage('Hello') {
             steps {
+                cleanWs()
                 sh 'Hello World'
             }
         }
