@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-WORKDIR /usr/src/
+WORKDIR C:\\Users\\.jenkins\\puppeteer-public
 
 COPY . .
 
