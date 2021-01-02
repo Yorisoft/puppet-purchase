@@ -1,4 +1,5 @@
 pipeline {
+    cleanWs()
     agent { 
         dockerfile {
         args '-v $HOME/src:/src'
