@@ -1,5 +1,5 @@
-cleanWs()
 pipeline {
+    cleanWs()
     agent {  dockerfile true }
     stages {
         stage('Hello') {
