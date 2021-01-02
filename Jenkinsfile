@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
+                dir("C:\\Users\\Yelsin S\\.jenkins\\puppeteer-public")
                 sh 'Hello World'
                 cleanWs()
             }
