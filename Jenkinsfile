@@ -1,9 +1,5 @@
 pipeline {
-    agent { 
-        dockerfile {
-        args '-v $HOME/src:/src'
-        } 
-    }
+    agent { dockerfile true }
     stages {
         stage('Hello') {
             steps {
