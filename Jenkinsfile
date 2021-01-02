@@ -1,11 +1,10 @@
+cleanWs()
 pipeline {
-    agent { dockerfile true }
+    agent {  dockerfile true }
     stages {
         stage('Hello') {
             steps {
-                dir("C:\\Users\\Yelsin S\\.jenkins\\puppeteer-public")
                 sh 'Hello World'
-                cleanWs()
             }
         }
         stage('Setup Personal Info : bestbuy-bot') {
