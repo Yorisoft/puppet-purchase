@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-WORKDIR /usr/src/puppet-purchase
+WORKDIR /usr/src/
 
 COPY . .
 
