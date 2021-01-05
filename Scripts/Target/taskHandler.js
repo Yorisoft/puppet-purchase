@@ -19,7 +19,7 @@ async function logIn(page) {
         await page.$eval(utils.selectors.get('singin_selector_1'), (el) => el.click());
         await page.screenshot({ path: `${myInfo.snapShotPath}+login_page.png` });
         await page.$eval(utils.selectors.get('singin_selector_2'), (el) => el.click());
-        await page.screenshot({ path: `${myInfo.snapShotPath}+login_page.png` });
+        await page.screenshot({ path: `${myInfo.snapShotPath}_login_page.png` });
 
         // Enter login credentials & signin
         //email

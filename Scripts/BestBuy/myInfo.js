@@ -1,17 +1,17 @@
+require("dotenv").config({ path: `.env.${process.env.USER_ENV}` });
 var date = new Date();
 var timeStamp = `${date.getMonth()}-${date.getDay()}_${date.getTime()}`;
-
-// Fill in the value w. your account/listing info
-const myemail = '';
-const myPass = '';
-const myloc = '';
-const mycvv = '';
-const listingURL = ''; // Enter URL of item. ex - http://www.bestbuy.com/item;
 let snapShotPath = '../../record/screen_shots/bestbuy/' + `${timeStamp}`;
+
+const myemail = process.env.MY_EMAIL;
+const mypassw = process.env.MY_PASSW;
+const myloc = process.env.MY_LOC;
+const mycvv = process.env.MY_CVV;
+const listingURL = process.env.LISTING_URL;
 
 module.exports = {
     myemail,
-    myPass,
+    mypassw,
     myloc,
     mycvv,
     listingURL,
