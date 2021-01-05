@@ -5,18 +5,13 @@ const taskHandler = require('./taskHandler');
 const myInfo = require('./myInfo');
 const utils = require('./utils');
 
-async function addToCart(page) {
-  await page.$eval(utils.selectors.get('chekout_bttn_selector_1'), (el) => el.click());
-  console.log('Item added to cart ..');
-  await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
-}
-
 (async () => {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    args: ['--no-sandbox'],
+    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
   await page.goto('https://www.newegg.com');
@@ -35,48 +30,49 @@ async function addToCart(page) {
   let amountOrdered = 0;
   while (amountOrdered < 1) {
     try {
-      console.log('\n[1/4] .. Navigating to listing page ..'.bgCyan);
+      console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.goto(myInfo.listingURL);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
-      await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
-      let stocks = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
-      let isOutOfStock = stocks.includes('Sold Out');
+      await page.waitForSelector(utils.selectors.get('pickUp_bttn_selector'));
+      let pickUp_bttn = await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (element) => { return element.innerHTML });
+      let isOutOfStock = pickUp_bttn.includes('Sold Out');
 
       // While listing is out of stock: Change store, check availability 
       var n = 1;
       while (isOutOfStock) {
-        console.log('\nProduct is OUT OF STOCK'.red);
-
+        console.log('\nOUT OF STOCK'.red);
+        console.log('\nRefreshing Page..'.yellow);
         await page.reload();
-        console.log('\nRefreshed Page..'.yellow);
-
+        
         // Check if current store has listing 
-        await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
-        const stocks = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
-        isOutOfStock = stocks.includes('Sold Out');
+        await page.waitForSelector(utils.selectors.get('pickUp_bttn_selector'));
+        pickUp_bttn = await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (element) => { return element.innerHTML });
+        isOutOfStock = pickUp_bttn.includes('Sold Out');
 
-        console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
         await page.screenshot({ path: `${myInfo.snapShotPath}refreshStore_${n++}.png` });
       }
-      console.log('\nListing is in stock !!'.bgCyan);
+      console.log('\nListing is in stock !!'.bgBlue);
 
       // Add listing to cart
-      console.log('\n[2/4] .. Adding item to cart ..'.bgCyan);
-      await addToCart(page);
+      console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
+      pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
+      await pickUp_bttn[0].click();
+      await page.waitForTimeout(500);
+      console.log('Item added to cart ..');
+      await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 
       // Navigate to cart
-      console.log('\n[3/4] .. Navigating to cart ..'.bgCyan);
+      console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
       const cartURL = 'https://secure.newegg.com/shop/cart';
       await page.goto(cartURL);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
-      console.log('\n[4/4] .. Checking out cart ..'.bgCyan);
-      await page.waitForTimeout(500);
+      console.log('\n[4/4] .. Checking out cart ..'.bgBlue);
       await taskHandler.checkoutCart(page);
 
       // Ctrl+C && Celebrate

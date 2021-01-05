@@ -7,6 +7,7 @@ selectors.set('pick_store_selector', 'button.btn.btn-outline.btn-sm.make-this-yo
 selectors.set('lookup_bttn_selector', 'button.btn.btn-secondary.btn-sm');
 selectors.set('email_selector', 'input#fld-e.tb-input');
 selectors.set('password_selector', 'input#fld-p1.tb-input');
+selectors.set('singin_selector', 'div.cia-form__controls');
 selectors.set('chekout_bttn_selector_1', 'button.btn.btn-lg.btn-block.btn-primary');
 selectors.set('chekout_bttn_selector_2', 'button.btn.btn-lg.btn-block.btn-primary.button__fast-track');
 selectors.set('cvv_panel_selector', 'div.checkout-panel payment-card');

@@ -9,8 +9,9 @@ async function getSecutiryCode() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: [`--window-size=700,700`],
-    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    executablePath: process.env.CHROMIUM_PATH,
+    args: ['--no-sandbox', `--window-size=700,700`],
+    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   // Navigate to email.
   const page = await browser.newPage();
@@ -31,7 +32,7 @@ async function getSecutiryCode() {
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxPass.png` });
 
-  await page.waitForTimeout(10000);
+  await page.waitForTimeout(5000);
   await page.reload({ waitUntil: 'networkidle2' });
 
   // Select email
@@ -59,11 +60,12 @@ async function logIn(page) {
   await page.waitForSelector(utils.selectors.get('email_selector'));
   await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
   await page.type(utils.selectors.get('email_selector'), myInfo.myemail);
-  //submit
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
-  await page.waitForTimeout(500);
-  await page.$eval(utils.selectors.get('singin_selector_1'), (el) => el.click());
-
+  //submit
+  await page.focus(utils.selectors.get('singin_selector_1'));
+  await page.waitForTimeout(1500); // wait for domdocument to lead
+  await page.keyboard.press('Enter');
+  
   // Getting security code
   const securityCode = await getSecutiryCode();
 
@@ -80,7 +82,6 @@ async function logIn(page) {
 
 async function checkoutCart(page) {
   //Begin Checkout
-  await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_1'));
   await page.$eval(utils.selectors.get('chekout_bttn_selector_1'), (el) => el.click());
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_start.png` });
@@ -115,8 +116,8 @@ async function checkoutCart(page) {
   let checkout = 'Moment of truth..';
   await page.waitForSelector(utils.selectors.get('placeOrder_selector'));
   await page.focus(utils.selectors.get('placeOrder_selector'));
-  await page.keyboard.press('Enter');
-  await page.waitForTimeout(30000);
+  //await page.keyboard.press('Enter');
+  await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
   console.log(checkout);
 }

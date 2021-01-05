@@ -22,6 +22,7 @@ async function addToCart(page) {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
+    args: ['--no-sandbox'],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
