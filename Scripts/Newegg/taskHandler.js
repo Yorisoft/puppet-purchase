@@ -115,9 +115,9 @@ async function checkoutCart(page) {
   let checkout = 'Moment of truth..';
   await page.waitForSelector(utils.selectors.get('placeOrder_selector'));
   await page.focus(utils.selectors.get('placeOrder_selector'));
-  //await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
   await page.waitForTimeout(30000);
-  //await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+  await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
   console.log(checkout);
 }
 
