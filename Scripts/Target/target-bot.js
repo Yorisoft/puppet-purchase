@@ -90,6 +90,8 @@ async function addToCart(page) {
       continue;
     }
   }
-  await page.waitForTimeout(15000);
+  await page.waitForTimeout(7000);
   await browser.close();
+  mySpinner.stop();
+  return;
 })();

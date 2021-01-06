@@ -4,12 +4,13 @@
     "description": "puppet-purchase inside Docker",
     "author": "Yelsin S",
     "scripts": {
+      "all-bots": "cd scripts/target && USER_ENV=userInfo node target-bot.js",
       "bestbuy-bot": "cd scripts/bestbuy && USER_ENV=userInfo node bestbuy-bot.js",
+      "bestbuy-bot-test": "cd scripts/bestbuy && USER_ENV=testUserInfo node bestbuy-bot.js",
       "newegg-bot": "cd scripts/newegg && USER_ENV=userInfo node newegg-bot.js",
+      "newegg-bot-test": "cd scripts/newegg && USER_ENV=testUserInfo node newegg-bot.js",
       "target-bot": "cd scripts/target && USER_ENV=userInfo node target-bot.js",
-      "target-bot-test": "cd scripts/target && node USER_ENV=testUserInfo target-bot.js",
-      "newegg-bot-test": "cd scripts/newegg && node USER_ENV=testUserInfo newegg-bot.js",
-      "bestbuy-bot-test": "cd scripts/bestbuy && USER_ENV=testUserInfo node bestbuy-bot.js"
+      "target-bot-test": "cd scripts/target && USER_ENV=testUserInfo node target-bot.js"      
     },
     "dependencies": {
       "puppeteer": "5.5.0",

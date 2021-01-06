@@ -91,7 +91,7 @@ async function addToCart(page) {
 
       // Ctrl+C && Celebrate
       console.log("\nDone. Goteee boiiis!!! \n".rainbow);
-      console.log("\nCtrl+C && Celebrate \n".bgRed);
+      console.log("\nLook at account purchase history to verify \n".bgRed);
 
       // Done
       await page.goto(
@@ -106,6 +106,8 @@ async function addToCart(page) {
       continue;
     }
   }
-  await page.waitForTimeout(15000);
+  await page.waitForTimeout(7000);
   await browser.close();
+  mySpinner.stop();
+  return;
 })();

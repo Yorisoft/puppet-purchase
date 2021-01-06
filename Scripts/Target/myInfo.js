@@ -3,9 +3,6 @@ var date = new Date();
 var timeStamp = `${date.getMonth()}-${date.getDay()}_${date.getTime()}`;
 let snapShotPath = "../../record/screen_shots/target/" + `${timeStamp}`;
 
-console.log(process.env.USER_ENV);
-console.log(process.env.MY_EMAIL);
-console.log(`${process.env.MY_EMAIL}`);
 const myemail = process.env.MY_EMAIL ; 
 const mypassw = process.env.MY_PASSW;
 const myloc =  process.env.MY_LOC;

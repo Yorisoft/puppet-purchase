@@ -2,4 +2,6 @@
 *.vs
 *debug.log
 *desktop.ini
-.env
+*.env.
+!.env.userInfo
+!.env.testUserInfo
