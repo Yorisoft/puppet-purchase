@@ -1,21 +1,26 @@
 {
-    "name": "puppet-purchase",
-    "version": "1.0.0",
-    "description": "puppet-purchase inside Docker",
-    "author": "Yelsin S",
-    "scripts": {
-      "all-bots": "cd scripts/target && USER_ENV=userInfo node target-bot.js",
-      "bestbuy-bot": "cd scripts/bestbuy && USER_ENV=userInfo node bestbuy-bot.js",
-      "bestbuy-bot-test": "cd scripts/bestbuy && USER_ENV=testUserInfo node bestbuy-bot.js",
-      "newegg-bot": "cd scripts/newegg && USER_ENV=userInfo node newegg-bot.js",
-      "newegg-bot-test": "cd scripts/newegg && USER_ENV=testUserInfo node newegg-bot.js",
-      "target-bot": "cd scripts/target && USER_ENV=userInfo node target-bot.js",
-      "target-bot-test": "cd scripts/target && USER_ENV=testUserInfo node target-bot.js"      
-    },
-    "dependencies": {
-      "puppeteer": "5.5.0",
-      "cli-spinner": "0.2.10",
-      "colors": "1.4.0",
-      "dotenv": "8.2.0"
-    }
+  "name": "puppet-purchase",
+  "version": "0.1.0",
+  "description": "puppet-purchase inside Docker",
+  "author": "Yelsin S",
+  "private": true,
+  "scripts": {
+    "all-bots-find-stock": "sh scripts/test/all-bots-find-stocks.test.sh",
+    "all-bots-full-cycle": "sh scripts/test/all-bots-full-cycle.test.sh",
+    "bestbuy-bot": "sh scripts/bestbuy/build.sh",
+    "newegg-bot": "sh scripts/newegg/build.sh",
+    "target-bot": "sh scripts/target/build.sh",
+    "bestbuy-bot-test": "sh scripts/test/bestbuy-bot.test.sh",
+    "newegg-bot-test": "sh scripts/test/newegg-bot.test.sh",
+    "target-bot-test": "sh scripts/test/target-bot.test.sh",
+    "bestbuy-find-stocks-test": "sh scripts/test/bestbuy-find-stocks.test.sh",
+    "newegg-find-stocks-test": "sh scripts/test/newegg-find-stocks.test.sh",
+    "target-find-stocks-test": "sh scripts/test/target-find-stocks.test.sh"
+  },
+  "dependencies": {
+    "puppeteer": "5.3.0",
+    "cli-spinner": "0.2.10",
+    "colors": "1.4.0",
+    "dotenv": "8.2.0"
   }
+}

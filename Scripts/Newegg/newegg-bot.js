@@ -5,7 +5,7 @@ const taskHandler = require('./taskHandler');
 const myInfo = require('./myInfo');
 const utils = require('./utils');
 
-(async () => {
+async function neweggBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     headless: false,
@@ -30,35 +30,42 @@ const utils = require('./utils');
   let amountOrdered = 0;
   while (amountOrdered < 1) {
     try {
-      console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
+      console.log(' [1/4] .. Navigating to listing page ..'.bgBlue);
       await page.goto(myInfo.listingURL);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
+      console.log('\nGot to listing..'.yellow);
+
       // Checking to see if listing is out of stock
-      await page.waitForSelector(utils.selectors.get('pickUp_bttn_selector'));
-      let pickUp_bttn = await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (element) => { return element.innerHTML });
-      let isOutOfStock = pickUp_bttn.includes('Sold Out');
+      await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
+      let inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
+      let isOutOfStock = inventoryText.includes('OUT OF STOCK');
+
+      console.log('\ncalculated stocks..'.yellow);
 
       // While listing is out of stock: Change store, check availability 
-      var n = 1;
+      let testRuns = 0;
       while (isOutOfStock) {
         console.log('\nOUT OF STOCK'.red);
         console.log('\nRefreshing Page..'.yellow);
         await page.reload();
         
         // Check if current store has listing 
-        await page.waitForSelector(utils.selectors.get('pickUp_bttn_selector'));
-        pickUp_bttn = await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (element) => { return element.innerHTML });
-        isOutOfStock = pickUp_bttn.includes('Sold Out');
+        await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
+        inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
+        isOutOfStock = inventoryText.includes('Sold Out');
 
-        await page.screenshot({ path: `${myInfo.snapShotPath}refreshStore_${n++}.png` });
+        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 10)){
+          return;
+        }
+        testRuns++;
       }
       console.log('\nListing is in stock !!'.bgBlue);
 
       // Add listing to cart
       console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
-      pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
+      let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
       await pickUp_bttn[0].click();
       await page.waitForTimeout(500);
       console.log('Item added to cart ..');
@@ -86,11 +93,14 @@ const utils = require('./utils');
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log('\n' + error);
-      continue;
+    } finally {
+      await page.waitForTimeout(7000);
+      await page.close();
+      await browser.close();
+      await mySpinner.stop();
+      await process.exit(); 
     }
   }
-  await page.waitForTimeout(7000);
-  await browser.close();
-  mySpinner.stop();
-  return;
-})();
+}
+
+neweggBot();

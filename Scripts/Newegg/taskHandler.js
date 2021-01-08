@@ -43,7 +43,9 @@ async function getSecutiryCode() {
   securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
 
-  browser.close();
+  let pages = await browser.pages()
+  await Promise.all(pages.map(page =>page.close()))
+  await browser.close();
 
   console.log('Security Code: ' + securityCode);
   return securityCode;
@@ -58,8 +60,9 @@ async function logIn(page) {
   // Enter login credentials & signin
   //email
   await page.waitForSelector(utils.selectors.get('email_selector'));
+  await page.waitForTimeout(500);
   await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('email_selector'), myInfo.myemail);
+  await page.type(utils.selectors.get('email_selector'), myInfo.myemail,);
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
   //submit
   await page.focus(utils.selectors.get('singin_selector_1'));
@@ -89,26 +92,27 @@ async function checkoutCart(page) {
   //shipping
   await page.waitForSelector(utils.selectors.get('checkout_bttns'));
   let bttns = await page.$$(utils.selectors.get('checkout_bttns'));
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(700);
   
   await bttns[0].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
   console.log('Done w. shipping');
 
   //delivery
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(800);
   await bttns[1].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
   console.log('Done w. Delivery');
 
   // Input credit-card  cvv 
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(800);
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
     await page.$eval(utils.selectors.get('cvv_bttn_selector'), (el) => el.click());
     await page.type(utils.selectors.get('cvv_bttn_selector'), myInfo.mycvv);
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
   // Review  card card-add-new
+  await page.waitForTimeout(700);
   await bttns[2].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+review_page.png` });
   console.log('Done w. Review');

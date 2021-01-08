@@ -8,14 +8,14 @@ const colors = require("colors");
 async function addToCart(page) {
   await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
   await page.focus(utils.selectors.get("add_cart_bttn_selector"));
-  await page.keyboard.press('Enter');
+  await page.keyboard.press("Enter");
   console.log("Item added to cart ..");
 
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 }
 
-(async () => {
+async function bestbuyBot() {
   // Spinner
   var mySpinner = new Spinner.Spinner("processing.. %s");
   mySpinner.setSpinnerString("|/-\\");
@@ -26,12 +26,12 @@ async function addToCart(page) {
     headless: false,
     defaultViewport: null,
     executablePath: process.env.CHROMIUM_PATH,
-    args: ['--no-sandbox'],
+    args: ["--no-sandbox"],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
   });
 
   const page = await browser.newPage();
-  await page.goto("https://www.bestbuy.com", {waitUntil: "networkidle2"});
+  await page.goto("https://www.bestbuy.com", { waitUntil: "networkidle2" });
   await taskHandler.logIn(page);
 
   // TESTING - Comment out when done.
@@ -44,7 +44,6 @@ async function addToCart(page) {
     try {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       await page.goto(myInfo.listingURL);
-      await page.waitForTimeout(500);
       await page.screenshot({
         path: `${myInfo.snapShotPath}+listing_page.png`,
       });
@@ -58,7 +57,7 @@ async function addToCart(page) {
         }
       );
       let isOutOfStock = stocks.includes("Sold Out");
-
+      let testRuns = 0;
       while (isOutOfStock) {
         console.log("\nProduct is OUT OF STOCK".red);
 
@@ -71,6 +70,12 @@ async function addToCart(page) {
 
         isOutOfStock = await taskHandler.findListing(page, npage);
         await npage.close();
+
+        //EXIT IF RUNNING TEST
+        if ((`${process.env.USER_ENV}` == "findListingInfo" && testRuns == 1)) {
+          return;
+        }
+        testRuns++;
       }
       console.log("\nListing is in stock !!".bgBlue);
 
@@ -99,15 +104,21 @@ async function addToCart(page) {
         { waitUntil: "networkidle2" }
       );
       amountOrdered++;
-    } catch (error) {
+    } 
+    catch (error) {
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log("\n" + error);
-      continue;
+    } 
+    finally {
+      await page.waitForTimeout(7000);
+      await page.close();
+      await browser.close();
+      await mySpinner.stop();
+      await process.exit(); 
+      return;
     }
   }
-  await page.waitForTimeout(7000);
-  await browser.close();
-  mySpinner.stop();
-  return;
-})();
+}
+
+bestbuyBot();

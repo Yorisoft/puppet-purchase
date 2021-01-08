@@ -12,7 +12,7 @@ async function addToCart(page) {
   await page.screenshot({ path: `${myInfo.snapShotPathPath}+added_to_cart.png` });
 }
 
-(async () => {
+async function targetBot() {
   // Spinner 
   var mySpinner = new Spinner.Spinner('processing.. %s');
   mySpinner.setSpinnerString('|/-\\');
@@ -51,14 +51,15 @@ async function addToCart(page) {
       console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
       // While listing is out of stock: Change store, check availability 
-      let whileLoopCounter = 0;
+      let testRuns = 0;
       while (isOutOfStock) {
         console.log('\nProduct is OUT OF STOCK'.red);
-        console.log('whileLoopCounter: ' + `${whileLoopCounter}`.green);
-
         isOutOfStock = await taskHandler.findListing(page);
 
-        whileLoopCounter++;
+        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 1)){
+          return;
+        }
+        testRuns++;
       }
       console.log('\nListing is in stock !!'.bgBlue);
 
@@ -87,11 +88,14 @@ async function addToCart(page) {
       amountOrdered++;
     } catch (error) {
       console.log('\n' + error);
-      continue;
+    } finally {
+      await page.waitForTimeout(7000);
+      await page.close();
+      await browser.close();
+      await mySpinner.stop();
+      await process.exit(); 
     }
   }
-  await page.waitForTimeout(7000);
-  await browser.close();
-  mySpinner.stop();
-  return;
-})();
+}
+
+targetBot();
