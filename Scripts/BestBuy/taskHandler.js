@@ -61,11 +61,12 @@ async function findListing(page, npage) {
   await npage.waitForSelector(utils.selectors.get('zip_input_selector'));
   await npage.waitForSelector(utils.selectors.get('lookup_bttn_selector'));
 
+  console.log('starting forloop');
   for (let i = 0; i < 5; i++) {
     await npage.$eval(utils.selectors.get('zip_input_selector'), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get('zip_input_selector'), myInfo.mycvv);
+    await npage.type(utils.selectors.get('zip_input_selector'), myInfo.myloc);
     await npage.$eval(utils.selectors.get('lookup_bttn_selector'), (el) =>
       el.click()
     );

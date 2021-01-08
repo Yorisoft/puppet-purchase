@@ -10,7 +10,7 @@
 #TODO Update readme.md to include instructions for docker and setting up user information
 
 // Write FixMe
-#FIXME
+#FIXME targt screenshots ending up in root folder
 
 // Write Completed
 #COMPLETE TODO: Fix taget screenShotPath error
@@ -24,6 +24,7 @@
     +   Bestbuy
     +   Target
     +   Newegg
+#COMPLETED FIXME: findlisting 'Error: No node found for selector: .zip-code-input'
 
 // Write Rejected
 #REJECTED TODO: Change variables in utils.js to follow camelCasing 

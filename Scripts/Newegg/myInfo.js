@@ -1,6 +1,6 @@
 require('dotenv').config({ path: `scripts/newegg/user_info/.env.${process.env.USER_ENV}` });
 var date = new Date();
-var timeStamp = `${date.getMonth()}-${date.getDay()}_${Math.floor(Math.random() * 100001)}`;
+var timeStamp = `${process.env.USER_ENV}_${date.getMonth()}-${date.getDay()}_${Math.floor(Math.random() * 100001)}`;
 let snapShotPath = 'record/screen_shots/newegg/' + `${timeStamp}`;
 
 const myemail = process.env.MY_EMAIL;
