@@ -24,7 +24,7 @@ node {
         }
 
         stage('all-bots-full-cycle test') {
-            image.inside() {
+            image.inside {
                 sh 'npm run bestbuy-bot-test'
             } 
         }
