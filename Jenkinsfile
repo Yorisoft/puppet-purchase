@@ -24,8 +24,8 @@ node {
         }
 
         stage('all-bots-full-cycle test') {
-            image.withRun("--volume=${env.WORKSPACE}:/usr/src/app") {
-                //bat ('npm -v')
+            image.withRun("--volume=//${env.WORKSPACE}:/usr/src/app") {
+                bat ('npm -v')
             } 
         } 
     } 
