@@ -20,7 +20,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase', 'PowerShell.exe');
+            image = docker.build('puppet-purchase', '\C:\Windows\SysWOW64\WindowsPowerShell\v1.0\PowerShell.exe');
         }
 
         stage('all-bots-full-cycle test') {
