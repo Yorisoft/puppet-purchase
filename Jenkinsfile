@@ -20,7 +20,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase', '--entrypoint=/bin/bash');
+            image = docker.build('puppet-purchase', '-it --entrypoint=/bin/bash');
         }
 
         stage('all-bots-full-cycle test') {
