@@ -20,12 +20,12 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase');
+            image = docker.build('puppet-purchase', '--volume=${env.WORKSPACE}:/usr/src/app');
         }
 
         stage('all-bots-full-cycle test') {
-            image.withRun("--volume=//${env.WORKSPACE}:/usr/src/app") {
-                bat ('npm -v')
+            image.inside() {
+                echo ('npm -v')
             } 
         } 
     } 
