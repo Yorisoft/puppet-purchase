@@ -20,7 +20,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase');
+            image = docker.build('puppet-purchase', 'PowerShell.exe');
         }
 
         stage('all-bots-full-cycle test') {
