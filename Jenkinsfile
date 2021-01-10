@@ -20,7 +20,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase', '//C:/Users/Yelsin S/.jenkins/workspace/puppet-purchase_create-tests/');
+            image = docker.build('puppet-purchase');
         }
 
         stage('all-bots-full-cycle test') {
