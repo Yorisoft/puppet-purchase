@@ -25,4 +25,4 @@ COPY . ./
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 #RUN /bin/echo -e "3\ngfortran\n[...]" | ./configure && make
 
-CMD ["--wait"]
+CMD "--wait"
