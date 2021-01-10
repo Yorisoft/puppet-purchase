@@ -1,0 +1,10 @@
+/record/**/*.png
+*node_modules
+npm-debug.log
+*.vscode
+*debug.log
+*desktop.ini
+vncconfig.sh
+# Include your .evn file here
+#.env.userInfo
+.env.dev
