@@ -20,12 +20,11 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase');
+            image = docker.build('puppet-purchase', "--entrypoint=''");
         }
 
         stage('all-bots-full-cycle test') {
             image.inside {
-                sh """'--entrypoint=''"""
                 sh 'ls -al scripts'
                 sh 'npm run bestbuy-bot-test'
             } 
