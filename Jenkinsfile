@@ -8,7 +8,7 @@ node {
     def image
     try{
         stage('Checkout') {
-            sh ("echo Branch_name:${env.BRANCH_NAME}");
+            bat ("echo Branch_name:${env.BRANCH_NAME}");
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: "${env.BRANCH_NAME}"]],
@@ -24,9 +24,9 @@ node {
         }
 
         stage('all-bots-full-cycle test') {
-            image.withRun("--volume=${PWD}:/usr/src/app") {
+           /*  image.withRun("--volume=${PWD}:/usr/src/app") {
                 //bat ('npm -v')
-            }
+            } */
         }
     } 
     catch (e) {
