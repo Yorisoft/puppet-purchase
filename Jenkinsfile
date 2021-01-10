@@ -27,7 +27,7 @@ node {
             image.withRun("--volume=${env.WORKSPACE}:/usr/src/app") {
                 bat ('npm -v')
             } 
-        }
+        } 
     } 
     catch (e) {
         print "Error: ${e}"
