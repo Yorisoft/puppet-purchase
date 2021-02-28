@@ -8,7 +8,7 @@ node {
     def image
     try{
         stage('Checkout') {
-            echo ("echo Branch_name:${env.BRANCH_NAME}");
+            sh ("echo Branch_name:${env.BRANCH_NAME}");
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: "${env.BRANCH_NAME}"]],
@@ -33,7 +33,7 @@ node {
             image.inside {
                 echo ('npm -v');
             } 
-        } 
+        }
     } 
     catch (e) {
         print "Error: ${e}"
@@ -45,19 +45,3 @@ node {
         }
     }
 }
-
-/* pipeline {
-    agent any
-    stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
-        stage('Goodbye') {
-            steps {
-                echo 'Goodbye World'
-            }
-        }
-    }
-} */
