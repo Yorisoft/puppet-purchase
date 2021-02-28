@@ -17,8 +17,7 @@ COPY package*.json .
 RUN yum install -y yum-plugin-versionlock gcc-c++ make dotenv procps dos2unix\
     && curl -sL https://rpm.nodesource.com/setup_10.x | bash -\
     && yum install nodejs-10.12.0-1nodesource.x86_64 -y \
-    && yum versionlock nodejs* \
-    && npm install --no-optional -y
+    && yum versionlock nodejs*
 
 COPY . .
 

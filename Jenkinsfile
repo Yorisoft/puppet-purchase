@@ -15,7 +15,7 @@ node {
                 doGenerateSubmoduleConfigurations: false, 
                 extensions: [], 
                 submoduleCfg: [], 
-                userRemoteConfigs: [[ credentialsId: 'Github_token', url: 'https://github.com/Yorisoft/puppet-purchase' ]]
+                userRemoteConfigs: [[ url: 'https://github.com/Yorisoft/puppet-purchase' ]]
             ])
         }
 
@@ -23,19 +23,25 @@ node {
             image = docker.build('puppet-purchase');
         }
 
+        stage('Install npm') {
+            image.inside {
+                sh ('npm install --no-optional -y');
+            } 
+        } 
+
         stage('all-bots-full-cycle test') {
-            image.inside() {
-                echo ('npm -v')
+            image.inside {
+                echo ('npm -v');
             } 
         } 
     } 
     catch (e) {
         print "Error: ${e}"
-        currentBuild.result = 'FAILURE'
+        currentBuild.result = 'FAILURE';
     } 
     finally {
         stage('cleanup'){
-            cleanWs()
+            cleanWs();
         }
     }
 }
