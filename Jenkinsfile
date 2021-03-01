@@ -6,6 +6,7 @@ node {
     }
 
     def image
+    def entrypoint = "--entrypoint=''"
     try{
         stage('Checkout') {
             sh ("echo Branch_name:${env.BRANCH_NAME}");
@@ -24,13 +25,13 @@ node {
         }
 
         stage('Install npm') {
-            image.inside {
+            image.inside(entrypoint) {
                 sh ('npm install --no-optional -y');
             } 
         } 
 
         stage('all-bots-full-cycle test') {
-            image.inside {
+            image.inside(entrypoint) {
                 echo ('npm -v');
             } 
         }
