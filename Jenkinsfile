@@ -16,7 +16,7 @@ node {
                 doGenerateSubmoduleConfigurations: false, 
                 extensions: [], 
                 submoduleCfg: [], 
-                userRemoteConfigs: [[ url: 'https://github.com/Yorisoft/puppet-purchase' ]]
+                userRemoteConfigs: [[credentialsId: 'Yorisoft', url: 'https://github.com/Yorisoft/puppet-purchase' ]]
             ])
         }
 
@@ -27,12 +27,13 @@ node {
         stage('Install npm') {
             image.inside("--entrypoint=''") {
                 sh ('npm install -y');
+                sh ('npm -v');
             } 
         } 
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-                sh ('npm -v');
+                
             } 
         }
     } 
