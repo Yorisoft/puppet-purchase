@@ -32,7 +32,7 @@ node {
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-                echo ('npm -v');
+                sh ('npm -v');
             } 
         }
     } 
@@ -42,7 +42,7 @@ node {
     finally {
         stage('cleanup'){
             cleanWs();
-            sh('docker system prune -a -y')
+            sh('docker system prune -a -f')
         }
     }
 } 
