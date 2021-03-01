@@ -39,9 +39,9 @@ A full list of available scripts can be found in _**package.json**_
 Alternatively, you can run program inside a docker container. Use the _**Dockerfile**_ provided to make a docker image and then run it inside a docker container. 
 ```node
 docker build -t puppet-purchase .
-docker run -p 8080:8080 -d puppet-purchase
+docker run -p 5901:5901 -d puppet-purchase
 ```
-Use [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) to look inside the container and view the process. By default it is running on port 8080. Feel free to change the default port by editing the _**Dockerfile**_
+Use [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) to look inside the container and view the process. By default it is running on port 5901. Feel free to change the default port by editing the _**Dockerfile**_
 ```node
 EXPOSE [new_port_number]
 ```
