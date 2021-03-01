@@ -37,8 +37,9 @@ node {
             } 
         }
     } 
-    catch (all) {
+    catch (e) {
         currentBuild.result = 'FAILURE';
+        throw e
     } 
     finally {
         stage('cleanup'){
