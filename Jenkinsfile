@@ -26,7 +26,7 @@ node {
 
         stage('Install npm') {
             image.inside("--entrypoint=''") {
-                sh ('npm install --no-optional -y');
+                sh ('npm install -y');
             } 
         } 
 
