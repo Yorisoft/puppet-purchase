@@ -25,13 +25,13 @@ node {
         }
 
         stage('Install npm') {
-            image.inside(entrypoint) {
+            image.inside("--entrypoint=''") {
                 sh ('npm install --no-optional -y');
             } 
         } 
 
         stage('all-bots-full-cycle test') {
-            image.inside(entrypoint) {
+            image.inside("--entrypoint=''") {
                 echo ('npm -v');
             } 
         }
