@@ -46,5 +46,5 @@ node {
             cleanWs();
             sh('docker system prune -a -f')
         }
-    }
+    } 
 } 
