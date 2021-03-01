@@ -33,7 +33,7 @@ node {
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-                
+                sh ('npm run all-bots-full-cycle');
             } 
         }
     } 
