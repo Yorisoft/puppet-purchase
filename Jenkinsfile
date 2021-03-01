@@ -42,7 +42,7 @@ node {
     finally {
         stage('cleanup'){
             cleanWs();
-            sh('docker system prune -a')
+            sh('docker system prune -a -y')
         }
     }
 } 
