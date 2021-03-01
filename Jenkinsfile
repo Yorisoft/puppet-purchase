@@ -37,7 +37,6 @@ node {
         }
     } 
     catch (all) {
-        print "Error: ${e}"
         currentBuild.result = 'FAILURE';
     } 
     finally {
