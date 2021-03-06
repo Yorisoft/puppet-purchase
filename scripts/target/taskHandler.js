@@ -135,7 +135,10 @@ async function checkoutCart(page) {
 
   // Checkout = 'Moment of truth..';
   await page.focus(utils.selectors.get("chekout_bttn_selector_2"));
-  //await page.keyboard.press('Enter');
+  //SKIP IF RUNNING TEST
+  if (`${process.env.USER_ENV}` == "userInfo" ) {
+    await page.keyboard.press('Enter');
+  }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
 }
