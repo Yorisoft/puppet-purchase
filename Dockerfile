@@ -24,5 +24,4 @@ RUN yum install -y yum-plugin-versionlock gcc-c++ make procps dos2unix\
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 #RUN /bin/echo -e "3\ngfortran\n[...]" | ./configure && make
 
-EXPOSE 8080:8080
 CMD "wait"
