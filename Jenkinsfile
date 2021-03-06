@@ -43,6 +43,11 @@ node {
         throw e
     } 
     finally {
+        stage('Create Archive'){
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'record/screen_shots/**/*.png', 
+            excludes: 'record/screen_shots/**/sample.png'
+        }
+        
         stage('cleanup'){
             cleanWs();
             sh('docker system prune -a -f')
