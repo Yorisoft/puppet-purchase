@@ -52,4 +52,4 @@ node {
             sh('docker system prune -a -f')
         }
     }
-}
+} 
