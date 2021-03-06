@@ -41,25 +41,27 @@ async function neweggBot() {
       await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
       let inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
       let isOutOfStock = inventoryText.includes('OUT OF STOCK');
-
+      
       console.log('\ncalculated stocks..'.yellow);
 
       // While listing is out of stock: Change store, check availability 
       let testRuns = 0;
-      while (isOutOfStock) {
+      while (isOutOfStock) { // reversing the logic for now, will create new variable for stock selector 
         console.log('\nOUT OF STOCK'.red);
         console.log('\nRefreshing Page..'.yellow);
         await page.reload();
         
         // Check if current store has listing 
+        await page.waitForTimeout(500);
         await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
         inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
         isOutOfStock = inventoryText.includes('Sold Out');
 
         if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 10)){
+          testRuns++;
           return;
         }
-        testRuns++;
+        
       }
       console.log('\nListing is in stock !!'.bgBlue);
 

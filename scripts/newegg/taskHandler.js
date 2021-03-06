@@ -9,7 +9,6 @@ async function getSecutiryCode() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    executablePath: process.env.CHROMIUM_PATH,
     args: ['--no-sandbox', `--window-size=700,700`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
@@ -32,23 +31,24 @@ async function getSecutiryCode() {
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxPass.png` });
 
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(500);
   await page.reload({ waitUntil: 'networkidle2' });
 
   // Select email
   await page.waitForSelector(utils.selectors.get('inbox_selector'));
   await page.$eval(utils.selectors.get('inbox_selector'), (el) => el.click());
 
-  await page.waitForSelector(utils.selectors.get('securityCode_selector'));
-  securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
+  //await page.waitForSelector(utils.selectors.get('securityCode_selector'));
+  await page.waitForTimeout(10000); // 10 seconds
+  //securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
-
+  
   let pages = await browser.pages()
   await Promise.all(pages.map(page =>page.close()))
   await browser.close();
 
   console.log('Security Code: ' + securityCode);
-  return securityCode;
+  //return securityCode;
 }
 
 async function logIn(page) {
@@ -60,9 +60,8 @@ async function logIn(page) {
   // Enter login credentials & signin
   //email
   await page.waitForSelector(utils.selectors.get('email_selector'));
-  await page.waitForTimeout(500);
   await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('email_selector'), myInfo.myemail,);
+  await page.type(utils.selectors.get('email_selector'), myInfo.myemail);
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
   //submit
   await page.focus(utils.selectors.get('singin_selector_1'));
@@ -70,11 +69,11 @@ async function logIn(page) {
   await page.keyboard.press('Enter');
   
   // Getting security code
-  const securityCode = await getSecutiryCode();
+  await getSecutiryCode();
 
   //security code
-  await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('securityCode_input_selector'), securityCode, { delay: 100 });
+  //await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
+  //await page.type(utils.selectors.get('securityCode_input_selector'), securityCode, { delay: 100 });
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
   //submit
   await page.$eval(utils.selectors.get('singin_selector_1'), (el) => el.click());
@@ -92,27 +91,27 @@ async function checkoutCart(page) {
   //shipping
   await page.waitForSelector(utils.selectors.get('checkout_bttns'));
   let bttns = await page.$$(utils.selectors.get('checkout_bttns'));
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(800);
   
   await bttns[0].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
   console.log('Done w. shipping');
 
   //delivery
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(1000);
   await bttns[1].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_shipping.png` });
   console.log('Done w. Delivery');
 
   // Input credit-card  cvv 
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(1000);
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
     await page.$eval(utils.selectors.get('cvv_bttn_selector'), (el) => el.click());
     await page.type(utils.selectors.get('cvv_bttn_selector'), myInfo.mycvv);
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
   // Review  card card-add-new
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(800);
   await bttns[2].click();
   await page.screenshot({ path: `${myInfo.snapShotPath}+review_page.png` });
   console.log('Done w. Review');
