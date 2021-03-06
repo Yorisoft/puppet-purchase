@@ -11,7 +11,7 @@ async function logIn(page) {
   console.log("Navigating to signin page ..".yellow);
   await page.waitForSelector(utils.selectors.get("singin_selector_1"));
   signingText = await page.$eval(
-    "span.styles__AccountName-sc-1kk0q5l-0.hVhJPq",
+    "span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
     (el) => {
       return el.innerText;
     }

@@ -1,7 +1,7 @@
 let selectors = new Map();
 selectors.set('pickUp_bttn_selector', 'button.Button__ButtonWithStyles-y45r97-0.styles__StyledButton-sc-1f2lsll-0.eLsRDh.iyUhph');
 selectors.set('outOfStock_selector', 'div.styles__BaseWrapper-sc-11r1it6-0.joRrfH div div');
-selectors.set('singin_selector_1', 'a#account.Link-sc-1khjl8b-0.dJwaza.AccountLink-gx13jw-1.hoYfWX');
+selectors.set('singin_selector_1', 'a#account.Link-sc-1khjl8b-0.kdCHb.AccountLink-gx13jw-1.ePhaOG');
 selectors.set('singin_selector_2', 'div.Row-uds8za-0.kRWFss');
 selectors.set('email_selector', 'input#username.sc-iwsKbI.eAChmV.sc-kIPQKe.frLPpE');
 selectors.set('password_selector', 'input#password.sc-iwsKbI.eAChmV.sc-kIPQKe.frLPpE');
