@@ -44,8 +44,8 @@ node {
     } 
     finally {
         stage('Create Archive'){
-            archiveArtifacts allowEmptyArchive: true, artifacts: 'record/screen_shots/**/*.png', 
-            excludes: 'record/screen_shots/**/sample.png'
+            archiveArtifacts allowEmptyArchive: true, artifacts: '*.png', 
+            excludes: 'sample.png'
         }
         
         stage('cleanup'){
