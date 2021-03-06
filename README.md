@@ -1,24 +1,27 @@
 # Puppet-Purchase: Auto Purchase Scripts  
 
-puppet-purchase is a bot that automate the process of purchasing an item from a few of the major online retailers. In attempt to combat scalping, I've created puppet-purchase bot and am making  publicly available. Not perfect, but has helped me. Please share && contribute.     
+puppet-purchase is a bot that automates the process of purchasing an item from a few of the major online retailers. In attempt to combat scalping, I've created puppet-purchase bot and am making it publicly available with you all. Not perfect, but has helped me. Please share && contribute.     
      
 These are scripts that automate the user flow of purchasing an item.     
+That flow is as followed:
 - Navigate to site  
-- Signin to account  
+- Sign-in to the account  
 - Navigate to item listing page
-- If no is stock available, switches store and refresh page until available. 
-- Add item to cart  
-- Checkout cart   
+- If no is stock available:
+    switches store and refresh page until it finds available stock.
+- Adds item to cart  
+- Checks-out cart   
 
 
-### Add your account login credentials.
+### Connecting it to your account
 
-To run these scripts, an online account setup with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information. Each bot uses the **.env.userInfo** file located in _**scripts/<bot>/userInfo/**_ to define user specific information.
+To run these scripts, setting up an online account with one of the retailers is required. To ensure  the scripts execute with no errors, be sure to plug in your account information. Each bot uses the **.env.userInfo** file located in _**scripts/< bot >/userInfo/.env.userInfo**_ to define user specific information.
 
-### Note  
+### Note !!!
 ### _**Do not include your payment information.**_ 
 All payment information should be setup by using your web browser, logging into the account, and adding a payment option. Not in the scripts.  
-Avoid cheking in personal account information to this repo / branches if you decide to contribute by adding _**.env.userInfo**_ to _**.gitignore**_
+Avoid checking in personal account information to this repo / branches if you decide to contribute by adding _**.env.userInfo**_ to _**.gitignore**_.
+Or even better, by creating a new a _**.env.**_ file and pointing to it in 
 
 ## Installation
 
