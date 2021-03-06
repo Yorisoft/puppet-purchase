@@ -6,6 +6,6 @@ then
 else
     export USER_ENV=$USER_ENV
 fi
-echo "Environment: \$USER_ENV\_environment"
+echo "Environment: $USER_ENV\_environment"
 
 USER_ENV=$USER_ENV node scripts/newegg/newegg-bot.js
