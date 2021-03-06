@@ -31,6 +31,12 @@ node {
             } 
         } 
 
+        stage('bestuy-bot-test') {
+            image.inside("--entrypoint=''") {
+                sh ('npm run bestbuy-bot-test');
+            } 
+        }
+
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
                 //TODO - Fix newegg bot, add condition for skipping last step of checkout when testing
@@ -49,7 +55,7 @@ node {
         
         stage('cleanup'){
             cleanWs();
-            sh('docker system prune -a -f')
+            sh('docker system prune -a -f');
         }
     }
 } 
