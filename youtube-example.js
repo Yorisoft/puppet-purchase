@@ -1,14 +1,14 @@
 const myemail = '';   // Enter email. ex - const myemail = 'myEmail@email.com';
 const mypassw = '';   // Enter password. ex - const mypassw = 'password';
-let snapShotPath =    // ex, '/Users/me/Documents/<this_folder>/record/screen_shots/'
-'../../record/screen_shots/' + 
-  `${timeStamp}` +
-  ".png";
 
 const { time } = require("console");
 const puppeteer = require("puppeteer");
 var date = new Date();
 var timeStamp = date.getTime();
+let snapShotPath =    // ex, '/Users/me/Documents/<this_folder>/record/screen_shots/'
+'../../record/screen_shots/' + 
+  `${timeStamp}` +
+  ".png";
 
 let singin_selector_1 = '#button.style-scope.ytd-button-renderer.style-suggestive.size-small';
 let singin_selector_2 = 'button.VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.DuMIQc.qIypjc.TrZEUc';
