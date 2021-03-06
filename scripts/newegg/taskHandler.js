@@ -119,7 +119,10 @@ async function checkoutCart(page) {
   let checkout = 'Moment of truth..';
   await page.waitForSelector(utils.selectors.get('placeOrder_selector'));
   await page.focus(utils.selectors.get('placeOrder_selector'));
-  //await page.keyboard.press('Enter');
+  //SKIP IF RUNNING TEST
+  if (`${process.env.USER_ENV}` == "userInfo" ) {
+    await page.keyboard.press('Enter');
+  }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
   console.log(checkout);
