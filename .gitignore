@@ -1,6 +1,7 @@
 /record/**/*.png
 *node_modules
 npm-debug.log
+.idea
 *.vscode
 *debug.log
 *desktop.ini
