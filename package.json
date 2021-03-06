@@ -1,7 +1,7 @@
 {
   "name": "puppet-purchase",
-  "version": "0.2.0",
-  "description": "puppet-purchase inside Docker",
+  "version": "0.3.0",
+  "description": "puppet-purchase",
   "author": "Yelsin S",
   "private": true,
   "scripts": {
