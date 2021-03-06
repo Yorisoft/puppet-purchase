@@ -33,7 +33,8 @@ node {
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-               // sh ('npm run all-bots-full-cycle');
+                //TODO - Fix newegg bot, add condition for skipping last step of checkout when testing
+                // sh ('npm run all-bots-full-cycle');
             } 
         }
     } 
