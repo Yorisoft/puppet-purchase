@@ -6,10 +6,10 @@ node {
     }
 
     def image
-    def entrypoint = "--entrypoint=''"
     try{
-        stage('Checkout') {
+        stage('Cleanup and Checkout') {
             sh ("echo Branch_name:${env.BRANCH_NAME}");
+            cleanWs();
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: "${env.BRANCH_NAME}"]],
