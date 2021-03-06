@@ -9,7 +9,7 @@ async function addToCart(page) {
   await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (el) => el.click());
   console.log('Item added to cart ..');
   await page.waitForTimeout(500);
-  await page.screenshot({ path: `${myInfo.snapShotPathPath}+added_to_cart.png` });
+  await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 }
 
 async function targetBot() {
@@ -27,7 +27,7 @@ async function targetBot() {
   });
   const page = await browser.newPage();
   await page.goto('https://www.target.com', { waitUntil: 'networkidle2' });
-  await page.screenshot({ path: `${myInfo.snapShotPathPath}+start.png` });
+  await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
   // Signing in
   await taskHandler.logIn(page);
@@ -43,7 +43,7 @@ async function targetBot() {
     try {
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
-      await page.screenshot({ path: `${myInfo.snapShotPathPath}+listing_page.png` });
+      await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
       let stocks = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
