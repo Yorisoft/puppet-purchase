@@ -1,6 +1,8 @@
 # This Dockerfile is used to build an headles vnc image based on Ubuntu
 FROM consol/ubuntu-xfce-vnc
 
+USER root
+
 # Setting env
 ENV DEBIAN_FRONTEND=noninteractive \
     VNC_RESOLUTION=1920x1080 \
