@@ -17,11 +17,14 @@ WORKDIR /usr/src/app
 COPY . ./
 
 RUN apt-get -y update \
-    && apt-get -y install apt-utils dos2unix \
-    && apt-get -y install nodejs-legacy npm nodejs \
+    && apt-get -y install apt-utils dos2unix curl \
+    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get install -y nodejs \
     && apt-get -y autoremove
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
+RUN node -v \
+    && npm -v
 
 EXPOSE 5901
 ENTRYPOINT /bin/bash
