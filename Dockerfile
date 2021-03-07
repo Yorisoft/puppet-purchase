@@ -4,8 +4,9 @@ FROM consol/ubuntu-xfce-vnc
 USER root
 
 # Setting env
-ENV DEBIAN_FRONTEND=noninteractive
-ENV VNC_RESOLUTION=1920x1080
+ENV DEBIAN_FRONTEND=noninteractive \
+    VNC_RESOLUTION=1920x1080 \
+    DISPLAY=:1 
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -26,5 +27,5 @@ RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 RUN node -v \
     && npm -v
 
-EXPOSE 5901
-ENTRYPOINT /bin/bash
+#ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
+CMD ["--wait"]
