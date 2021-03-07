@@ -21,11 +21,11 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('-p 5901:5901 -d puppet-purchase');
+            image = docker.build('puppet-purchase -p 5901:5901');
         }
 
         stage('Install npm') {
-            image.inside("--entrypoint='' ") {
+            image.inside("--entrypoint=''") {
                 sh ('npm install -y');
                 sh ('npm -v');
             } 
