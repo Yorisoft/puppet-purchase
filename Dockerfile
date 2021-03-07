@@ -16,11 +16,13 @@ WORKDIR /usr/src/app
 # Bundle app source
 COPY . ./
 
-RUN yum install -y yum-plugin-versionlock gcc-c++ make procps dos2unix\
-    && curl -sL https://rpm.nodesource.com/setup_10.x | bash -\
-    && yum install nodejs-10.12.0-1nodesource.x86_64 -y \
-    && yum versionlock nodejs*
+RUN apt-get update -y\
+    && apt-get install apt-utils dos2unix -y\
+    && apt-get install nodejs -y\
+    && apt-get autoremove -y\
+    && alias node=nodejs
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 
+EXPOSE 5901
 ENTRYPOINT /bin/bash
