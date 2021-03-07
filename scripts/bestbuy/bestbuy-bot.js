@@ -26,7 +26,7 @@ async function bestbuyBot() {
     headless: false,
     defaultViewport: null,
     executablePath: process.env.CHROMIUM_PATH,
-    args: ["--no-sandbox"],
+    args: ['--no-sandbox', `--window-size=1025,862`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
   });
 
