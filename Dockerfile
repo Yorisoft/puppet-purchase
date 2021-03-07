@@ -18,7 +18,7 @@ COPY . ./
 
 RUN apt-get update -y\
     && apt-get install apt-utils dos2unix -y\
-    && apt-get install nodejs -y\
+    && apt-get install nodejs-legacy\
     && apt-get autoremove -y\
     && alias node=nodejs
 
