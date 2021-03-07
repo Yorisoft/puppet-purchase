@@ -1,18 +1,18 @@
 let selectors = new Map();
-selectors.set('pickUp_bttn_selector', 'button.Button__ButtonWithStyles-y45r97-0.styles__StyledButton-sc-1f2lsll-0.eLsRDh.iyUhph');
-selectors.set('outOfStock_selector', 'div.styles__BaseWrapper-sc-11r1it6-0.joRrfH div div');
+selectors.set('pickUp_bttn_selector', '#viewport > div:nth-child(4) > div > div.Row-uds8za-0.fdXLni > div:nth-child(3) > div:nth-child(1) > div > div:nth-child(1) > div > div.Row-uds8za-0.fdXLni > div.Col-favj32-0.cupGLg.h-padding-l-tiny > button');
+selectors.set('outOfStock_selector', '#viewport > div:nth-child(4) > div > div.Row-uds8za-0.fdXLni > div:nth-child(3) > div:nth-child(1) > div > div');
 selectors.set('singin_selector_1', 'a#account.Link-sc-1khjl8b-0.kdCHb.AccountLink-gx13jw-1.ePhaOG');
-selectors.set('singin_selector_2', 'div.Row-uds8za-0.kRWFss');
-selectors.set('email_selector', 'input#username.sc-iwsKbI.eAChmV.sc-kIPQKe.frLPpE');
-selectors.set('password_selector', 'input#password.sc-iwsKbI.eAChmV.sc-kIPQKe.frLPpE');
-selectors.set('singin_selector_3', '#login.sc-VigVT.sc-hrWEMg.ipjqdX');
-selectors.set('change_store_selector', 'button#storeId-utilityNavBtn.Button-bwu3xu-0.StoreIdMessageComponent__StyledButton-vpf6s6-1.gUIqgH.dVwSut');
-selectors.set('zip_input_selector', 'input#zipOrCityState');
-selectors.set('pick_store_selector', 'button.Button-bwu3xu-0.jwSLus.h-text-sm');
-selectors.set('lookup_bttn_selector', 'button.Button-bwu3xu-0.StoreLocationSearch__SearchButton-o3wd93-1.hfjCZR.eEaapM.h-padding-h-wide.h-padding-v-tight');
-selectors.set('chekout_bttn_selector_1', 'button.Button__ButtonWithStyles-y45r97-0.bAbouK');
-selectors.set('cvv_bttn_selector', 'input#creditCardInput-cvv.Input__StyledInput-jjclbi-0.kzBXdW.ChosenPaymentCard__StyledCvvInput-sc-1jo5a44-0.gWpNiB');
-selectors.set('chekout_bttn_selector_2', 'button.Button__ButtonWithStyles-y45r97-0.llFxzy');
+selectors.set('singin_selector_2', 'div.Row-uds8za-0.glDPjN');
+selectors.set('email_selector', '#username');
+selectors.set('password_selector', '#password');
+selectors.set('singin_selector_3', '#login');
+selectors.set('change_store_selector', '#storeId-utilityNavBtn > div.h-text-bold.h-text-md');
+selectors.set('zip_input_selector', '#zipOrCityState');
+selectors.set('pick_store_selector', 'body > div:nth-child(18) > div > div > div > div > div:nth-child(3) > div.Row-uds8za-0.fdXLni.h-flex-align-center.h-flex-justify-center > div:nth-child(1) > button');
+selectors.set('lookup_bttn_selector', 'body > div:nth-child(18) > div > div > div > div > div:nth-child(1) > div > div.Row-uds8za-0.fdXLni > div.Col-favj32-0.FsLht.h-padding-a-tight.h-text-right > button');
+selectors.set('chekout_bttn_selector_1', '#orderSummaryWrapperDiv > div > div > div.h-padding-h-tight.h-margin-b-default > button');
+selectors.set('cvv_bttn_selector', '#creditCardInput-cvv');
+selectors.set('chekout_bttn_selector_2', '#orderSummaryWrapperDiv > div > div > div.h-padding-h-tight.h-bg-white > div > button');
 
 module.exports = {
     selectors,
