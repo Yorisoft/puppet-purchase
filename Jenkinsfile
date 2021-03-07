@@ -25,26 +25,26 @@ node {
         }
 
         stage('Install npm') {
-            image.inside("--entrypoint='' -p 5901:5901 -t") {
+            image.inside("--entrypoint='' -p 5901:5901") {
                 sh ('npm install -y');
                 sh ('npm -v');
             } 
         } 
 
         stage('bestuy-bot-test') {
-            image.inside("--entrypoint='' -p 5901:5901 -t") {
+            image.inside("--entrypoint='' -p 5901:5901") {
                 sh ('npm run bestbuy-bot-test');
             } 
         }
 
         stage('bestuy-bot-test') {
-            image.inside("--entrypoint='' -p 5901:5901 -t") {
+            image.inside("--entrypoint='' -p 5901:5901") {
                 sh ('npm run target-bot-test');
             } 
         }
 
         stage('all-bots-full-cycle test') {
-            image.inside("--entrypoint='' -p 5901:5901 -t") {
+            image.inside("--entrypoint='' -p 5901:5901") {
                 //TODO - Fix newegg bot, add condition for skipping last step of checkout when testing
                 // sh ('npm run all-bots-full-cycle');
             } 
