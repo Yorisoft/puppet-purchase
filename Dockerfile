@@ -24,7 +24,7 @@ RUN apt-get -y update \
     && apt-get -y autoremove
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
-RUN xhost + \
+RUN xhost +hostname \
     node -v \
     && npm -v
 
