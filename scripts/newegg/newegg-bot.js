@@ -10,7 +10,7 @@ async function neweggBot() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--no-sandbox'],
+    args: ['--no-sandbox', `--window-size=1025,862`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
