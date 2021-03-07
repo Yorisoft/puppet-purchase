@@ -6,7 +6,6 @@ USER root
 # Setting env
 ENV DEBIAN_FRONTEND=noninteractive \
     VNC_RESOLUTION=1920x1080 \
-    DISPLAY=:1 
 
 # Create app directory
 WORKDIR /usr/src/app
