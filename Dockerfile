@@ -1,5 +1,5 @@
 # This Dockerfile is used to build an headles vnc image based on Ubuntu
-FROM consol/sakuli-centos-xfce
+FROM consol/ubuntu-xfce-vnc
 
 USER root
 
@@ -22,6 +22,5 @@ RUN yum install -y yum-plugin-versionlock gcc-c++ make procps dos2unix\
     && yum versionlock nodejs*
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
-#RUN /bin/echo -e "3\ngfortran\n[...]" | ./configure && make
 
-CMD "wait"
+ENTRYPOINT /bin/bash
