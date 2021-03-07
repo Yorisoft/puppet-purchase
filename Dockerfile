@@ -18,7 +18,7 @@ COPY . ./
 
 RUN apt-get -y update \
     && apt-get -y install apt-utils dos2unix \
-    && apt-get -y install nodejs-legacy \
+    && apt-get -y install nodejs-legacy npm \
     && apt-get -y autoremove
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
