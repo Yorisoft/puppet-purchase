@@ -21,7 +21,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase -p 5901:5901');
+            image = docker.build('puppet-purchase');
         }
 
         stage('Install npm') {
