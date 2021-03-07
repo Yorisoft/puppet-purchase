@@ -48,10 +48,10 @@ async function logIn(page) {
       el.click()
     );
 
-    await page.waitForSelector("span.styles__AccountName-sc-1kk0q5l-0.hVhJPq");
+    await page.waitForSelector("#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn");
     await page.waitForTimeout(400); // Allow text to load
     signingText = await page.$eval(
-      "span.styles__AccountName-sc-1kk0q5l-0.hVhJPq",
+      "#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
       (el) => {
         return el.innerText;
       }
@@ -130,6 +130,8 @@ async function checkoutCart(page) {
       el.click()
     );
     await page.type(utils.selectors.get("cvv_bttn_selector"), myInfo.mycvv);
+    await page.focus(utils.selectors.get("#STEP_PAYMENT > div:nth-child(2) > div > div > div:nth-child(2) > div > div.Col__StyledCol-sc-1yf5b3p-0.fxQSRY > div > div > button"));
+    await page.keyboard.press('Enter');
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
 
