@@ -21,7 +21,7 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase --net=host');
+            image = docker.build('puppet-purchase');
         }
 
         stage('Install npm') {
