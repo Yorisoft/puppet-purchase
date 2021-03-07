@@ -21,30 +21,30 @@ node {
         }
 
         stage('Build Image') {
-            image = docker.build('puppet-purchase');
+            image = docker.build('-p 5901:5901 -d puppet-purchase');
         }
 
         stage('Install npm') {
-            image.inside("--entrypoint='' -p 5901:5901") {
+            image.inside("--entrypoint='' ") {
                 sh ('npm install -y');
                 sh ('npm -v');
             } 
         } 
 
         stage('bestuy-bot-test') {
-            image.inside("--entrypoint='' -p 5901:5901") {
+            image.inside("--entrypoint=''") {
                 sh ('npm run bestbuy-bot-test');
             } 
         }
 
         stage('bestuy-bot-test') {
-            image.inside("--entrypoint='' -p 5901:5901") {
+            image.inside("--entrypoint=''") {
                 sh ('npm run target-bot-test');
             } 
         }
 
         stage('all-bots-full-cycle test') {
-            image.inside("--entrypoint='' -p 5901:5901") {
+            image.inside("--entrypoint=''") {
                 //TODO - Fix newegg bot, add condition for skipping last step of checkout when testing
                 // sh ('npm run all-bots-full-cycle');
             } 

@@ -16,11 +16,10 @@ WORKDIR /usr/src/app
 # Bundle app source
 COPY . ./
 
-RUN apt-get update -y\
-    && apt-get install apt-utils dos2unix -y\
-    && apt-get install nodejs-legacy\
-    && apt-get autoremove -y\
-    && alias node=nodejs
+RUN apt-get -y update \
+    && apt-get -y install apt-utils dos2unix \
+    && apt-get -y install nodejs-legacy \
+    && apt-get -y autoremove
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 
