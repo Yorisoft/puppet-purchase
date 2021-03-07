@@ -5,7 +5,8 @@ USER root
 
 # Setting env
 ENV DEBIAN_FRONTEND=noninteractive \
-    VNC_RESOLUTION=1920x1080
+    VNC_RESOLUTION=1920x1080 
+
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -24,7 +25,7 @@ RUN apt-get -y update \
 
 RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 RUN xhost +hostname \
-    node -v \
+    && node -v \
     && npm -v
 
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
