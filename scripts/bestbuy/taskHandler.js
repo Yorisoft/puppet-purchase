@@ -19,7 +19,7 @@ async function logIn(page) {
   while (needsLogIn) {
     console.log('Navigating to signin page ..'.yellow);
     await page.goto('https://www.bestbuy.com/signin');
-    await page.waitForTimeout(500); // Avoid network slowdown
+    await page.waitForTimeout(700); // Avoid network slowdown
 
     // Enter login credentials & signin
     console.log('Signing in ..'.yellow);
@@ -40,8 +40,8 @@ async function logIn(page) {
     await page.keyboard.press('Enter');
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
 
+    await page.waitForTimeout(2000); // Time to load account username
     await page.waitForSelector(utils.selectors.get('account_selector'));
-    await page.waitForTimeout(1000); // Time to load account username
     list_items = await page.$eval(
       utils.selectors.get('account_selector'),
       (element) => {
@@ -118,6 +118,17 @@ async function checkoutCart(page) {
   await page.screenshot({
     path: `${myInfo.snapShotPath}+checkout_started.png`,
   });
+
+  page.evaluate(_ => {
+    window.scrollBy(10, window.innerHeight);
+  }); 
+  
+  // If proceed button is present, then click on it
+  await page.waitForTimeout(500);
+  await page.waitForSelector(utils.selectors.get('proceed_to_checkout'));
+  await page.focus(utils.selectors.get('proceed_to_checkout'));
+  console.log('Pressed...');
+  await page.keyboard.press('Enter');
 
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_2'));
