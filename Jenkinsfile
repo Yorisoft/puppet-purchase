@@ -25,7 +25,7 @@ node {
         }
 
         stage('Install npm') {
-            image.inside("--entrypoint=''") {
+            image.inside("--entrypoint='/dockerstartup/vnc_startup.sh'") {
                 sh ('npm install --unsafe-perm');
                 sh ('npm -v');
             } 
@@ -33,28 +33,27 @@ node {
 
         // My test user or ip is temporarily banned. Need solution for testing.
         stage('bestuy-bot-test') {
-            image.inside("--entrypoint=''") {
+            image.inside("--entrypoint='/dockerstartup/vnc_startup.sh'") {
                 echo ('Still in development.. ');
                 //sh ('npm run bestbuy-bot-test');
             } 
         }
 
         stage('target-bot-test') {
-            image.inside("--entrypoint=''") {
+            image.inside("--entrypoint='/dockerstartup/vnc_startup.sh'") {
                 sh ('npm run target-bot-test');
             } 
         }
 
         // Currently requires manual input.. Need solution to fetching code from email.
         stage('newegg-bot-test') {
-            image.inside("--entrypoint=''") {
-                echo ('Still in development.. ');
-                //sh ('npm run newegg-bot-test');
+            image.inside("--entrypoint='/dockerstartup/vnc_startup.sh'") {
+                sh ('npm run newegg-bot-test');
             } 
         }
 
         stage('all-bots-full-cycle test') {
-            image.inside("--entrypoint=''") {
+            image.inside("--entrypoint='/dockerstartup/vnc_startup.sh'") {
                 echo ('Still in development.. ');
                 //TODO - Fix newegg bot
                 //TODO - Fix bestbuy bot
