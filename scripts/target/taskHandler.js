@@ -126,12 +126,11 @@ async function checkoutCart(page) {
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_2"));
   if ((await page.$(utils.selectors.get("cvv_bttn_selector"))) !== null) {
+    await page.waitForTimeout(500);
     await page.$eval(utils.selectors.get("cvv_bttn_selector"), (el) =>
       el.click()
     );
     await page.type(utils.selectors.get("cvv_bttn_selector"), myInfo.mycvv);
-    await page.focus(utils.selectors.get("#STEP_PAYMENT > div:nth-child(2) > div > div > div:nth-child(2) > div > div.Col__StyledCol-sc-1yf5b3p-0.fxQSRY > div > div > button"));
-    await page.keyboard.press('Enter');
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
 
