@@ -26,22 +26,30 @@ node {
 
         stage('Install npm') {
             image.inside("--entrypoint=''") {
-                sh ('npm install -y');
+                sh ('npm install --unsafe-perm');
                 sh ('npm -v');
             } 
         } 
 
-        stage('bestuy-bot-test') {
+        // My test user or ip is temporarily banned. Need solution for testing.
+        /* stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
                 sh ('npm run bestbuy-bot-test');
             } 
-        }
+        } */
 
-        stage('bestuy-bot-test') {
+        stage('target-bot-test') {
             image.inside("--entrypoint=''") {
                 sh ('npm run target-bot-test');
             } 
         }
+
+        // Currently requires manual input.. Need solution to fetching code form email.
+        /* stage('newegg-bot-test') {
+            image.inside("--entrypoint=''") {
+                sh ('npm run newegg-bot-test');
+            } 
+        } */
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
