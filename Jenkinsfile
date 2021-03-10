@@ -32,11 +32,12 @@ node {
         } 
 
         // My test user or ip is temporarily banned. Need solution for testing.
-        /* stage('bestuy-bot-test') {
+        stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ('npm run bestbuy-bot-test');
+                echo ('Still in development.. ');
+                //sh ('npm run bestbuy-bot-test');
             } 
-        } */
+        }
 
         stage('target-bot-test') {
             image.inside("--entrypoint=''") {
@@ -44,16 +45,19 @@ node {
             } 
         }
 
-        // Currently requires manual input.. Need solution to fetching code form email.
-        /* stage('newegg-bot-test') {
+        // Currently requires manual input.. Need solution to fetching code from email.
+        stage('newegg-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ('npm run newegg-bot-test');
+                echo ('Still in development.. ');
+                //sh ('npm run newegg-bot-test');
             } 
-        } */
+        }
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-                //TODO - Fix newegg bot, add condition for skipping last step of checkout when testing
+                echo ('Still in development.. ');
+                //TODO - Fix newegg bot
+                //TODO - Fix bestbuy bot
                 // sh ('npm run all-bots-full-cycle');
             } 
         }
