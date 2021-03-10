@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 
 COPY . ./
 
-RUN apt-get -y update && apt-get -y upgrade \
+RUN apt-get -y update \
     && apt-get -y install dos2unix curl sudo \
     && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt-get install -y nodejs \
@@ -21,7 +21,6 @@ RUN apt-get -y update && apt-get -y upgrade \
 
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 RUN whoami
-RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
  
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 #CMD /bin/bash
