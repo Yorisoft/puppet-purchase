@@ -5,12 +5,14 @@
 #TODO Develope real jenkinsfile for pipeline
 #TODO Create MicroCenter Scripts
 #TODO Improve speed efficiency of scripts
-#TODO Integrate utils.js with myinfo.js
-#TODO Create run-all-bots scipt command in package.json
 #TODO Update readme.md to include instructions for docker and setting up user information
 
 // Write FixMe
 #FIXME targt screenshots ending up in root folder
+#FIXME edit readme to explain how to properly use newegg-bot
+    - explainig that a manual step is now required\
+#FIXME test user keeps gets shadow-banned for a period.. 
+    - Need to think of solution so that it doesnt slow down dev time
 
 // Write Completed
 #COMPLETE TODO: Fix taget screenShotPath error
@@ -26,6 +28,9 @@
     +   Newegg
 #COMPLETED FIXME: findlisting 'Error: No node found for selector: .zip-code-input'
 #COMPLETED TODO: Integrate with Jenkins pipeline
+#COMPLETED target bot selector names changed
+#COMPLETED Integrate utils.js with myinfo.js
+#COMPLETED Create run-all-bots scipt command in package.json
 
 // Write Rejected
 #REJECTED TODO: Change variables in utils.js to follow camelCasing 
