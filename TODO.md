@@ -31,6 +31,7 @@
 #COMPLETED target bot selector names changed
 #COMPLETED Integrate utils.js with myinfo.js
 #COMPLETED Create run-all-bots scipt command in package.json
+#COMPLETED Add step in all bots to skip last step (purchase button) if running in testing environment
 
 // Write Rejected
 #REJECTED TODO: Change variables in utils.js to follow camelCasing 
