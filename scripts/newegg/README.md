@@ -13,7 +13,7 @@ Not comfortable with inputing your email credentials into a random scripts found
 
 ### Testing
 
-When running the newegg bot multtiple times, its required that the last security code email be deleted. Currently working on having newegg bot do this. 
+When running the newegg bot multtiple times, its required that the last security code email be deleted. Currently working on having newegg bot do this automatically. 
 
 ### FIXED!!!
 ***Update: March.6.2021*** 
