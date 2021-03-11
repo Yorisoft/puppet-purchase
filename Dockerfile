@@ -20,7 +20,9 @@ RUN apt-get -y update \
     && npm -v
 
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-RUN whoami
+RUN whoami \
+    && xhost localhost \
+    && xhost +
  
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 #CMD /bin/bash
