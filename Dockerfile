@@ -28,8 +28,8 @@ RUN apt-get -y update \
 
 
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-RUN whoami \
-    && xhost +
+RUN whoami
+    # && xhost +
     #&& xhost localhost \
     
  
