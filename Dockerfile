@@ -22,8 +22,8 @@ RUN apt-get -y update \
 
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 RUN whoami \
-    && xhost localhost \
-    #&& xhost +
+    #&& xhost localhost \
+    && xhost +
  
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 #CMD /bin/bash
