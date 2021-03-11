@@ -40,7 +40,7 @@ async function logIn(page) {
     await page.keyboard.press('Enter');
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
 
-    await page.waitForTimeout(2000); // Time to load account username
+    await page.waitForTimeout(4000); // Time to load account username
     await page.waitForSelector(utils.selectors.get('account_selector'));
     list_items = await page.$eval(
       utils.selectors.get('account_selector'),
@@ -124,11 +124,11 @@ async function checkoutCart(page) {
   }); 
   
   // If proceed button is present, then click on it
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
   await page.waitForSelector(utils.selectors.get('proceed_to_checkout'));
   await page.focus(utils.selectors.get('proceed_to_checkout'));
-  console.log('Pressed...');
   await page.keyboard.press('Enter');
+  console.log('Pressed...');
 
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_2'));
