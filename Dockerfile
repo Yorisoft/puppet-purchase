@@ -27,7 +27,8 @@ RUN apt-get -y update \
 
 
 
-# RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo \
+    && useradd -m jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo
 RUN whoami
     # && xhost +
     #&& xhost localhost \
