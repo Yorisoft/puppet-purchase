@@ -13,7 +13,7 @@ COPY . ./
 
 RUN apt-get -y update \
     && apt-get -y install dos2unix curl sudo \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get install -y nodejs \
     && apt-get -y autoremove \
     && node -v \
