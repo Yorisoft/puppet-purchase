@@ -5,7 +5,7 @@ USER root
 
 # Setting env
 ENV VNC_RESOLUTION=1920x1080 \
-    DISPLAY=:0
+    VNC_PW=
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -23,7 +23,7 @@ RUN apt-get -y update \
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 RUN whoami \
     #&& xhost localhost \
-    && xhost +
+    #&& xhost +
  
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 #CMD /bin/bash
