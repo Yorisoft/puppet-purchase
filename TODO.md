@@ -1,5 +1,5 @@
 // Write Priority
-#PRIORITY
+#PRIORITY - TODO: Create a MicroCenter bot !!!
 
 // Write Todos
 #TODO Develope real jenkinsfile for pipeline
