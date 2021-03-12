@@ -1,12 +1,25 @@
-const Spinner = require('cli-spinner');
-const puppeteer = require('puppeteer');
-const colors = require('colors');
 const taskHandler = require('./taskHandler');
 const myInfo = require('./myInfo');
 const utils = require('./utils');
+const Spinner = require('cli-spinner');
+const puppeteer = require('puppeteer');
+const colors = require('colors');
 
-async function neweggBot() {
-  // Start of test: Launch and go to login website
+async function addToCart(page) {
+  await page.waitForTimeout(500);
+  await page.$eval(utils.selectors.get('add_to_cart_selector'), (el) => el.click());
+
+  console.log('Item added to cart ..');
+  await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
+}
+
+async function microcenterBot() {
+  // Spinner 
+  var mySpinner = new Spinner.Spinner('processing.. %s');
+  mySpinner.setSpinnerString('|/-\\');
+  mySpinner.start();
+
+  // Puppeteer
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
@@ -14,19 +27,18 @@ async function neweggBot() {
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
-  await page.goto('https://www.newegg.com');
-  await page.waitForTimeout(500);
+  await page.goto('https://www.microcenter.com', { waitUntil: 'networkidle2' });
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
-  // Spinner 
-  var mySpinner = new Spinner.Spinner('processing.. %s');
-  mySpinner.setSpinnerString('|/-\\');
-  mySpinner.start();
-
-  // Login
+  // Signing in
   await taskHandler.logIn(page);
-  await page.waitForSelector('div.nav-complex-title');
 
+  // TESTING - Comment out when done.
+  // await cleanUpAccount(page);
+  // For cleaning up account/pause program - usefull for test setup
+  // await page.waitForTimeout(9000000);
+
+  // Navigate to listing & add to cart
   let amountOrdered = 0;
   while (amountOrdered < 1) {
     try {
@@ -35,45 +47,40 @@ async function neweggBot() {
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
-      await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
-      let inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
-      let isOutOfStock = inventoryText.includes('OUT OF STOCK');
+      await page.waitForSelector(utils.selectors.get('inventory_count'));
+      let stocks = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
+      let isOutOfStock = stocks.includes('Sold Out');
       console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
-      // While listing is out of stock: Refresh page, check availability 
+      // While listing is out of stock: Change store, check availability 
       let testRuns = 0;
-      while (isOutOfStock) { // reversing the logic for now, will create new variable for stock selector 
+      while (isOutOfStock) {
         console.log('\nOUT OF STOCK'.red);
         console.log('\nRefreshing Page..'.yellow);
         await page.reload();
         
         // Check if current store has listing 
         await page.waitForTimeout(500);
-        await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
-        inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
-        isOutOfStock = inventoryText.includes('OUT OF STOCK');
+        await page.waitForSelector(utils.selectors.get('inventory_count'));
+        inventoryText = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
+        isOutOfStock = inventoryText.includes('Sold Out');
 
-        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 10)){
+        if((`${process.env.USER_ENV}` == 'findListingInfo') && (testRuns == 10)){
           testRuns++;
           return;
         }
-        
       }
       console.log('\nListing is in stock !!'.bgBlue);
 
       // Add listing to cart
       console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
-      let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
-      await pickUp_bttn[0].click();
       await page.waitForTimeout(500);
-      console.log('Item added to cart ..');
-      await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
+      await addToCart(page);
 
       // Navigate to cart
       console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
-      const cartURL = 'https://secure.newegg.com/shop/cart';
-      await page.goto(cartURL);
-      await page.waitForTimeout(500);
+      const cartURL = 'https://cart.microcenter.com/cart.aspx';
+      await page.goto(cartURL, { waitUntil: 'networkidle2' });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
@@ -88,8 +95,6 @@ async function neweggBot() {
       await page.goto('https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254', { waitUntil: 'networkidle2' });
       amountOrdered++;
     } catch (error) {
-      // expected output: ReferenceError: nonExistentFunction is not defined
-      // Note - error messages will vary depending on browser
       console.log('\n' + error);
     } finally {
       await page.waitForTimeout(7000);
@@ -101,4 +106,4 @@ async function neweggBot() {
   }
 }
 
-neweggBot();
+microcenterBot();
