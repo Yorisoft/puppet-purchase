@@ -4,8 +4,7 @@ FROM consol/ubuntu-xfce-vnc
 USER root
 
 # Setting env
-ENV VNC_RESOLUTION=1920x1080 \
-    DISPLAY=:1.0
+ENV VNC_RESOLUTION=1920x1080 
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -19,6 +18,7 @@ RUN apt-get -y update \
     libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 \
     libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation \
     libappindicator1 libnss3 lsb-release xdg-utils wget \
+    && apt-get install -y libgbm-dev \
     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get install -y nodejs \
     && apt-get -y autoremove \
