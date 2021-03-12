@@ -59,7 +59,7 @@ node {
                 //TODO - Fix newegg bot
                 //TODO - Fix bestbuy bot
                 // sh ('npm run all-bots-full-cycle');
-            } 
+            }
         }
     } 
     catch (e) {
