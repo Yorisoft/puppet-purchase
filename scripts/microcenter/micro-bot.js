@@ -65,7 +65,7 @@ async function microcenterBot() {
         inventoryText = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
         isOutOfStock = inventoryText.includes('Sold Out');
 
-        if((`${process.env.USER_ENV}` == 'findListingInfo') && (testRuns == 10)){
+        if((`${process.env.USER_ENV}` == 'testUserInfo') && (testRuns == 10)){
           testRuns++;
           return;
         }

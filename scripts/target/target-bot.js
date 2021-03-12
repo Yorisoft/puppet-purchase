@@ -56,7 +56,7 @@ async function targetBot() {
         console.log('\nProduct is OUT OF STOCK'.red);
         isOutOfStock = await taskHandler.findListing(page);
 
-        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 1)){
+        if((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 1)){
           return;
         }
         testRuns++;
