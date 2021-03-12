@@ -35,7 +35,7 @@ node {
         stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
                 echo ('Still in development.. ');
-                //sh ('npm run bestbuy-bot-test');
+                sh ('npm run bestbuy-bot-test');
             } 
         }
 
