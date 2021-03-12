@@ -34,17 +34,25 @@ node {
 
         stage('set environment variables') {
             image.inside("--entrypoint=''") {
-                sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
-                sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_PASW}");
-                sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
-                sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_CVV}");
+                withCredentials([
+                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL'),
+                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_PASW'),
+                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_LOC'),
+                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {
+                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
+                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_PASW}");
+                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
+                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_LOC}");
+                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_CVV}");
 
-                sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
-                sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
-                sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
-                sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}");
+                    sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
+                    sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
+                    sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
+                    sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
+                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}");
+                }
             } 
         } 
 
