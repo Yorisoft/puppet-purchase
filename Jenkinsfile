@@ -35,11 +35,11 @@ node {
         stage('set environment variables') {
             image.inside("--entrypoint=''") {
                 withCredentials([
-                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL'),
-                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_PASW'),
-                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_LOC'),
-                    string(credentialsId: 'JENKINS_API_TOKEN', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL'),
+                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_PASW'),
+                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_LOC'),
+                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
                     sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
                     sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_PASW}");
