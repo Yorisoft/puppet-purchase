@@ -53,7 +53,7 @@ async function neweggBot() {
         inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
         isOutOfStock = inventoryText.includes('OUT OF STOCK');
 
-        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 10)){
+        if((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 10)){
           testRuns++;
           return;
         }

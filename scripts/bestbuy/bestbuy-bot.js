@@ -71,7 +71,7 @@ async function bestbuyBot() {
         await npage.close();
 
         //EXIT IF RUNNING TEST
-        if ((`${process.env.USER_ENV}` == "findListingInfo" && testRuns == 1)) {
+        if ((`${process.env.USER_ENV}` == "testUserInfo" && testRuns == 1)) {
           return;
         }
         testRuns++;
