@@ -19,9 +19,9 @@ RUN apt-get update -y \
     libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 \
     libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation \
     libappindicator1 libnss3 lsb-release libgbm-dev xdg-utils wget \
-    #&& curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    #&& apt-get install -y nodejs \
-    #&& apt-get -y autoremove \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get -y autoremove \
     && node -v \
     && npm -v
 
