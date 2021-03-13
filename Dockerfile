@@ -4,7 +4,8 @@ FROM consol/ubuntu-xfce-vnc
 USER root
 
 # Setting env
-ENV VNC_RESOLUTION=1920x1080 
+ENV VNC_RESOLUTION=1920x1080 \
+    VNC_PW=puppeteer
 
 # Create app directory
 WORKDIR /usr/src/app
