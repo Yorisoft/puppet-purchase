@@ -33,9 +33,9 @@ npm install
 Because of the way that the environment variables are defined, a version of [WSL](https://docs.microsoft.com/en-us/windows/wsl/) will need to be installed on your machine if running on windows machine. Alternatively, and perhaps an easier method for some, installing [Git](https://git-scm.com/downloads) and running the program using _**Git Bash**_
 
 ## Usage
-Once npm finishes installing all the required node modules, the scripts are ready to go! Try running one of the bot-test to see it in action. 
+Once npm finishes installing all the required node modules, the scripts are ready to go! Try filling out the necessary account info in _**scripts/< bot >/userInfo/.env.userInfo**_, then running one of the bots to see it in action. 
 ```node
-npm run bestbuy-bot-test
+npm run target-bot
 ```
 A full list of available scripts can be found in _**package.json**_
 
@@ -45,11 +45,14 @@ Alternatively, you can run program inside a docker container. Use the _**Dockerf
 docker build -t puppet-purchase .
 docker run -p 5901:5901 -d puppet-purchase
 ```
-Use [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) to look inside the container and view the process. By default it is running on port 5901. Feel free to change the default port by editing the -p flag or the  _**Dockerfile**_
+
+## VNC
+Use [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) to look inside the container and view the process. By default it is running on port 5901. Feel free to change the default port by editing the -p flag and the  _**Dockerfile**_
 ```node
 # Inside Dockerfile, add this
 EXPOSE [new_port_number]
 ```
+default password: puppeteer
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
