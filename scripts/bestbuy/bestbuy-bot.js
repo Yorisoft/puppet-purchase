@@ -109,6 +109,7 @@ async function bestbuyBot() {
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log("\n" + error);
+      throw error;
     } 
     finally {
       await page.waitForTimeout(7000);
