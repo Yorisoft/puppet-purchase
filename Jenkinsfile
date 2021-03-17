@@ -32,7 +32,7 @@ node {
             } 
         } 
 
-        stage('set environment variables') {
+        /* stage('set environment variables') {
             image.inside("--entrypoint=''") {
                 withCredentials([
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
@@ -48,14 +48,14 @@ node {
                     sh ("echo ${env.TEST_USER_LOC}");
                     sh ("echo ${env.TEST_USER_CVV}");
 
-                    /* sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
+                     sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
                     sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
                     sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
                     sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}"); */
+                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}"); 
                 }
             } 
-        } 
+        }  */
 
         // My test user or ip is temporarily banned. Need solution for testing.
         stage('bestuy-bot-test') {
@@ -65,7 +65,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt");
+                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt");
                     sh ('npm run bestbuy-bot-test');
                 }
             } 
@@ -78,7 +78,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
+                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
                     sh ('npm run target-bot-test');
                 }
             } 
@@ -92,7 +92,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
+                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
                     sh ('npm run newegg-bot-test');
                 }
             } 
@@ -107,7 +107,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {   
-                    echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
+                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                     sh ('npm run micro-bot-test');
                 }
             } 
