@@ -10,7 +10,7 @@ async function neweggBot() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--no-sandbox'],
+    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
@@ -30,21 +30,18 @@ async function neweggBot() {
   let amountOrdered = 0;
   while (amountOrdered < 1) {
     try {
-      console.log(' [1/4] .. Navigating to listing page ..'.bgBlue);
-      await page.goto(myInfo.listingURL);
-      await page.waitForTimeout(500);
+      console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
+      await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
+      console.log(`${myInfo.listingURL}`);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
-
-      console.log('\nGot to listing..'.yellow);
 
       // Checking to see if listing is out of stock
       await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
       let inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
       let isOutOfStock = inventoryText.includes('OUT OF STOCK');
-      
-      console.log('\ncalculated stocks..'.yellow);
+      console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
-      // While listing is out of stock: Change store, check availability 
+      // While listing is out of stock: Refresh page, check availability 
       let testRuns = 0;
       while (isOutOfStock) { // reversing the logic for now, will create new variable for stock selector 
         console.log('\nOUT OF STOCK'.red);
@@ -55,9 +52,9 @@ async function neweggBot() {
         await page.waitForTimeout(500);
         await page.waitForSelector(utils.selectors.get('outOfStock_selector'));
         inventoryText = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
-        isOutOfStock = inventoryText.includes('Sold Out');
+        isOutOfStock = inventoryText.includes('OUT OF STOCK');
 
-        if((`${process.env.USER_ENV}` == 'findListingInfo' && testRuns == 10)){
+        if((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 10)){
           testRuns++;
           return;
         }

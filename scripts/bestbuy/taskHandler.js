@@ -19,7 +19,7 @@ async function logIn(page) {
   while (needsLogIn) {
     console.log('Navigating to signin page ..'.yellow);
     await page.goto('https://www.bestbuy.com/signin');
-    await page.waitForTimeout(500); // Avoid network slowdown
+    await page.waitForTimeout(700); // Avoid network slowdown
 
     // Enter login credentials & signin
     console.log('Signing in ..'.yellow);
@@ -40,8 +40,8 @@ async function logIn(page) {
     await page.keyboard.press('Enter');
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
 
+    await page.waitForTimeout(4000); // Time to load account username
     await page.waitForSelector(utils.selectors.get('account_selector'));
-    await page.waitForTimeout(1000); // Time to load account username
     list_items = await page.$eval(
       utils.selectors.get('account_selector'),
       (element) => {
@@ -119,6 +119,19 @@ async function checkoutCart(page) {
     path: `${myInfo.snapShotPath}+checkout_started.png`,
   });
 
+  page.evaluate(_ => {
+    window.scrollBy(10, window.innerHeight);
+  }); 
+  
+  // If proceed button is present, then click on it
+  await page.waitForTimeout(1000);
+  await page.waitForSelector('#checkoutApp > div.page-spinner.page-spinner--out > div:nth-child(1) > div.checkout.large-view.fast-track > main > div.checkout__container.checkout__container-fast-track > div.checkout__col.checkout__col--secondary.fast-track--align-top.anchor > section.order-summary.order-summary--inactive.order-summary__fast-track > div.order-summary__bd--fast-track > section > div > div.order-summary__total > div.order-summary__price > span');
+  if (await page.$(utils.selectors.get('proceed_to_checkout')) !== null){
+  await page.focus(utils.selectors.get('proceed_to_checkout'));
+  await page.keyboard.press('Enter');
+  await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_proceed.png` });
+  }
+
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_2'));
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
@@ -130,7 +143,10 @@ async function checkoutCart(page) {
   
   //Moment of truth..
   await page.focus(utils.selectors.get('chekout_bttn_selector_2'));
-  //await page.keyboard.press('Enter');
+  //SKIP IF RUNNING TEST
+  if (`${process.env.USER_ENV}` == "userInfo" ) {
+    await page.keyboard.press('Enter');
+  }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
 }

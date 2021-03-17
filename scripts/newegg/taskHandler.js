@@ -9,7 +9,7 @@ async function getSecutiryCode() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--no-sandbox', `--window-size=700,700`],
+    args: ['--disable-setuid-sandbox', '--no-sandbox', '--incognito', `--window-size=700,700`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   // Navigate to email.
@@ -38,9 +38,9 @@ async function getSecutiryCode() {
   await page.waitForSelector(utils.selectors.get('inbox_selector'));
   await page.$eval(utils.selectors.get('inbox_selector'), (el) => el.click());
 
-  //await page.waitForSelector(utils.selectors.get('securityCode_selector'));
-  await page.waitForTimeout(10000); // 10 seconds
-  //securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
+  await page.waitForSelector(utils.selectors.get('securityCode_selector'));
+  await page.waitForTimeout(5000); // 5 seconds
+  securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
   
   let pages = await browser.pages()
@@ -48,7 +48,7 @@ async function getSecutiryCode() {
   await browser.close();
 
   console.log('Security Code: ' + securityCode);
-  //return securityCode;
+  return securityCode;
 }
 
 async function logIn(page) {
@@ -69,11 +69,11 @@ async function logIn(page) {
   await page.keyboard.press('Enter');
   
   // Getting security code
-  await getSecutiryCode();
+  const securityCode = await getSecutiryCode();
 
   //security code
-  //await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
-  //await page.type(utils.selectors.get('securityCode_input_selector'), securityCode, { delay: 100 });
+  await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
+  await page.type(utils.selectors.get('securityCode_input_selector'), securityCode, { delay: 100 });
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
   //submit
   await page.$eval(utils.selectors.get('singin_selector_1'), (el) => el.click());
@@ -119,7 +119,10 @@ async function checkoutCart(page) {
   let checkout = 'Moment of truth..';
   await page.waitForSelector(utils.selectors.get('placeOrder_selector'));
   await page.focus(utils.selectors.get('placeOrder_selector'));
-  //await page.keyboard.press('Enter');
+  //SKIP IF RUNNING TEST
+  if (`${process.env.USER_ENV}` == "userInfo" ) {
+    await page.keyboard.press('Enter');
+  }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
   console.log(checkout);

@@ -25,9 +25,8 @@ async function bestbuyBot() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    executablePath: process.env.CHROMIUM_PATH,
-    args: ["--no-sandbox"],
-    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
+    executablePath: '/usr/bin/chromium-browser'
   });
 
   const page = await browser.newPage();
@@ -44,6 +43,7 @@ async function bestbuyBot() {
     try {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       await page.goto(myInfo.listingURL);
+      console.log(`${myInfo.listingURL}`);
       await page.screenshot({
         path: `${myInfo.snapShotPath}+listing_page.png`,
       });
@@ -72,7 +72,7 @@ async function bestbuyBot() {
         await npage.close();
 
         //EXIT IF RUNNING TEST
-        if ((`${process.env.USER_ENV}` == "findListingInfo" && testRuns == 1)) {
+        if ((`${process.env.USER_ENV}` == "testUserInfo" && testRuns == 1)) {
           return;
         }
         testRuns++;
@@ -109,6 +109,7 @@ async function bestbuyBot() {
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log("\n" + error);
+      throw error;
     } 
     finally {
       await page.waitForTimeout(7000);

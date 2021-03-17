@@ -8,14 +8,18 @@
     "all-bots-find-stock": "sh scripts/test/all-bots-find-stocks.test.sh",
     "all-bots-full-cycle": "sh scripts/test/all-bots-full-cycle.test.sh",
     "bestbuy-bot": "sh scripts/bestbuy/build.sh",
+    "micro-bot": "sh scripts/microcenter/build.sh",
     "newegg-bot": "sh scripts/newegg/build.sh",
     "target-bot": "sh scripts/target/build.sh",
     "bestbuy-bot-test": "sh scripts/test/bestbuy-bot.test.sh",
+    "micro-bot-test": "sh scripts/test/micro-bot.test.sh",
     "newegg-bot-test": "sh scripts/test/newegg-bot.test.sh",
     "target-bot-test": "sh scripts/test/target-bot.test.sh",
     "bestbuy-find-stocks-test": "sh scripts/test/bestbuy-find-stocks.test.sh",
+    "micro-find-stocks-test": "sh scripts/test/micro-find-stocks.test.sh",
     "newegg-find-stocks-test": "sh scripts/test/newegg-find-stocks.test.sh",
     "target-find-stocks-test": "sh scripts/test/target-find-stocks.test.sh"
+    
   },
   "dependencies": {
     "puppeteer": "5.3.0",

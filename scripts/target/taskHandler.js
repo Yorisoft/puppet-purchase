@@ -48,10 +48,10 @@ async function logIn(page) {
       el.click()
     );
 
-    await page.waitForSelector("span.styles__AccountName-sc-1kk0q5l-0.hVhJPq");
+    await page.waitForSelector("#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn");
     await page.waitForTimeout(400); // Allow text to load
     signingText = await page.$eval(
-      "span.styles__AccountName-sc-1kk0q5l-0.hVhJPq",
+      "#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
       (el) => {
         return el.innerText;
       }
@@ -126,6 +126,7 @@ async function checkoutCart(page) {
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_2"));
   if ((await page.$(utils.selectors.get("cvv_bttn_selector"))) !== null) {
+    await page.waitForTimeout(500);
     await page.$eval(utils.selectors.get("cvv_bttn_selector"), (el) =>
       el.click()
     );
@@ -135,7 +136,10 @@ async function checkoutCart(page) {
 
   // Checkout = 'Moment of truth..';
   await page.focus(utils.selectors.get("chekout_bttn_selector_2"));
-  //await page.keyboard.press('Enter');
+  //SKIP IF RUNNING TEST
+  if (`${process.env.USER_ENV}` == "userInfo" ) {
+    await page.keyboard.press('Enter');
+  }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
 }
