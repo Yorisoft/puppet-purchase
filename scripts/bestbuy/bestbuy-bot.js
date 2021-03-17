@@ -26,7 +26,7 @@ async function bestbuyBot() {
     headless: false,
     defaultViewport: null,
     args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
-    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+    executablePath: '/usr/bin/chromium-browser'
   });
 
   const page = await browser.newPage();
