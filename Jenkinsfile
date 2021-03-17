@@ -41,7 +41,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    echo("echo $TEST_USER_EMAIL > $WORKSPACE/grr0.txt"); 
+                    echo(" $TEST_USER_EMAIL > $WORKSPACE/grr0.txt"); 
                     sh ("echo ${env.TEST_USER_EMAIL}");
                     sh ("echo ${env.TEST_USER_PASW}");
                     sh ("echo ${env.TEST_USER_EMAIL_PASSW}");
@@ -60,7 +60,11 @@ node {
         // My test user or ip is temporarily banned. Need solution for testing.
         stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL')]) {
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {
                     echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt");
                     sh ('npm run bestbuy-bot-test');
                 }
@@ -69,7 +73,11 @@ node {
 
         stage('target-bot-test') {
             image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL')]) {
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {
                     echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
                     sh ('npm run target-bot-test');
                 }
@@ -78,7 +86,12 @@ node {
 
         stage('newegg-bot-test') {
             image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL')]) {
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {
                     echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
                     sh ('npm run newegg-bot-test');
                 }
@@ -88,7 +101,12 @@ node {
         // Currently requires manual input.. Need solution to fetching code from email.
         stage('micro-bot-test') {
             image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL')]) {   
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {   
                     echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                     sh ('npm run micro-bot-test');
                 }
@@ -120,7 +138,7 @@ node {
     } 
     finally {
         stage('Create Archive'){
-            archiveArtifacts allowEmptyArchive: true, artifacts: '**', excludes: 'node_modules/'; 
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**', excludes: '**/node_modules'; 
             //archiveArtifacts allowEmptyArchive: true, artifacts: 'record/screen_shots/newegg/*.png, record/screen_shots/bestbuy/*.png, record/screen_shots/target/*.png'; 
         }
         
