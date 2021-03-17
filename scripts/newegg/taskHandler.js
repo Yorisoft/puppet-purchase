@@ -39,7 +39,7 @@ async function getSecutiryCode() {
   await page.$eval(utils.selectors.get('inbox_selector'), (el) => el.click());
 
   await page.waitForSelector(utils.selectors.get('securityCode_selector'));
-  await page.waitForTimeout(10000); // 10 seconds
+  await page.waitForTimeout(5000); // 5 seconds
   securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
   
