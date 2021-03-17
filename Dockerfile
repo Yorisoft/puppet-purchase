@@ -30,12 +30,13 @@ RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo 
 
 USER jenkins 
 RUN  whoami \
+    && xhost + \
+    && xhost localhost \
     && xauth list|grep `uname -n`\
     && DISPLAY=:0; export DISPLAY \
     && xauth add $DISPLAY . hexkey 
-    # && xhost +
-    #&& xhost localhost \
     
+
 USER root 
 RUN  whoami 
     
