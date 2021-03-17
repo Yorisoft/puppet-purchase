@@ -61,7 +61,6 @@ node {
             image.inside("--entrypoint=''") {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL')]) {
                     echo("echo ${env.TEST_USER_URL}");
-                    sh ("export LISTING_URL=${env.TEST_USER_URL}");
                     sh ('npm run bestbuy-bot-test');
                 }
             } 
@@ -71,7 +70,6 @@ node {
             image.inside("--entrypoint=''") {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL')]) {
                     echo("echo ${env.TEST_USER_URL}");
-                    sh ("export LISTING_URL=${env.TEST_USER_URL}");
                     sh ('npm run target-bot-test');
                 }
             } 
@@ -81,7 +79,6 @@ node {
             image.inside("--entrypoint=''") {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL')]) {
                     echo("echo ${env.TEST_USER_URL}");
-                    sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_NEWEGG}");
                     sh ('npm run newegg-bot-test');
                 }
             } 
@@ -91,8 +88,7 @@ node {
         stage('micro-bot-test') {
             image.inside("--entrypoint=''") {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL')]) {   
-                    echo("echo ${env.TEST_USER_URL}");
-                    sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
+                    echo("echo $TEST_USER_URL > $WORKSPACE /grr.txt");
                     sh ('npm run micro-bot-test');
                 }
             } 
