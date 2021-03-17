@@ -7,7 +7,7 @@ const utils = require('./utils');
 async function getSecutiryCode() {
   let securityCode;
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null,
     args: ['--no-sandbox', '--incognito', `--window-size=700,700`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
