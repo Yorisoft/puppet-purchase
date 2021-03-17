@@ -35,23 +35,23 @@ node {
         stage('set environment variables') {
             image.inside("--entrypoint=''") {
                 withCredentials([
-                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL'),
-                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_PASW'),
-                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_LOC'),
-                    string(credentialsId: 'api_token', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
-                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_PASW}");
-                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
-                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                    sh ("echo ${env.PUPPET_PURCHASE_TEST_USER_CVV}");
+                    sh ("echo ${env.TEST_USER_EMAIL}");
+                    sh ("echo ${env.TEST_USER_PASW}");
+                    sh ("echo ${env.TEST_USER_EMAIL_PASSW}");
+                    sh ("echo ${env.TEST_USER_LOC}");
+                    sh ("echo ${env.TEST_USER_CVV}");
 
-                    sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
+                    /* sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
                     sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
                     sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
                     sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}");
+                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}"); */
                 }
             } 
         } 
@@ -59,36 +59,48 @@ node {
         // My test user or ip is temporarily banned. Need solution for testing.
         stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_BESTBUY}");
-                sh ('npm run bestbuy-bot-test');
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL')]) {
+                    echo("echo ${env.TEST_USER_URL}");
+                    sh ("export LISTING_URL=${env.TEST_USER_URL}");
+                    sh ('npm run bestbuy-bot-test');
+                }
             } 
         }
 
         stage('target-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_TARGET}");
-                sh ('npm run target-bot-test');
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL')]) {
+                    echo("echo ${env.TEST_USER_URL}");
+                    sh ("export LISTING_URL=${env.TEST_USER_URL}");
+                    sh ('npm run target-bot-test');
+                }
             } 
         }
 
         stage('newegg-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_NEWEGG}");
-                sh ('npm run newegg-bot-test');
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL')]) {
+                    echo("echo ${env.TEST_USER_URL}");
+                    sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_NEWEGG}");
+                    sh ('npm run newegg-bot-test');
+                }
             } 
         }
 
         // Currently requires manual input.. Need solution to fetching code from email.
         stage('micro-bot-test') {
             image.inside("--entrypoint=''") {
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                sh ('npm run micro-bot-test');
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL')]) {   
+                    echo("echo ${env.TEST_USER_URL}");
+                    sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
+                    sh ('npm run micro-bot-test');
+                }
             } 
         }
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-                sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
+               /*  sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
                 sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
                 sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
                 sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
@@ -98,7 +110,7 @@ node {
                 sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
                 sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
                 sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                echo ('Still in development.. ');
+                echo ('Still in development.. '); */
                 //TODO - Fix newegg bot
                 //TODO - Fix bestbuy bot
                 // sh ('npm run all-bots-full-cycle');
