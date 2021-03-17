@@ -27,9 +27,17 @@ RUN apt-get update -y \
 
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo \
     && useradd -m jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo
-RUN whoami
+
+USER jenkins 
+RUN  whoami \
+    && xauth list|grep `uname -n`\
+    && DISPLAY=:0; export DISPLAY \
+    && xauth add $DISPLAY . hexkey 
     # && xhost +
     #&& xhost localhost \
+    
+USER root 
+RUN  whoami 
     
  
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
