@@ -38,15 +38,10 @@ async function logIn(page) {
     await page.type(utils.selectors.get("password_selector"), myInfo.mypassw);
 
     //submit
-    // Giving the user time to complete captcha if necessary.
-    await page.waitForTimeout(40000);
+    // Giving the user time to complete the manual login process.
+    await page.waitForTimeout(30000);
 
-    /* await page.waitForTimeout(2000);
-    await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
-    await page.$eval(utils.selectors.get("singin_selector_2"), (el) =>
-      el.click()
-    ); */
-
+    await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
     await page.waitForSelector(utils.selectors.get("singin_selector_1"));
     await page.waitForTimeout(700); // Give time for inner text to show up
     signingText = await page.$eval(utils.selectors.get("singin_selector_1"),
@@ -71,6 +66,10 @@ async function checkoutCart(page) {
   );
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_arrive.png` });
+
+  // Input phone if required..
+  // Users should have that filled on their online accounts
+  // Not going to program for this step
 
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_2"));
