@@ -3,17 +3,31 @@ var date = new Date();
 var timeStamp = `${process.env.USER_ENV}_${date.getMonth()}-${date.getDay()}_${Math.floor(Math.random() * 100001)}`;
 let snapShotPath = 'record/screen_shots/bestbuy/' + `${timeStamp}`;
 
-const myemail = process.env.MY_EMAIL;
-const mypassw = process.env.MY_PASSW;
-const myloc = process.env.MY_LOC;
-const mycvv = process.env.MY_CVV;
-const listingURL = process.env.LISTING_URL;
+let myemail;
+let mypassw;
+let myloc;
+let mycvv;
+let listingURL;
+
+if (`${process.env.USER_ENV}` === 'testUserInfo') {
+  myemail = process.env.TEST_USER_EMAIL;
+  mypassw = process.env.TEST_USER_PASSW;
+  myloc = process.env.TEST_USER_LOC;
+  mycvv = process.env.TEST_USER_CVV;
+  listingURL = process.env.TEST_USER_LISTING_URL;
+} else {
+  myemail = process.env.MY_EMAIL;
+  mypassw = process.env.MY_PASSW;
+  myloc = process.env.MY_LOC;
+  mycvv = process.env.MY_CVV;
+  listingURL = process.env.LISTING_URL;
+}
 
 module.exports = {
-    myemail,
-    mypassw,
-    myloc,
-    mycvv,
-    listingURL,
-    snapShotPath,
-  };
+  myemail,
+  mypassw,
+  myloc,
+  mycvv,
+  listingURL,
+  snapShotPath,
+};

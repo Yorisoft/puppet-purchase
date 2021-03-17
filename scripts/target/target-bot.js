@@ -43,6 +43,7 @@ async function targetBot() {
     try {
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
+      console.log(`${myInfo.listingURL}`)
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
