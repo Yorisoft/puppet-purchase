@@ -41,7 +41,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    echo("echo $TEST_USER_URL > $WORKSPACE /grr0.txt");
+                    echo("echo $TEST_USER_URL > $WORKSPACE/grr0.txt");
                     sh ("echo ${env.TEST_USER_EMAIL}");
                     sh ("echo ${env.TEST_USER_PASW}");
                     sh ("echo ${env.TEST_USER_EMAIL_PASSW}");
