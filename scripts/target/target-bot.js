@@ -20,7 +20,7 @@ async function targetBot() {
 
   // Puppeteer
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     defaultViewport: null,
     args: ['--no-sandbox', `--window-size=1025,1025`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
