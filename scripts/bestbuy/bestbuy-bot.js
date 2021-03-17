@@ -43,7 +43,7 @@ async function bestbuyBot() {
     try {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       await page.goto(myInfo.listingURL);
-      console.log(`${myInfo.listingURL}`)
+      console.log(`${myInfo.listingURL}`);
       await page.screenshot({
         path: `${myInfo.snapShotPath}+listing_page.png`,
       });
