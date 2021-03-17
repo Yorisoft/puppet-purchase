@@ -22,7 +22,6 @@ RUN apt-get update -y \
     #libappindicator1 libnss3 lsb-release libgbm-dev xdg-utils wget \
     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && sudo apt-get install -y nodejs \
-    && sudo apt-get -y autoremove \
     && node -v \
     && npm -v
 
