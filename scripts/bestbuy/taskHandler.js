@@ -125,10 +125,12 @@ async function checkoutCart(page) {
   
   // If proceed button is present, then click on it
   await page.waitForTimeout(1000);
-  await page.waitForSelector(utils.selectors.get('proceed_to_checkout'));
+  await page.waitForSelector('#checkoutApp > div.page-spinner.page-spinner--out > div:nth-child(1) > div.checkout.large-view.fast-track > main > div.checkout__container.checkout__container-fast-track > div.checkout__col.checkout__col--secondary.fast-track--align-top.anchor > section.order-summary.order-summary--inactive.order-summary__fast-track > div.order-summary__bd--fast-track > section > div > div.order-summary__total > div.order-summary__price > span');
+  if (await page.$(utils.selectors.get('proceed_to_checkout')) !== null){
   await page.focus(utils.selectors.get('proceed_to_checkout'));
   await page.keyboard.press('Enter');
-  console.log('Pressed...');
+  await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_proceed.png` });
+  }
 
   // Input credit-card  cvv
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_2'));

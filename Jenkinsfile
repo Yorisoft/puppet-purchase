@@ -32,32 +32,7 @@ node {
             } 
         } 
 
-        /* stage('set environment variables') {
-            image.inside("--entrypoint=''") {
-                withCredentials([
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
-                    ]) {
-                    echo(" $TEST_USER_EMAIL > $WORKSPACE/grr0.txt"); 
-                    sh ("echo ${env.TEST_USER_EMAIL}");
-                    sh ("echo ${env.TEST_USER_PASW}");
-                    sh ("echo ${env.TEST_USER_EMAIL_PASSW}");
-                    sh ("echo ${env.TEST_USER_LOC}");
-                    sh ("echo ${env.TEST_USER_CVV}");
-
-                     sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
-                    sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
-                    sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
-                    sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                    sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}"); 
-                }
-            } 
-        }  */
-
-        // My test user or ip is temporarily banned. Need solution for testing.
+        // My test user or ip keeps getting temporarily banned. Need solution for testing..
         stage('bestuy-bot-test') {
             image.inside("--entrypoint=''") {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
@@ -115,20 +90,14 @@ node {
 
         stage('all-bots-full-cycle test') {
             image.inside("--entrypoint=''") {
-               /*  sh ("export MY_EMAIL=${env.PUPPET_PURCHASE_TEST_USER_EMAIL}");
-                sh ("export MY_PASSW=${env.PUPPET_PURCHASE_TEST_USER_PASW}");
-                sh ("export MY_INBOX_PASSW=${env.PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW}");
-                sh ("export MY_LOC=${env.PUPPET_PURCHASE_TEST_USER_LOC}");
-                sh ("export MY_CVV=${env.PUPPET_PURCHASE_TEST_USER_CVV}");
-
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                sh ("export LISTING_URL=${env.PUPPET_PURCHASE_TEST_USER_URL_MICRO}");
-                echo ('Still in development.. '); */
-                //TODO - Fix newegg bot
-                //TODO - Fix bestbuy bot
-                // sh ('npm run all-bots-full-cycle');
+               withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    ]) {
+                        
+                }
             }
         }
     } 
