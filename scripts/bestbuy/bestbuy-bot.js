@@ -25,7 +25,7 @@ async function bestbuyBot() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--no-sandbox', `--window-size=1025,1025`],
+    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
   });
 
