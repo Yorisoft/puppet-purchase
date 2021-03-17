@@ -36,8 +36,7 @@ RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo 
 #    && DISPLAY=:0; export DISPLAY \
 #    && xauth add $DISPLAY . hexkey  
 
-USER root 
-RUN  whoami 
+RUN  whoami
     
 #ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 #CMD /bin/bash
