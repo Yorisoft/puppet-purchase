@@ -22,6 +22,7 @@ RUN apt-get update -y \
     #libappindicator1 libnss3 lsb-release libgbm-dev xdg-utils wget \
     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && sudo apt-get install -y nodejs \
+    && sudo apt-get install -y chromium-browser \
     && node -v \
     && npm -v
 
