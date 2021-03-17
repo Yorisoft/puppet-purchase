@@ -9,7 +9,7 @@ async function getSecutiryCode() {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--no-sandbox', '--incognito', `--window-size=700,700`],
+    args: ['--disable-setuid-sandbox', '--no-sandbox', '--incognito', `--window-size=700,700`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   // Navigate to email.
