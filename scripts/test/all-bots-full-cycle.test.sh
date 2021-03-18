@@ -11,4 +11,10 @@ echo ' Finished running newegg-bot'
 npm run target-bot-test
 echo ' Finished running target-bot'
 
+npm run micro-bot-test
+echo ' Finished running micro-bot'
+
+npm run walmart-bot-test
+echo ' Finished running walmart-bot'
+
 echo 'Done'
