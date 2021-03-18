@@ -43,6 +43,14 @@ async function getSecutiryCode() {
   securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
   
+  // Delete email
+  if (`${process.env.USER_ENV}` == "testUserInfo" ) {
+    await page.focus(utils.selectors.get('delete_email_selector'));
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+email_deleted.png` });
+  }
+
   let pages = await browser.pages()
   await Promise.all(pages.map(page =>page.close()))
   await browser.close();
