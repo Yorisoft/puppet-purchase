@@ -4,7 +4,7 @@ var timeStamp = `${process.env.USER_ENV}_${date.getMonth()}-${date.getDay()}_${M
 let snapShotPath = 'record/screen_shots/microcenter/' + `${timeStamp}`;
 
 let myemail;
-let mypassw;
+let myInboxPass
 let myphone;
 let myloc;
 let mycvv;
@@ -12,14 +12,14 @@ let listingURL;
 
 if (`${process.env.USER_ENV}` === 'testUserInfo') {
   myemail = process.env.TEST_USER_EMAIL;
-  mypassw = process.env.TEST_USER_PASSW;
+  myInboxPass = process.env.TEST_USER_INBOX_PASSW;
   myphone = process.env.TEST_USER_PHONE;
   myloc = process.env.TEST_USER_LOC;
   mycvv = process.env.TEST_USER_CVV;
   listingURL = process.env.TEST_USER_LISTING_URL;
 } else {
   myemail = process.env.MY_EMAIL;
-  mypassw = process.env.MY_PASSW;
+  myInboxPass = process.env.MY_INBOX_PASSW;
   myphone = process.env.MY_PHONE_NUMBER;
   myloc = process.env.MY_LOC;
   mycvv = process.env.MY_CVV;
@@ -28,7 +28,7 @@ if (`${process.env.USER_ENV}` === 'testUserInfo') {
 
 module.exports = {
   myemail,
-  mypassw,
+  myInboxPass,
   mycvv,
   myloc,
   listingURL,

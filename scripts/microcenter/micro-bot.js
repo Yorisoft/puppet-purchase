@@ -31,7 +31,7 @@ async function microcenterBot() {
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
   // Signing in
-  await taskHandler.logIn(page);
+  await taskHandler.logIn(browser, page);
 
   // TESTING - Comment out when done.
   // await cleanUpAccount(page);
@@ -97,6 +97,7 @@ async function microcenterBot() {
       amountOrdered++;
     } catch (error) {
       console.log('\n' + error);
+      throw error;
     } finally {
       await page.waitForTimeout(7000);
       await page.close();
