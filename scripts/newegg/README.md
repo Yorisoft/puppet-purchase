@@ -1,6 +1,8 @@
 # Special handling..
 # About Newegg puppet purchase bot
 
+__For the best experience while using newegg puppeteer workflow, be sure to add all necesarry account info , located in MyAccount > Account Settings. Anything that is required for checkout should then be added to the .env.userInfo file__
+
 Newegg website required that you enter a 6 pin security code - ***sent to the email attempting to loggin.*** 
 This means that additional email credentials are required in order for the puppeteer to retrieve the security code from the email adress.
 Rememeber to fill in all required information inside _**scripts/< bot >/userInfo/.env.userInfo**_ 
