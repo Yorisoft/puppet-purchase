@@ -11,15 +11,17 @@
     "micro-bot": "sh scripts/microcenter/build.sh",
     "newegg-bot": "sh scripts/newegg/build.sh",
     "target-bot": "sh scripts/target/build.sh",
+    "walmart-bot": "sh scripts/walmart/build.sh",
     "bestbuy-bot-test": "sh scripts/test/bestbuy-bot.test.sh",
     "micro-bot-test": "sh scripts/test/micro-bot.test.sh",
     "newegg-bot-test": "sh scripts/test/newegg-bot.test.sh",
     "target-bot-test": "sh scripts/test/target-bot.test.sh",
+    "walmart-bot-test": "sh scripts/test/walmart-bot.test.sh",
     "bestbuy-find-stocks-test": "sh scripts/test/bestbuy-find-stocks.test.sh",
     "micro-find-stocks-test": "sh scripts/test/micro-find-stocks.test.sh",
     "newegg-find-stocks-test": "sh scripts/test/newegg-find-stocks.test.sh",
-    "target-find-stocks-test": "sh scripts/test/target-find-stocks.test.sh"
-    
+    "target-find-stocks-test": "sh scripts/test/target-find-stocks.test.sh",
+    "walmart-find-stocks-test": "sh scripts/test/walmart-find-stocks.test.sh"
   },
   "dependencies": {
     "puppeteer": "5.3.0",
