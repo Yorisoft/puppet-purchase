@@ -3,7 +3,16 @@ const colors = require("colors");
 const myInfo = require("./myInfo");
 const utils = require("./utils");
 
-async function logIn(page) {
+function getNewPageWhenLoaded(browser) {
+  return new Promise((x) => browser.once('targetcreated', async (target) => {
+    let newPage = await target.page();
+    let newPagePromise = new Promise(() => newPage.once('domcontentloaded', () => x(newPage)));
+    let isPageLoaded = await newPage.evaluate(() => document.readyState);
+    return isPageLoaded.match('complete|interactive') ? x(newPage) : newPagePromise;
+  }));
+}
+
+async function logIn(browser, page) {
   // Navigate to login page
   let signingText;
   let isSignedout;
@@ -22,25 +31,27 @@ async function logIn(page) {
   while (isSignedout) {
     console.log('Navigating to signin page ..'.yellow);
     await page.goto('https://account.microcenter.com/Login.aspx', { waitUntil: 'networkidle2' });
-
-    // Enter login credentials & signin
     console.log('Signing in ..'.yellow);
 
+    let newPagePromise = getNewPageWhenLoaded(browser);
+    await page.$eval(utils.selectors.get("google_signin_selector"), (el) => el.click());
+    let newPage = await newPagePromise;
+    
+    // Enter login credentials & signin
     //email
-    await page.waitForSelector(utils.selectors.get('email_selector'));
-    await page.$eval(utils.selectors.get("email_selector"), (el) => el.click());
-    await page.type(utils.selectors.get("email_selector"), myInfo.myemail, {delay: 150});
+    await newPage.$eval(utils.selectors.get('inbox_email_selector'), (el) => el.click());
+    await newPage.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail, {delay: 150});
+    await newPage.$eval(utils.selectors.get('singin_selector_2'), (el) => el.click());
 
     //password
-    await page.$eval(utils.selectors.get("password_selector"), (el) =>
-      el.click()
-    );
-    await page.type(utils.selectors.get("password_selector"), myInfo.mypassw, {delay: 150});
-
+    await newPage.waitForTimeout(3400);
+    await newPage.$eval(utils.selectors.get('inbox_password_selector'), (el) => el.click());
+    await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 150});
+    await newPage.screenshot({ path: `${myInfo.snapShotPath}+inbox_signin.png` });
+    await newPage.$eval(utils.selectors.get('singin_selector_3'), (el) => el.click());
+    await newPage.waitForTimeout(3000);
     //submit
     // Giving the user time to complete the manual login process.
-    await page.waitForTimeout(30000);
-
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
     await page.waitForSelector(utils.selectors.get("singin_selector_1"));
     await page.waitForTimeout(700); // Give time for inner text to show up
