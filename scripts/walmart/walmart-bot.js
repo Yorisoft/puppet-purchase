@@ -20,15 +20,26 @@ async function walmartBot() {
   mySpinner.setSpinnerString("|/-\\");
   mySpinner.start();
 
+  let launcherArgs;
+  let isHeadless;
+  if(process.env.USER_ENV === 'testUserInfo'){
+    isHeadless = true;
+    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+  } else {
+    isHeadless = false;
+    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+  }
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
-    headless: false,
     defaultViewport: null,
-    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
+    headless: isHeadless,
+    args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });
 
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   await page.goto("https://www.walmart.com", { waitUntil: "networkidle2" });
   await taskHandler.logIn(page);
 
@@ -43,6 +54,7 @@ async function walmartBot() {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       console.log(`Url: ${myInfo.listingURL}`.yellow);
 
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(myInfo.listingURL, { waitUntil: "networkidle2" });
       await page.screenshot({path: `${myInfo.snapShotPath}+listing_page.png`});
 
@@ -81,6 +93,7 @@ async function walmartBot() {
       // Navigate to cart
       console.log("\n[3/4] .. Navigating to cart ..".bgBlue);
       const cartURL = "https://www.walmart.com/cart";
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(cartURL, { waitUntil: "networkidle2" });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
@@ -93,6 +106,7 @@ async function walmartBot() {
       console.log("\nLook at account purchase history to verify \n".bgRed);
 
       // Done
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(
         "https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254",
         { waitUntil: "networkidle2" }

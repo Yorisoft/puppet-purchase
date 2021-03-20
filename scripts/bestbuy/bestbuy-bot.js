@@ -5,6 +5,7 @@ const Spinner = require("cli-spinner");
 const puppeteer = require("puppeteer");
 const colors = require("colors");
 
+
 async function addToCart(page) {
   await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
   await page.focus(utils.selectors.get("add_cart_bttn_selector"));
@@ -21,15 +22,26 @@ async function bestbuyBot() {
   mySpinner.setSpinnerString("|/-\\");
   mySpinner.start();
 
+  let launcherArgs;
+  let isHeadless;
+  if(process.env.USER_ENV === 'testUserInfo'){
+    isHeadless = true;
+    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+  } else {
+    isHeadless = false;
+    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+  }
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
-    headless: false,
     defaultViewport: null,
-    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
+    headless: isHeadless,
+    args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });
-
+  
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   await page.goto("https://www.bestbuy.com", { waitUntil: "networkidle2" });
   await taskHandler.logIn(page);
 
@@ -42,6 +54,7 @@ async function bestbuyBot() {
   while (amountOrdered < 1) {
     try {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(myInfo.listingURL);
       console.log(`${myInfo.listingURL}`);
       await page.screenshot({
