@@ -3,6 +3,7 @@ const utils = require('./utils');
 const colors = require('colors');
 
 async function logIn(page) {
+  try {
   // LOGIN
   await page.waitForSelector(utils.selectors.get('account_selector'));
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
@@ -53,6 +54,10 @@ async function logIn(page) {
     needsLogIn = list_items.includes('Account');
   }
   console.log('Signed in succesfully ..'.yellow);
+} catch (err) {
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 async function findListing(page, npage) {
@@ -60,6 +65,7 @@ async function findListing(page, npage) {
   let isOutOfStock;
   let n = 1;
 
+  try{
   await npage.waitForSelector(utils.selectors.get('zip_input_selector'));
   await npage.waitForSelector(utils.selectors.get('lookup_bttn_selector'));
 
@@ -109,9 +115,14 @@ async function findListing(page, npage) {
     }
   }
   return isOutOfStock;
+} catch(err){
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 async function checkoutCart(page) {
+  try{
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_1'));
   await page.focus(utils.selectors.get('chekout_bttn_selector_1'));
   await page.keyboard.press('Enter');
@@ -151,6 +162,10 @@ async function checkoutCart(page) {
   }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+} catch(err){
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 module.exports = {

@@ -7,6 +7,7 @@ const colors = require("colors");
 
 
 async function addToCart(page) {
+  try{
   await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
   await page.focus(utils.selectors.get("add_cart_bttn_selector"));
   await page.keyboard.press("Enter");
@@ -14,6 +15,10 @@ async function addToCart(page) {
 
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
+  } catch (err){
+    console.log("\n" + err);
+    throw err;
+  }
 }
 
 async function bestbuyBot() {
