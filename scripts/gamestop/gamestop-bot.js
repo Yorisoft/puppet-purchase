@@ -6,14 +6,32 @@ const puppeteer = require('puppeteer');
 const colors = require('colors');
 
 async function addToCart(page) {
-  await page.waitForTimeout(500);
-  await page.$eval(utils.selectors.get('add_to_cart_selector'), (el) => el.click());
+  await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
+  await page.focus(utils.selectors.get("pickUp_bttn_selector"));
+  await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
+  let oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),
+  (element) => {return element.innerText});
+
+  // It takes a reload and 6 keyboard presses to get the item to be added to cart for some reason
+  while (!oldItemCount.includes('1')){
+    console.log(oldItemCount);
+    await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
+    await page.focus(utils.selectors.get("pickUp_bttn_selector"));
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(3000);
+    
+    //await page.reload();
+    await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
+    oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),(element) => {return element.innerText});
+  }
 
   console.log('Item added to cart ..');
   await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
+
 }
 
-async function microcenterBot() {
+async function gamestopBot() {
   // Spinner 
   var mySpinner = new Spinner.Spinner('processing.. %s');
   mySpinner.setSpinnerString('|/-\\');
@@ -39,11 +57,8 @@ async function microcenterBot() {
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-  await page.goto('https://www.microcenter.com', { waitUntil: 'networkidle2' });
+  await page.goto('https://www.gamestop.com/', { waitUntil: 'networkidle2' });
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
-
-  // Signing in
-  await taskHandler.logIn(browser, page);
 
   // TESTING - Comment out when done.
   // await cleanUpAccount(page);
@@ -61,28 +76,27 @@ async function microcenterBot() {
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
-      await page.waitForSelector(utils.selectors.get('inventory_count'));
-      let stocks = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
-      let isOutOfStock = stocks.includes('Sold Out');
+      let stocks = await page.$eval(utils.selectors.get('pickUp_bttn_selector'), (element) => { return element.innerHTML });
+      let isOutOfStock = stocks.includes('Not Available');
       console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
       // While listing is out of stock: Change store, check availability 
       let testRuns = 0;
       while (isOutOfStock) {
-        console.log('\nOUT OF STOCK'.red);
-        console.log('\nRefreshing Page..'.yellow);
-        await page.reload();
-        
-        // Check if current store has listing 
-        await page.waitForTimeout(500);
-        await page.waitForSelector(utils.selectors.get('inventory_count'));
-        inventoryText = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
-        isOutOfStock = inventoryText.includes('Sold Out');
+        console.log('\nProduct is OUT OF STOCK'.red);
 
-        if((`${process.env.USER_ENV}` == 'testUserInfo') && (testRuns == 10)){
-          testRuns++;
+        const npage = await browser.newPage();
+        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+        await npage.goto("https://www.gamestop.com/stores/", { waitUntil: 'networkidle2' });
+        await npage.screenshot({path: `${myInfo.snapShotPath}+store_locator.png`});
+
+        isOutOfStock = await taskHandler.findListing(npage);
+        await npage.close();
+
+        if((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 1)){
           return;
         }
+        testRuns++;
       }
       console.log('\nListing is in stock !!'.bgBlue);
 
@@ -93,8 +107,7 @@ async function microcenterBot() {
 
       // Navigate to cart
       console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
-      const cartURL = 'https://cart.microcenter.com/cart.aspx';
-      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+      const cartURL = 'https://www.gamestop.com/cart/';
       await page.goto(cartURL, { waitUntil: 'networkidle2' });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
@@ -112,7 +125,6 @@ async function microcenterBot() {
       amountOrdered++;
     } catch (error) {
       console.log('\n' + error);
-      throw error;
     } finally {
       await page.waitForTimeout(7000);
       await page.close();
@@ -123,4 +135,4 @@ async function microcenterBot() {
   }
 }
 
-microcenterBot();
+gamestopBot();

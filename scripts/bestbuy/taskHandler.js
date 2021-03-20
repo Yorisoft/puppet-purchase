@@ -19,6 +19,7 @@ async function logIn(page) {
   while (needsLogIn) {
     console.log('Navigating to signin page ..'.yellow);
     await page.goto('https://www.bestbuy.com/signin');
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     await page.waitForTimeout(700); // Avoid network slowdown
 
     // Enter login credentials & signin
@@ -27,13 +28,13 @@ async function logIn(page) {
     //email
     await page.waitForSelector(utils.selectors.get('email_selector'));
     await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
-    await page.type(utils.selectors.get('email_selector'), myInfo.myemail, {delay: 150});
+    await page.type(utils.selectors.get('email_selector'), `${myInfo.myemail}`, {delay: 150});
 
     //password
     await page.$eval(utils.selectors.get('password_selector'), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get('password_selector'), myInfo.mypassw, {delay: 150});
+    await page.type(utils.selectors.get('password_selector'), `${myInfo.mypassw}`, {delay: 150});
 
     //submit
     await page.focus(utils.selectors.get('singin_selector'));
@@ -41,6 +42,7 @@ async function logIn(page) {
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
 
     await page.waitForTimeout(4000); // Time to load account username
+    await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
     await page.waitForSelector(utils.selectors.get('account_selector'));
     list_items = await page.$eval(
       utils.selectors.get('account_selector'),
@@ -137,7 +139,7 @@ async function checkoutCart(page) {
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
     await page.focus(utils.selectors.get('cvv_bttn_selector'));
     await page.keyboard.press('Enter');
-    await page.type(utils.selectors.get('cvv_bttn_selector'), myInfo.mycvv);
+    await page.type(utils.selectors.get('cvv_bttn_selector'), `${myInfo.mycvv}`);
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
   

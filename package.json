@@ -8,25 +8,31 @@
     "all-bots-find-stock": "sh scripts/test/all-bots-find-stocks.test.sh",
     "all-bots-full-cycle": "sh scripts/test/all-bots-full-cycle.test.sh",
     "bestbuy-bot": "sh scripts/bestbuy/build.sh",
+    "gamestop-bot": "sh scripts/gamestop/build.sh",
     "micro-bot": "sh scripts/microcenter/build.sh",
     "newegg-bot": "sh scripts/newegg/build.sh",
     "target-bot": "sh scripts/target/build.sh",
     "walmart-bot": "sh scripts/walmart/build.sh",
     "bestbuy-bot-test": "sh scripts/test/bestbuy-bot.test.sh",
+    "gamestop-bot-test": "sh scripts/test/gamestop-bot.test.sh",
     "micro-bot-test": "sh scripts/test/micro-bot.test.sh",
     "newegg-bot-test": "sh scripts/test/newegg-bot.test.sh",
     "target-bot-test": "sh scripts/test/target-bot.test.sh",
     "walmart-bot-test": "sh scripts/test/walmart-bot.test.sh",
     "bestbuy-find-stocks-test": "sh scripts/test/bestbuy-find-stocks.test.sh",
+    "gamestop-find-stocks-test": "sh scripts/test/gamestop-find-stocks.test.sh",
     "micro-find-stocks-test": "sh scripts/test/micro-find-stocks.test.sh",
     "newegg-find-stocks-test": "sh scripts/test/newegg-find-stocks.test.sh",
     "target-find-stocks-test": "sh scripts/test/target-find-stocks.test.sh",
     "walmart-find-stocks-test": "sh scripts/test/walmart-find-stocks.test.sh"
   },
   "dependencies": {
-    "puppeteer": "5.3.0",
-    "cli-spinner": "0.2.10",
+    "balanced-match": "^1.0.0",
+    "cli-spinner": "^0.2.10",
     "colors": "1.4.0",
-    "dotenv": "8.2.0"
+    "core-util-is": "^1.0.2",
+    "dotenv": "8.2.0",
+    "puppeteer": "^8.0.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
