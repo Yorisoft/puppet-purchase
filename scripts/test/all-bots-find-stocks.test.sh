@@ -17,4 +17,7 @@ echo ' Finished running micro-bot'
 npm run walmart-find-stocks-test
 echo ' Finished running walmart-bot'
 
+npm run gamestop-find-stocks-test
+echo ' Finished running gamestop-bot'
+
 echo 'Done'

@@ -19,8 +19,9 @@ const password_selector = 'input.whsOnd.zHQkBf';
 (async () => {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null,
+    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   });
   const page = await browser.newPage();
