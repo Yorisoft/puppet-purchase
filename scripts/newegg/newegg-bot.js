@@ -23,7 +23,7 @@ async function neweggBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     defaultViewport: null,
-    headless: isHeadless,
+    headless: false,
     args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });
@@ -39,7 +39,7 @@ async function neweggBot() {
   
 
   // Login
-  await taskHandler.logIn(page);
+  await taskHandler.logIn(page, isHeadless);
   await page.waitForSelector('div.nav-complex-title');
 
   let amountOrdered = 0;
@@ -80,9 +80,10 @@ async function neweggBot() {
 
       // Add listing to cart
       console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
       await pickUp_bttn[0].click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout({ waitUntil: 'networkidle2' });
       console.log('Item added to cart ..');
       await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 

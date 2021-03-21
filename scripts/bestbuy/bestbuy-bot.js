@@ -7,15 +7,15 @@ const colors = require("colors");
 
 
 async function addToCart(page) {
-  try{
-  await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
-  await page.focus(utils.selectors.get("add_cart_bttn_selector"));
-  await page.keyboard.press("Enter");
-  console.log("Item added to cart ..");
+  try {
+    await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
+    await page.focus(utils.selectors.get("add_cart_bttn_selector"));
+    await page.keyboard.press("Enter");
+    console.log("Item added to cart ..");
 
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
-  } catch (err){
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
+  } catch (err) {
     console.log("\n" + err);
     throw err;
   }
@@ -29,7 +29,7 @@ async function bestbuyBot() {
 
   let launcherArgs;
   let isHeadless;
-  if(process.env.USER_ENV === 'testUserInfo'){
+  if (process.env.USER_ENV === 'testUserInfo') {
     isHeadless = true;
     launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
   } else {
@@ -39,11 +39,11 @@ async function bestbuyBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     defaultViewport: null,
-    headless: isHeadless,
+    headless: false,
     args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });
-  
+
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
@@ -122,19 +122,19 @@ async function bestbuyBot() {
         { waitUntil: "networkidle2" }
       );
       amountOrdered++;
-    } 
+    }
     catch (error) {
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log("\n" + error);
       throw error;
-    } 
+    }
     finally {
       await page.waitForTimeout(7000);
       await page.close();
       await browser.close();
       await mySpinner.stop();
-      await process.exit(); 
+      await process.exit();
       return;
     }
   }
