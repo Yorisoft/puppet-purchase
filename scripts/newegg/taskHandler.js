@@ -4,10 +4,10 @@ const colors = require('colors');
 const myInfo = require('./myInfo');
 const utils = require('./utils');
 
-async function getSecutiryCode() {
+async function getSecutiryCode(isHeadless) {
   let securityCode;
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     defaultViewport: null,
     args: ['--disable-setuid-sandbox', '--no-sandbox', '--incognito', `--window-size=700,700`],
     //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -60,7 +60,7 @@ async function getSecutiryCode() {
   return securityCode;
 }
 
-async function logIn(page) {
+async function logIn(page, isHeadless) {
   // Navigate to login page 
   console.log('Signing in ..'.yellow);
   await page.waitForSelector('div.nav-complex-title');
@@ -78,7 +78,7 @@ async function logIn(page) {
   await page.keyboard.press('Enter');
   
   // Getting security code
-  const securityCode = await getSecutiryCode();
+  const securityCode = await getSecutiryCode(isHeadless);
 
   //security code
   await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
