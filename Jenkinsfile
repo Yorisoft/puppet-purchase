@@ -36,10 +36,8 @@ node {
         }
 
         parallel(
-
             // My test user or ip keeps getting temporarily banned. Need solution for testing..
-            currentStage = 'bestuy-bot-test';
-            stage(currentStage) {
+            "bestuy-bot-test": {
                 image.inside("--entrypoint=''") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
@@ -53,8 +51,7 @@ node {
                 }
             }
 
-            currentStage = 'micro-bot-test';
-            stage(currentStage) {
+            "micro-bot-test": {
                 image.inside("--entrypoint=''") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
@@ -69,8 +66,7 @@ node {
                 }
             }
 
-            currentStage = 'newegg-bot-test';
-            stage(currentStage) {
+            "newegg-bot-test": {
                 image.inside("--entrypoint=''") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
@@ -85,8 +81,7 @@ node {
                 }
             }
 
-            currentStage = 'target-bot-test';
-            stage(currentStage) {
+            "target-bot-test": {
                 image.inside("--entrypoint=''") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
@@ -100,8 +95,7 @@ node {
                 }
             }
 
-            currentStage = 'walmart-bot-test';
-            stage(currentStage) {
+            "walmart-bot-test": {
                 image.inside("--entrypoint=''") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_WALMART', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
