@@ -37,7 +37,7 @@ node {
 
         currentStage = 'Run all bot-test';
         stage(currentStage) {
-            parallel {
+            parallel (
 
                 // My test user or ip keeps getting temporarily banned. Need solution for testing..
                 currentStage = 'bestuy-bot-test';
@@ -117,7 +117,7 @@ node {
                         }
                     }
                 }
-            }
+            )
         }
         currentStage = 'all-bots-full-cycle test';
         stage(currentStage) {
