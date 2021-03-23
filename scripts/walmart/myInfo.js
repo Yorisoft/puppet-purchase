@@ -23,7 +23,6 @@ if (`${process.env.USER_ENV}` === 'testUserInfo') {
 module.exports = {
   myemail,
   mypassw,
-  myloc,
   mycvv,
   listingURL,
   snapShotPath,

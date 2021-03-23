@@ -6,8 +6,6 @@ const puppeteer = require('puppeteer');
 const colors = require('colors');
 
 async function addToCart(page) {
-  await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
-  await page.focus(utils.selectors.get("pickUp_bttn_selector"));
   await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
   let oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),
   (element) => {return element.innerText});
@@ -16,14 +14,15 @@ async function addToCart(page) {
   while (!oldItemCount.includes('1')){
     console.log(oldItemCount);
     await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
-    await page.focus(utils.selectors.get("pickUp_bttn_selector"));
-    await page.keyboard.press('Enter');
-    await page.keyboard.press('Enter');
+    await page.$eval(utils.selectors.get("pickUp_bttn_selector"), (el) =>
+    el.click({clickCount: 2}));
+    //await page.focus(utils.selectors.get("pickUp_bttn_selector"));
+    //await page.keyboard.press('Enter');
     await page.waitForTimeout(3000);
     
-    //await page.reload();
     await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
     oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),(element) => {return element.innerText});
+    //await page.reload();
   }
 
   console.log('Item added to cart ..');
@@ -49,7 +48,7 @@ async function gamestopBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     defaultViewport: null,
-    headless: isHeadless,
+    headless: false, // not sure about running headless.. Bot detection.
     args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });

@@ -28,13 +28,13 @@ async function logIn(page) {
     //email
     await page.waitForSelector(utils.selectors.get('email_selector'));
     await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
-    await page.type(utils.selectors.get('email_selector'), myInfo.myemail, {delay: 150});
+    await page.type(utils.selectors.get('email_selector'), myInfo.myemail, {delay: 50});
 
     //password
     await page.$eval(utils.selectors.get('password_selector'), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get('password_selector'), myInfo.mypassw, {delay: 150});
+    await page.type(utils.selectors.get('password_selector'), myInfo.mypassw, {delay: 50});
 
     //submit
     await page.focus(utils.selectors.get('singin_selector'));

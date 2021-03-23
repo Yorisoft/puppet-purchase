@@ -31,7 +31,7 @@ async function microcenterBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     defaultViewport: null,
-    headless: isHeadless,
+    headless: false, // not sure about running headless.. Bot detection.
     args: launcherArgs,
     //executablePath: '/usr/bin/chromium-browser'
   });
