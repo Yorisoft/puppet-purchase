@@ -49,7 +49,7 @@ node {
                         sh('npm run bestbuy-bot-test');
                     }
                 }
-            }
+            },
 
             "micro-bot-test": {
                 image.inside("--entrypoint=''") {
@@ -64,7 +64,7 @@ node {
                         sh('npm run micro-bot-test');
                     }
                 }
-            }
+            },
 
             "newegg-bot-test": {
                 image.inside("--entrypoint=''") {
@@ -79,7 +79,7 @@ node {
                         sh('npm run newegg-bot-test');
                     }
                 }
-            }
+            },
 
             "target-bot-test": {
                 image.inside("--entrypoint=''") {
@@ -93,7 +93,7 @@ node {
                         sh('npm run target-bot-test');
                     }
                 }
-            }
+            },
 
             "walmart-bot-test": {
                 image.inside("--entrypoint=''") {
