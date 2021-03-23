@@ -29,7 +29,7 @@ node {
         currentStage = 'Install npm';
         stage(currentStage) {
             image.inside("--entrypoint=''") {
-                sh('npm install --unsafe-perm');
+                sh('npm i --unsafe-perm');
                 //sh ('npm i puppeteer --save');
                 sh('npm -v');
             }
