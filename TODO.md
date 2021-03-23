@@ -3,6 +3,7 @@
 #PRIORITY: MAKE SERVER MORE SECURE!!!
 
 // Write FIXME
+#FIXME: Fix gamestop bot..
 #FIXME: test user keeps gets shadow-banned for a period.. 
     - Need to think of solution so that it doesnt slow down dev time
 
@@ -15,7 +16,7 @@
 #TODO: Set up ssh keys?
 #TODO: Setup vpn
 #TODO: Remove ability to create terminal in jenkins
-#TODO: Fix gamestop bot.
+
 
 // Write COMPLETE
 #COMPLETE TODO: Fix taget screenShotPath error
