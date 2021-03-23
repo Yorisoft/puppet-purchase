@@ -35,13 +35,13 @@ async function logIn(page) {
     //email
     console.log("Signing in ..".yellow);
     await page.$eval(utils.selectors.get("email_selector"), (el) => el.click());
-    await page.type(utils.selectors.get("email_selector"), myInfo.myemail);
+    await page.type(utils.selectors.get("email_selector"), myInfo.myemail, { delay: 100 });
 
     //password
     await page.$eval(utils.selectors.get("password_selector"), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get("password_selector"), myInfo.mypassw);
+    await page.type(utils.selectors.get("password_selector"), myInfo.mypassw, { delay: 100 });
 
     //submit
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
