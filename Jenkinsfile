@@ -1,4 +1,4 @@
-
+#!/usr/bin/env groovy
 
 node {
     if (env.BRANCH_NAME.startsWith('PR')) {
