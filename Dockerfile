@@ -43,4 +43,4 @@ RUN  whoami
 
 #COPY entrypoint.sh /entrypoint.sh
 #ENTRYPOINT ["Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:1"]   
-CMD Xvfb -ac :1 -screen 1 1280x1024x16
+#CMD Xvfb -ac :1 -screen 1 1280x1024x16
