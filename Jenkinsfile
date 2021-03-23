@@ -45,7 +45,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
                     ]) {
-                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt");
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt"); //prints to test file (nick)
                         sh('npm run bestbuy-bot-test')
                     }
                 }
