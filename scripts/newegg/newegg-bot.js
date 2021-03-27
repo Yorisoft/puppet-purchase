@@ -39,7 +39,7 @@ async function neweggBot() {
   
 
   // Login
-  await taskHandler.logIn(page, isHeadless);
+  await taskHandler.logIn(page);
   await page.waitForSelector('div.nav-complex-title');
 
   let amountOrdered = 0;

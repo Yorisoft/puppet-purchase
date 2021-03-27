@@ -17,7 +17,6 @@ async function logIn(browser, page) {
   let signingText;
   let isSignedout;
 
-  console.log("Navigating to signin page ..".yellow);
   await page.waitForSelector(utils.selectors.get("singin_selector_1"));
   signingText = await page.$eval(utils.selectors.get("singin_selector_1"),
     (el) => {
@@ -30,23 +29,27 @@ async function logIn(browser, page) {
 
   while (isSignedout) {
     console.log('Navigating to signin page ..'.yellow);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     await page.goto('https://account.microcenter.com/Login.aspx', { waitUntil: 'networkidle2' });
     console.log('Signing in ..'.yellow);
 
+    
     let newPagePromise = getNewPageWhenLoaded(browser);
     await page.$eval(utils.selectors.get("google_signin_selector"), (el) => el.click());
     let newPage = await newPagePromise;
-    
+    await newPage.screenshot({ path: `${myInfo.snapShotPath}+google_signin_selector.png` });
+
     // Enter login credentials & signin
+    await newPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     //email
     await newPage.$eval(utils.selectors.get('inbox_email_selector'), (el) => el.click());
-    await newPage.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail, {delay: 150});
+    await newPage.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail, {delay: 100});
     await newPage.$eval(utils.selectors.get('singin_selector_2'), (el) => el.click());
 
     //password
     await newPage.waitForTimeout(3400);
     await newPage.$eval(utils.selectors.get('inbox_password_selector'), (el) => el.click());
-    await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 150});
+    await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 100});
     await newPage.screenshot({ path: `${myInfo.snapShotPath}+inbox_signin.png` });
     await newPage.$eval(utils.selectors.get('singin_selector_3'), (el) => el.click());
     await newPage.waitForTimeout(3000);
