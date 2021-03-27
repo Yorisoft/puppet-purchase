@@ -39,7 +39,7 @@ async function bestbuyBot() {
   // Start of test: Launch and go to login website
   const browser = await puppeteer.launch({
     defaultViewport: null,
-    headless: true, // not sure about running headless.. Bot detection.
+    headless: false, // not sure about running headless.. Bot detection.
     args: launcherArgs,
     executablePath: pathToBrowser,
   });
