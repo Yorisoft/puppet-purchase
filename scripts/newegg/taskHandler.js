@@ -21,19 +21,18 @@ async function getSecutiryCode() {
   // Enter login credentials & signin
   // Email
   await page.$eval(utils.selectors.get('inbox_email_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail);
+  await page.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail, { delay: 100 });
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxEmail.png` });
 
   // Password
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(3000);
   await page.$eval(utils.selectors.get('inbox_password_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass);
+  await page.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, { delay: 100 });
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxPass.png` });
 
-  await page.waitForTimeout(500);
-  await page.reload({ waitUntil: 'networkidle2' });
+  await page.waitForTimeout({ waitUntil: 'networkidle2' });
 
   // Select email
   await page.waitForSelector(utils.selectors.get('inbox_selector'));
