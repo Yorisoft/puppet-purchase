@@ -3,12 +3,12 @@
 puppet-purchase is a bot that automates the process of purchasing an item from a few of the major online retailers. In attempt to combat scalping, I've created puppet-purchase bot and am making it publicly available with you all. Not perfect, but has helped me. Please share && contribute.     
      
 These are scripts that automate the user flow of purchasing an item.     
-That flow is as followed:
+That flow of purchasing an item varies a bit from website to website, but in general it is as follows:
 - Navigate to site  
 - Sign-in to the account  
 - Navigate to item listing page
 - If no is stock available:
-    switches store and refresh page until it finds available stock.
+    Switches store and refresh page until it finds available stock.
 - Adds item to cart  
 - Checks-out cart   
 
@@ -20,15 +20,15 @@ To run these scripts, setting up an online account with one of the retailers is 
 ### Note !!!
 ### _**Do not include your payment information.**_ 
 All payment information should be setup by using your web browser, logging into the account, and adding a payment option. Not in the scripts.  
-Avoid checking in personal account information to this repo / branches if you decide to contribute by adding _**.env.userInfo**_ to _**.gitignore**_.
-Or even better, by creating a new a _**.env.**_ file and pointing to it in 
+Avoid checking in personal account information to this repo / branches if you decide to contribute by adding _**env.userInfo**_    _**gitignore**_
+Or even better, by creating a new a _**env.**_ file and pointing to it in _**scripts/< bot >/myInfo.js**_
 
 ## Installation
 
 To run these script use [node.js](https://nodejs.org/en/) in order to install the required node modules. Navigate to the project directory and install npm. 
 
 ```node
-npm install
+npm i
 ```
 Because of the way that the environment variables are defined, a version of [WSL](https://docs.microsoft.com/en-us/windows/wsl/) will need to be installed on your machine if running on windows machine. Alternatively, and perhaps an easier method for some, installing [Git](https://git-scm.com/downloads) and running the program using _**Git Bash**_
 
@@ -37,10 +37,31 @@ Once npm finishes installing all the required node modules, the scripts are read
 ```node
 npm run target-bot
 ```
-A full list of available scripts can be found in _**package.json**_
+A full list of available scripts can be found in _**package.json**_. We recommend running one of the bot-test to ensure everything is working properly. 
+
+## Test
+Running one of the bot-tests is the best way of making sure that the program is properly installed and running correctly. The bot-tests _**DO NOT**_ perform the last step - clicking the 'place order' button. Bot-tests are also a great way of making sure that your account has all the required information for a speedy checkout.
+
+When running the bot-tests, test-user information will need to be added as environment variables instead of being added to _**env.userInfo**_ file. This is the list of all test-user variable 
+
+```node
+export TEST_USER_EMAIL= \
+    TEST_USER_PASSW= \
+    TEST_USER_INBOX_PASSW= \
+    TEST_USER_PHONE= \
+    TEST_USER_LOC= \
+    TEST_USER_CVV= \
+    TEST_USER_LISTING_URL= \
+```
+Use 'export' if you're on Linux or 'SET' if you're on Windows.
+
+Some environment variables are not required for all of the bot-test, such as TEST_USER_INBOX_PASSW && TEST_USER_LOC. Look inside the _**env.userInfo**_ file that pertains to the specific bot inorder to know what variables the program is expecting. 
+
+We find it easier to export all of the variables, and just change the TEST_USER_LISTING_URL variable depending on what bot-tests is being ran. 
+
 
 ## Docker
-Alternatively, you can run program inside a docker container. Use the _**Dockerfile**_ provided to make a docker image and then run it inside a docker container. 
+Alternatively, you can run the program inside a docker container. Use the _**Dockerfile**_ provided to make a docker image and then run it inside a docker container. 
 ```node
 docker build -t puppet-purchase .
 docker run -p 5901:5901 -d puppet-purchase

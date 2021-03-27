@@ -4,7 +4,7 @@ const colors = require('colors');
 const myInfo = require('./myInfo');
 const utils = require('./utils');
 
-async function getSecutiryCode(isHeadless) {
+async function getSecutiryCode() {
   let securityCode;
   const browser = await puppeteer.launch({
     headless: false,
@@ -60,7 +60,7 @@ async function getSecutiryCode(isHeadless) {
   return securityCode;
 }
 
-async function logIn(page, isHeadless) {
+async function logIn(page) {
   // Navigate to login page 
   console.log('Signing in ..'.yellow);
   await page.waitForSelector('div.nav-complex-title');
@@ -78,7 +78,7 @@ async function logIn(page, isHeadless) {
   await page.keyboard.press('Enter');
   
   // Getting security code
-  const securityCode = await getSecutiryCode(isHeadless);
+  const securityCode = await getSecutiryCode();
 
   //security code
   await page.$eval(utils.selectors.get('securityCode_input_selector'), (el) => el.click());
