@@ -21,7 +21,7 @@ RUN apt-get update -y \
     && apt-get update \
     && apt-get install -y google-chrome-stable --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser google-chrome-stable <priority_as_integer>
+    && sudo update-alternatives --install /usr/bin/x-www-browser google-chrome-stable <priority_as_integer>
 RUN Xvfb -ac :1 -screen 1 1280x1024x16
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
