@@ -5,6 +5,7 @@ const colors = require('colors');
 async function logIn(page) {
   try {
   // LOGIN
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   await page.waitForSelector(utils.selectors.get('account_selector'));
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
