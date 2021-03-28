@@ -2,17 +2,15 @@
 echo ' Start of micro-bot test '
 echo ' Should run a full cycle of micro-bot.js script, then exit: 0 '
 
-{  # try
-
 USER_ENV=testUserInfo npm run micro-bot
-echo ' Finished running micro-bot'
 
-} || { # catch
-    # save log for exception 
-    set -e
-    err_report() {
-        echo "Error on line $1"
-    }
-    trap 'err_report $LINENO' ERR
-    exit 2
-}
+if [ $? -eq 0 ]; then
+ 
+echo 'Finished running micro-bot'
+
+else
+
+echo 'ERROR micro-bot test Failed'
+exit 2
+
+fi
