@@ -31,14 +31,6 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo \
     && useradd -m jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo
 
-#USER jenkins 
-#RUN  whoami \
-#    && xhost + \
-#    && xhost localhost \
-#    && xauth list|grep `uname -n`\
-#    && DISPLAY=:0; export DISPLAY \
-#    && xauth add $DISPLAY . hexkey  
-
 RUN  whoami
 
 #COPY entrypoint.sh /entrypoint.sh
