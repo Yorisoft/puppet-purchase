@@ -45,7 +45,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt"); //prints to test file (nick)
                         sh('npm run bestbuy-bot-test')
@@ -60,7 +60,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                         sh('npm run gamestop-bot-test');
@@ -75,7 +75,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                         sh('npm run micro-bot-test');
@@ -90,7 +90,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
                         sh('npm run newegg-bot-test');
@@ -104,7 +104,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
                         sh('npm run target-bot-test');
@@ -119,7 +119,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV'),
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                         sh('npm run walmart-bot-test');
@@ -134,7 +134,7 @@ node {
                 string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                 string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
                 string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                 ]) {
 
                 }
