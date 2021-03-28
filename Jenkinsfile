@@ -5,8 +5,10 @@ node {
         return;
     }
 
-    def image
+    def image;
     def currentStage;
+    def entryPoint = '-d';
+    //'Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99'
     try {
         stage('Cleanup and Checkout') {
             sh("echo Branch_name:${env.BRANCH_NAME}");
@@ -28,8 +30,8 @@ node {
 
         currentStage = 'Install npm';
         stage(currentStage) {
-            image.inside("--entrypoint=''") {
-                sh('npm i --unsafe-perm');
+            image.inside(entryPoint) {
+                sh('npm i');
                 //sh ('npm i puppeteer --save');
                 sh('npm -v');
             }
@@ -38,7 +40,7 @@ node {
         parallel(
             // My test user or ip keeps getting temporarily banned. Need solution for testing..
             "bestuy-bot-test": {
-                image.inside("-d") {
+                image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -52,7 +54,7 @@ node {
             },
 
             "micro-bot-test": {
-                image.inside("-d") {
+                image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -67,7 +69,7 @@ node {
             },
 
             "newegg-bot-test": {
-                image.inside("-d") {
+                image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -82,7 +84,7 @@ node {
             },
 
             "target-bot-test": {
-                image.inside("--entrypoint=''") {
+                image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -96,7 +98,7 @@ node {
             },
 
             "walmart-bot-test": {
-                image.inside("--entrypoint=''") {
+                image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_WALMART', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -112,7 +114,7 @@ node {
         )
         currentStage = 'all-bots-full-cycle test';
         stage(currentStage) {
-            image.inside("--entrypoint=''") {
+            image.inside(entryPoint) {
                 withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                 string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
                 string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
