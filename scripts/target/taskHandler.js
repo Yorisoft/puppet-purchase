@@ -71,7 +71,7 @@ async function logIn(page) {
   await page.screenshot({ path: `${myInfo.snapShotPath}+login_success.png` });
   } catch(err){
     console.log('\n' + err);
-    return err;
+    throw err;
   }
 }
 

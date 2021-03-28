@@ -17,8 +17,8 @@ async function getSecutiryCode() {
     }
 
   const browser = await puppeteer.launch({
-    headless: false,
     defaultViewport: null,
+    headless: false,
     args: launcherArgs,
     executablePath: pathToBrowser,
   });
