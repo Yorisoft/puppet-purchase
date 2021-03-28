@@ -105,7 +105,7 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
-                        sh('npm run micro-bot-test');
+                        sh('npm run walmart-bot-test');
                     }
                 }
             }
