@@ -7,7 +7,7 @@ node {
 
     def image;
     def currentStage;
-    def entryPoint = '-d';
+    def entryPoint = '-p 5901:5901 -d';
     //'Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99'
     try {
         stage('Cleanup and Checkout') {
