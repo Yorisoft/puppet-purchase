@@ -105,16 +105,18 @@ async function neweggBot() {
       await page.goto('https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254', { waitUntil: 'networkidle2' });
       amountOrdered++;
     }
-  } catch (error) {
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-    console.log('\n' + error);
-  } finally {
     await page.waitForTimeout(7000);
     await page.close();
     await browser.close();
     await mySpinner.stop();
     await process.exit();
+    return;
+  } catch (error) {
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+    console.log('\n' + error);
+  } finally {
+
   }
 
 }

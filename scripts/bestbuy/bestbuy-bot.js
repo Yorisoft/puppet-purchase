@@ -124,6 +124,13 @@ async function bestbuyBot() {
       );
       amountOrdered++;
     }
+
+    await page.waitForTimeout(7000);
+    await page.close();
+    await browser.close();
+    await mySpinner.stop();
+    await process.exit();
+
   }
   catch (error) {
     // expected output: ReferenceError: nonExistentFunction is not defined
@@ -132,12 +139,7 @@ async function bestbuyBot() {
     throw error;
   }
   finally {
-    await page.waitForTimeout(7000);
-    await page.close();
-    await browser.close();
-    await mySpinner.stop();
-    await process.exit();
-    return;
+
   }
 
 }
