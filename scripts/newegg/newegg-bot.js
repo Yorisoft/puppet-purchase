@@ -12,7 +12,6 @@ async function neweggBot() {
   mySpinner.start();
 
   try {
-
     let launcherArgs;
     let pathToBrowser;
     if (process.env.USER_ENV === 'testUserInfo') {
@@ -30,15 +29,12 @@ async function neweggBot() {
       executablePath: pathToBrowser,
     });
 
-
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     await page.goto('https://www.newegg.com');
     await page.waitForTimeout(500);
     await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
-
-
 
     // Login
     await taskHandler.logIn(page);
@@ -49,7 +45,7 @@ async function neweggBot() {
 
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
+      await page.goto(`${myInfo.listingURL}`, { waitUntil: 'networkidle2' });
       console.log(`${myInfo.listingURL}`);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
@@ -93,7 +89,7 @@ async function neweggBot() {
       console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
       const cartURL = 'https://secure.newegg.com/shop/cart';
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(cartURL);
+      await page.goto(`${cartURL}`);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 

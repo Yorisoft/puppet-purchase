@@ -52,9 +52,8 @@ async function logIn(browser, page) {
     await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 100});
     await newPage.screenshot({ path: `${myInfo.snapShotPath}+inbox_signin.png` });
     await newPage.$eval(utils.selectors.get('singin_selector_3'), (el) => el.click());
-    await newPage.waitForTimeout(3000);
+    await newPage.waitForTimeout(4000);
     //submit
-    // Giving the user time to complete the manual login process.
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
     await page.waitForSelector(utils.selectors.get("singin_selector_1"));
     await page.waitForTimeout(700); // Give time for inner text to show up
