@@ -31,7 +31,7 @@ node {
         currentStage = 'Install npm';
         stage(currentStage) {
             image.inside(entryPoint) {
-                sh('npm i');
+                sh('npm install');
                 //sh ('npm i puppeteer --save');
                 sh('npm -v');
             }
