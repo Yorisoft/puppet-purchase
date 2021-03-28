@@ -148,7 +148,7 @@ node {
     }
     finally {
         stage('Create Archive'){
-            archiveArtifacts allowEmptyArchive: true, artifacts: '**', excludes: '**/node_modules';
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**', defaultExcludes: false, excludes: 'node_modules', followSymlinks: false;
             //archiveArtifacts allowEmptyArchive: true, artifacts: 'record/screen_shots/newegg/*.png, record/screen_shots/bestbuy/*.png, record/screen_shots/target/*.png'; 
         }
 
