@@ -8,20 +8,20 @@ const colors = require('colors');
 async function addToCart(page) {
   await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
   let oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),
-  (element) => {return element.innerText});
+    (element) => { return element.innerText });
 
   // It takes a reload and 6 keyboard presses to get the item to be added to cart for some reason
-  while (!oldItemCount.includes('1')){
+  while (!oldItemCount.includes('1')) {
     console.log(oldItemCount);
     await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
     await page.$eval(utils.selectors.get("pickUp_bttn_selector"), (el) =>
-    el.click({clickCount: 2}));
+      el.click({ clickCount: 2 }));
     //await page.focus(utils.selectors.get("pickUp_bttn_selector"));
     //await page.keyboard.press('Enter');
     await page.waitForTimeout(3000);
-    
+
     await page.waitForSelector(utils.selectors.get("cart_inventory_selector"));
-    oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'),(element) => {return element.innerText});
+    oldItemCount = await page.$eval(utils.selectors.get('cart_inventory_selector'), (element) => { return element.innerText });
     //await page.reload();
   }
 
@@ -36,38 +36,40 @@ async function gamestopBot() {
   mySpinner.setSpinnerString('|/-\\');
   mySpinner.start();
 
-  let launcherArgs;
-  let pathToBrowser;
-  if(process.env.USER_ENV === 'testUserInfo'){
-    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
-    pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
-  } else {
-    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
-  }
+  try {
 
-  // Start of test: Launch and go to login website
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-    headless: false, // not sure about running headless.. Bot detection.
-    args: launcherArgs,
-    executablePath: pathToBrowser,
-  });
+    let launcherArgs;
+    let pathToBrowser;
+    if (process.env.USER_ENV === 'testUserInfo') {
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+      pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
+    } else {
+      launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+    }
 
-  const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(0);
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-  await page.goto('https://www.gamestop.com/', { waitUntil: 'networkidle2' });
-  await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
+    // Start of test: Launch and go to login website
+    const browser = await puppeteer.launch({
+      defaultViewport: null,
+      headless: false, // not sure about running headless.. Bot detection.
+      args: launcherArgs,
+      executablePath: pathToBrowser,
+    });
 
-  // TESTING - Comment out when done.
-  // await cleanUpAccount(page);
-  // For cleaning up account/pause program - usefull for test setup
-  // await page.waitForTimeout(9000000);
+    const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    await page.goto('https://www.gamestop.com/', { waitUntil: 'networkidle2' });
+    await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
-  // Navigate to listing & add to cart
-  let amountOrdered = 0;
-  while (amountOrdered < 1) {
-    try {
+    // TESTING - Comment out when done.
+    // await cleanUpAccount(page);
+    // For cleaning up account/pause program - usefull for test setup
+    // await page.waitForTimeout(9000000);
+
+    // Navigate to listing & add to cart
+    let amountOrdered = 0;
+    while (amountOrdered < 1) {
+
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
@@ -87,12 +89,12 @@ async function gamestopBot() {
         const npage = await browser.newPage();
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
         await npage.goto("https://www.gamestop.com/stores/", { waitUntil: 'networkidle2' });
-        await npage.screenshot({path: `${myInfo.snapShotPath}+store_locator.png`});
+        await npage.screenshot({ path: `${myInfo.snapShotPath}+store_locator.png` });
 
         isOutOfStock = await taskHandler.findListing(npage);
         await npage.close();
 
-        if((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 1)){
+        if ((`${process.env.USER_ENV}` == 'testUserInfo' && testRuns == 1)) {
           return;
         }
         testRuns++;
@@ -122,15 +124,15 @@ async function gamestopBot() {
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto('https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254', { waitUntil: 'networkidle2' });
       amountOrdered++;
-    } catch (error) {
-      console.log('\n' + error);
-    } finally {
-      await page.waitForTimeout(7000);
-      await page.close();
-      await browser.close();
-      await mySpinner.stop();
-      await process.exit(); 
     }
+  } catch (error) {
+    console.log('\n' + error);
+  } finally {
+    await page.waitForTimeout(7000);
+    await page.close();
+    await browser.close();
+    await mySpinner.stop();
+    await process.exit();
   }
 }
 
