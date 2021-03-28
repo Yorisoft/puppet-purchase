@@ -42,5 +42,5 @@ RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo 
 RUN  whoami
 
 #COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["Xvfb -ac :1 -screen 1 1280x1024x16"]   
-#CMD Xvfb -ac :1 -screen 1 1280x1024x16
+#ENTRYPOINT ["Xvfb -ac :1 -screen 1 1280x1024x16"]   
+#CMD Xvfb -ac :1 -screen 2 1280x1024x16

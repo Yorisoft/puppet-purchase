@@ -27,37 +27,39 @@ async function bestbuyBot() {
   mySpinner.setSpinnerString("|/-\\");
   mySpinner.start();
 
-  let launcherArgs;
-  let pathToBrowser;
-  if(process.env.USER_ENV === 'testUserInfo'){
-    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
-    pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
-  } else {
-    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
-  }
 
-  // Start of test: Launch and go to login website
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-    headless: false, // not sure about running headless.. Bot detection.
-    args: launcherArgs,
-    executablePath: pathToBrowser,
-  });
+  try {
+    let launcherArgs;
+    let pathToBrowser;
+    if (process.env.USER_ENV === 'testUserInfo') {
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+      pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
+    } else {
+      launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+    }
 
-  const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(0);
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-  await page.goto("https://www.bestbuy.com", { waitUntil: "networkidle2" });
-  await taskHandler.logIn(page);
+    // Start of test: Launch and go to login website
+    const browser = await puppeteer.launch({
+      defaultViewport: null,
+      headless: false, // not sure about running headless.. Bot detection.
+      args: launcherArgs,
+      executablePath: pathToBrowser,
+    });
 
-  // TESTING - Comment out when done.
-  // For cleaning up account/pause program - usefull for test setup
-  // await page.waitForTimeout(9000000);
+    const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    await page.goto("https://www.bestbuy.com", { waitUntil: "networkidle2" });
+    await taskHandler.logIn(page);
 
-  // Navigate to Sony PS5 listing & add to cart
-  let amountOrdered = 0;
-  while (amountOrdered < 1) {
-    try {
+    // TESTING - Comment out when done.
+    // For cleaning up account/pause program - usefull for test setup
+    // await page.waitForTimeout(9000000);
+
+    // Navigate to Sony PS5 listing & add to cart
+    let amountOrdered = 0;
+    while (amountOrdered < 1) {
+
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(myInfo.listingURL);
@@ -123,21 +125,22 @@ async function bestbuyBot() {
       );
       amountOrdered++;
     }
-    catch (error) {
-      // expected output: ReferenceError: nonExistentFunction is not defined
-      // Note - error messages will vary depending on browser
-      console.log("\n" + error);
-      throw error;
-    }
-    finally {
-      await page.waitForTimeout(7000);
-      await page.close();
-      await browser.close();
-      await mySpinner.stop();
-      await process.exit();
-      return;
-    }
   }
+  catch (error) {
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+    console.log("\n" + error);
+    throw error;
+  }
+  finally {
+    await page.waitForTimeout(7000);
+    await page.close();
+    await browser.close();
+    await mySpinner.stop();
+    await process.exit();
+    return;
+  }
+
 }
 
 bestbuyBot();
