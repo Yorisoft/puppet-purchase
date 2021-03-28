@@ -15,5 +15,4 @@ echo ' Finished running gamestop-bot'
     }
     trap 'err_report $LINENO' ERR
     exit 2
-    }
 }

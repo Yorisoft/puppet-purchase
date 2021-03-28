@@ -24,15 +24,11 @@ echo ' Finished running walmart-bot'
 } || { # catch
     # save log for exception 
     set -e
-
     err_report() {
         echo "Error on line $1"
     }
-
-        trap 'err_report $LINENO' ERR
-
-    echo "x"
-}
+    trap 'err_report $LINENO' ERR
+    exit 2
 }
 
 

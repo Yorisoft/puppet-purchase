@@ -15,5 +15,4 @@ echo ' Finished running walmart-bot'
     }
     trap 'err_report $LINENO' ERR
     exit 2
-    }
 }

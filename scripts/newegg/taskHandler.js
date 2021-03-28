@@ -20,7 +20,6 @@ async function getSecutiryCode() {
     headless: false,
     defaultViewport: null,
     args: launcherArgs,
-      pathToBrowser = pathToBrowser,
     executablePath: pathToBrowser,
   });
 
