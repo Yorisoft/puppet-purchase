@@ -20,7 +20,6 @@ async function microcenterBot() {
   mySpinner.start();
 
   try {
-
     let launcherArgs;
     let pathToBrowser;
     if (process.env.USER_ENV === 'testUserInfo') {
