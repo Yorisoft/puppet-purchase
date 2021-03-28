@@ -81,8 +81,10 @@ node {
                         sh('npm run micro-bot-test');
                     }
                 }
-            },
+            }
+        )
 
+        parallel (
             "newegg-bot-test": {
                 image.inside(entryPoint) {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_LISTING_URL'),
