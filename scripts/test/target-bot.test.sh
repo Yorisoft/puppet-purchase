@@ -15,5 +15,4 @@ echo ' Finished running target-bot'
     }
     trap 'err_report $LINENO' ERR
     exit 2
-    }
 }
