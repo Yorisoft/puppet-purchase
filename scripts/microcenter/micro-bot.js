@@ -57,9 +57,9 @@ async function microcenterBot() {
     while (amountOrdered < 1) {
 
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
+      console.log(`${myInfo.listingURL}`);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(`${myInfo.listingURL}`, { waitUntil: 'networkidle2' });
-      console.log(`${myInfo.listingURL}`);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
