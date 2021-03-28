@@ -112,16 +112,19 @@ async function microcenterBot() {
       await page.goto('https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254', { waitUntil: 'networkidle2' });
       amountOrdered++;
     }
-  } catch (error) {
-    console.log('\n' + error);
-    throw error;
-  } finally {
     await page.waitForTimeout(7000);
     await page.close();
     await browser.close();
     await mySpinner.stop();
     await process.exit();
+    return;
+  } catch (error) {
+    console.log('\n' + error);
+    throw error;
+  } finally {
+
   }
 }
+
 
 microcenterBot();
