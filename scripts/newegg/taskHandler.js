@@ -6,12 +6,24 @@ const utils = require('./utils');
 
 async function getSecutiryCode() {
   let securityCode;
+
+  let launcherArgs;
+  let pathToBrowser;
+    if (process.env.USER_ENV === 'testUserInfo') {
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=700,700`];
+      pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
+    } else {
+      launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+    }
+
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--disable-setuid-sandbox', '--no-sandbox', '--incognito', `--window-size=700,700`],
-    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    args: launcherArgs,
+      pathToBrowser = process.env.PUPPETEER_EXEC_PATH,
+    executablePath: pathToBrowser,
   });
+  
   // Navigate to email.
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
