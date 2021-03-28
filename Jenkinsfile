@@ -38,7 +38,7 @@ node {
         parallel(
             // My test user or ip keeps getting temporarily banned. Need solution for testing..
             "bestuy-bot-test": {
-                image.inside("--entrypoint=''") {
+                image.inside("-d") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -52,7 +52,7 @@ node {
             },
 
             "micro-bot-test": {
-                image.inside("--entrypoint=''") {
+                image.inside("-d") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
@@ -67,7 +67,7 @@ node {
             },
 
             "newegg-bot-test": {
-                image.inside("--entrypoint=''") {
+                image.inside("-d") {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
