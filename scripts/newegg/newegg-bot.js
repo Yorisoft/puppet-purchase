@@ -6,22 +6,37 @@ const myInfo = require('./myInfo');
 const utils = require('./utils');
 
 async function neweggBot() {
-  // Start of test: Launch and go to login website
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    args: ['--disable-setuid-sandbox', '--no-sandbox', `--window-size=1025,1025`],
-    //executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
-  });
-  const page = await browser.newPage();
-  await page.goto('https://www.newegg.com');
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
-
   // Spinner 
   var mySpinner = new Spinner.Spinner('processing.. %s');
   mySpinner.setSpinnerString('|/-\\');
   mySpinner.start();
+
+  let launcherArgs;
+  let pathToBrowser;
+  if(process.env.USER_ENV === 'testUserInfo'){
+    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+    pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
+  } else {
+    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+  }
+
+  // Start of test: Launch and go to login website
+  const browser = await puppeteer.launch({
+    defaultViewport: null,
+    headless: false, // not sure about running headless.. Bot detection.
+    args: launcherArgs,
+    executablePath: pathToBrowser,
+  });
+
+  
+  const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+  await page.goto('https://www.newegg.com');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
+
+  
 
   // Login
   await taskHandler.logIn(page);
@@ -31,6 +46,7 @@ async function neweggBot() {
   while (amountOrdered < 1) {
     try {
       console.log('\n[1/4] .. Navigating to listing page ..'.bgBlue);
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(myInfo.listingURL, { waitUntil: 'networkidle2' });
       console.log(`${myInfo.listingURL}`);
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
@@ -64,15 +80,17 @@ async function neweggBot() {
 
       // Add listing to cart
       console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
       await pickUp_bttn[0].click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout({ waitUntil: 'networkidle2' });
       console.log('Item added to cart ..');
       await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 
       // Navigate to cart
       console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
       const cartURL = 'https://secure.newegg.com/shop/cart';
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(cartURL);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
@@ -86,6 +104,7 @@ async function neweggBot() {
       console.log('\nCtrl+C && Celebrate \n'.bgRed);
 
       // Done
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto('https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254', { waitUntil: 'networkidle2' });
       amountOrdered++;
     } catch (error) {

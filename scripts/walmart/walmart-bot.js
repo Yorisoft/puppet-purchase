@@ -5,23 +5,16 @@ const Spinner = require("cli-spinner");
 const puppeteer = require("puppeteer");
 const colors = require("colors");
 
-
 async function addToCart(page) {
-  try {
-    await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
-    await page.focus(utils.selectors.get("add_cart_bttn_selector"));
-    await page.keyboard.press("Enter");
-    console.log("Item added to cart ..");
+  await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
+  await page.$eval(utils.selectors.get("add_cart_bttn_selector"), (el) => el.click());
+  console.log("Item added to cart ..");
 
-    await page.waitForTimeout(500);
-    await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
-  } catch (err) {
-    console.log("\n" + err);
-    throw err;
-  }
+  await page.waitForTimeout(2000);
+  await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
 }
 
-async function bestbuyBot() {
+async function walmartBot() {
   // Spinner
   var mySpinner = new Spinner.Spinner("processing.. %s");
   mySpinner.setSpinnerString("|/-\\");
@@ -47,7 +40,7 @@ async function bestbuyBot() {
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-  await page.goto("https://www.bestbuy.com", { waitUntil: "networkidle2" });
+  await page.goto("https://www.walmart.com", { waitUntil: "networkidle2" });
   await taskHandler.logIn(page);
 
   // TESTING - Comment out when done.
@@ -59,38 +52,34 @@ async function bestbuyBot() {
   while (amountOrdered < 1) {
     try {
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
+      console.log(`Url: ${myInfo.listingURL}`.yellow);
+
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(myInfo.listingURL);
-      console.log(`${myInfo.listingURL}`);
-      await page.screenshot({
-        path: `${myInfo.snapShotPath}+listing_page.png`,
-      });
+      await page.goto(myInfo.listingURL, { waitUntil: "networkidle2" });
+      await page.screenshot({path: `${myInfo.snapShotPath}+listing_page.png`});
 
       // Checking to see if listing is out of stock
-      await page.waitForSelector(utils.selectors.get("pickUp_bttn_selector"));
-      let stocks = await page.$eval(
-        utils.selectors.get("pickUp_bttn_selector"),
-        (element) => {
-          return element.innerHTML;
-        }
-      );
-      let isOutOfStock = stocks.includes("Sold Out");
-      let testRuns = 0;
+      let isOutOfStock;
+      let testRuns;
+
+      if (await page.$(utils.selectors.get('sold_out_selector')) !== null){
+        isOutOfStock = true;
+      }
+
       while (isOutOfStock) {
-        console.log("\nProduct is OUT OF STOCK".red);
+        console.log('\nOUT OF STOCK'.red);
+        console.log('\nRefreshing Page..'.yellow);
+        await page.reload();
 
-        const npage = await browser.newPage();
-        await npage.goto("https://www.bestbuy.com/site/store-locator/");
-        await page.waitForTimeout(500);
-        await npage.screenshot({
-          path: `${myInfo.snapShotPath}+store_locator.png`,
-        });
+        await page.waitForSelector('#product-overview > div > div:nth-child(3) > div > h1');
+        await page.screenshot({path: `${myInfo.snapShotPath}+listing_page.png`});
 
-        isOutOfStock = await taskHandler.findListing(page, npage);
-        await npage.close();
+        if (await page.$(utils.selectors.get('sold_out_selector')) !== null){
+          isOutOfStock = true;
+        }
 
         //EXIT IF RUNNING TEST
-        if ((`${process.env.USER_ENV}` == "testUserInfo" && testRuns == 1)) {
+        if ((`${process.env.USER_ENV}` == "testUserInfo" && testRuns == 5)) {
           return;
         }
         testRuns++;
@@ -103,9 +92,9 @@ async function bestbuyBot() {
 
       // Navigate to cart
       console.log("\n[3/4] .. Navigating to cart ..".bgBlue);
-      const cartURL = "https://www.bestbuy.com/cart";
-      await page.goto(cartURL);
-      await page.waitForTimeout(500);
+      const cartURL = "https://www.walmart.com/cart";
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+      await page.goto(cartURL, { waitUntil: "networkidle2" });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
@@ -117,27 +106,28 @@ async function bestbuyBot() {
       console.log("\nLook at account purchase history to verify \n".bgRed);
 
       // Done
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
       await page.goto(
         "https://www.tenor.com/view/done-and-done-ron-swanson-gotchu-gif-10843254",
         { waitUntil: "networkidle2" }
       );
       amountOrdered++;
-    }
+    } 
     catch (error) {
       // expected output: ReferenceError: nonExistentFunction is not defined
       // Note - error messages will vary depending on browser
       console.log("\n" + error);
       throw error;
-    }
+    } 
     finally {
       await page.waitForTimeout(7000);
       await page.close();
       await browser.close();
       await mySpinner.stop();
-      await process.exit();
+      await process.exit(); 
       return;
     }
   }
 }
 
-bestbuyBot();
+walmartBot();

@@ -3,6 +3,7 @@ const utils = require('./utils');
 const colors = require('colors');
 
 async function logIn(page) {
+  try {
   // LOGIN
   await page.waitForSelector(utils.selectors.get('account_selector'));
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
@@ -18,6 +19,7 @@ async function logIn(page) {
   // Navigate to login page
   while (needsLogIn) {
     console.log('Navigating to signin page ..'.yellow);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     await page.goto('https://www.bestbuy.com/signin');
     await page.waitForTimeout(700); // Avoid network slowdown
 
@@ -27,13 +29,13 @@ async function logIn(page) {
     //email
     await page.waitForSelector(utils.selectors.get('email_selector'));
     await page.$eval(utils.selectors.get('email_selector'), (el) => el.click());
-    await page.type(utils.selectors.get('email_selector'), myInfo.myemail);
+    await page.type(utils.selectors.get('email_selector'), `${myInfo.myemail}`, {delay: 150});
 
     //password
     await page.$eval(utils.selectors.get('password_selector'), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get('password_selector'), myInfo.mypassw);
+    await page.type(utils.selectors.get('password_selector'), `${myInfo.mypassw}`, {delay: 150});
 
     //submit
     await page.focus(utils.selectors.get('singin_selector'));
@@ -41,6 +43,7 @@ async function logIn(page) {
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
 
     await page.waitForTimeout(4000); // Time to load account username
+    await page.screenshot({ path: `${myInfo.snapShotPath}+login_attempt.png` });
     await page.waitForSelector(utils.selectors.get('account_selector'));
     list_items = await page.$eval(
       utils.selectors.get('account_selector'),
@@ -51,6 +54,10 @@ async function logIn(page) {
     needsLogIn = list_items.includes('Account');
   }
   console.log('Signed in succesfully ..'.yellow);
+} catch (err) {
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 async function findListing(page, npage) {
@@ -58,6 +65,7 @@ async function findListing(page, npage) {
   let isOutOfStock;
   let n = 1;
 
+  try{
   await npage.waitForSelector(utils.selectors.get('zip_input_selector'));
   await npage.waitForSelector(utils.selectors.get('lookup_bttn_selector'));
 
@@ -107,9 +115,14 @@ async function findListing(page, npage) {
     }
   }
   return isOutOfStock;
+} catch(err){
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 async function checkoutCart(page) {
+  try{
   await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_1'));
   await page.focus(utils.selectors.get('chekout_bttn_selector_1'));
   await page.keyboard.press('Enter');
@@ -137,7 +150,7 @@ async function checkoutCart(page) {
   if (await page.$(utils.selectors.get('cvv_bttn_selector')) !== null){
     await page.focus(utils.selectors.get('cvv_bttn_selector'));
     await page.keyboard.press('Enter');
-    await page.type(utils.selectors.get('cvv_bttn_selector'), myInfo.mycvv);
+    await page.type(utils.selectors.get('cvv_bttn_selector'), `${myInfo.mycvv}`);
     await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
   }
   
@@ -149,6 +162,10 @@ async function checkoutCart(page) {
   }
   await page.waitForTimeout(7000);
   await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+} catch(err){
+  console.log("\n" + err);
+  throw err;
+}
 }
 
 module.exports = {

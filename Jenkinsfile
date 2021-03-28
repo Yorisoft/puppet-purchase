@@ -1,119 +1,142 @@
 #!/usr/bin/env groovy
 
 node {
-    if(env.BRANCH_NAME.startsWith('PR')){
+    if (env.BRANCH_NAME.startsWith('PR')) {
         return;
     }
 
     def image
-    try{
+    def currentStage;
+    try {
         stage('Cleanup and Checkout') {
-            sh ("echo Branch_name:${env.BRANCH_NAME}");
+            sh("echo Branch_name:${env.BRANCH_NAME}");
             cleanWs();
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: "${env.BRANCH_NAME}"]],
-                doGenerateSubmoduleConfigurations: false, 
-                extensions: [], 
-                submoduleCfg: [], 
-                userRemoteConfigs: [[credentialsId: 'Yorisoft', url: 'https://github.com/Yorisoft/puppet-purchase' ]]
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [],
+                submoduleCfg: [],
+                userRemoteConfigs: [[credentialsId: 'Yorisoft', url: 'https://github.com/Yorisoft/puppet-purchase']]
             ])
         }
 
-        stage('Build Image') {
+        currentStage = 'Build Image';
+        stage(currentStage) {
             image = docker.build('puppet-purchase');
         }
 
-        stage('Install npm') {
+        currentStage = 'Install npm';
+        stage(currentStage) {
             image.inside("--entrypoint=''") {
-                sh ('npm install --unsafe-perm');
+                sh('npm i --unsafe-perm');
                 //sh ('npm i puppeteer --save');
-                sh ('npm -v');
-            } 
-        } 
+                sh('npm -v');
+            }
+        }
 
-        // My test user or ip keeps getting temporarily banned. Need solution for testing..
-        stage('bestuy-bot-test') {
-            image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
+        parallel(
+            // My test user or ip keeps getting temporarily banned. Need solution for testing..
+            "bestuy-bot-test": {
+                image.inside("--entrypoint=''") {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    ]) {
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt"); //prints to test file (nick)
+                        sh('npm run bestbuy-bot-test')
+                    }
+                }
+            },
+
+            "micro-bot-test": {
+                image.inside("--entrypoint=''") {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    ]) {
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
+                        sh('npm run micro-bot-test');
+                    }
+                }
+            },
+
+            "newegg-bot-test": {
+                image.inside("--entrypoint=''") {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    ]) {
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
+                        sh('npm run newegg-bot-test');
+                    }
+                }
+            },
+
+            "target-bot-test": {
+                image.inside("--entrypoint=''") {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                    ]) {
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
+                        sh('npm run target-bot-test');
+                    }
+                }
+            },
+
+            "walmart-bot-test": {
+                image.inside("--entrypoint=''") {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_WALMART', variable: 'TEST_USER_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_INBOX_PASSW'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
                     ]) {
-                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt");
-                    sh ('npm run bestbuy-bot-test');
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
+                        sh('npm run micro-bot-test');
+                    }
                 }
-            } 
-        }
-
-        stage('target-bot-test') {
+            }
+        )
+        currentStage = 'all-bots-full-cycle test';
+        stage(currentStage) {
             image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_URL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
-                    ]) {
-                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
-                    sh ('npm run target-bot-test');
-                }
-            } 
-        }
+                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
+                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
+                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV')
+                ]) {
 
-        stage('newegg-bot-test') {
-            image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_NEWEGG', variable: 'TEST_USER_URL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
-                    ]) {
-                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
-                    sh ('npm run newegg-bot-test');
-                }
-            } 
-        }
-
-        // Currently requires manual input.. Need solution to fetching code from email.
-        stage('micro-bot-test') {
-            image.inside("--entrypoint=''") {
-                withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
-                    ]) {   
-                    //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
-                    sh ('npm run micro-bot-test');
-                }
-            } 
-        }
-
-        stage('all-bots-full-cycle test') {
-            image.inside("--entrypoint=''") {
-               withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_MICRO', variable: 'TEST_USER_URL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL_PASSW', variable: 'TEST_USER_EMAIL_PASSW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'PUPPET_PURCHASE_TEST_USER_CVV'),
-                    ]) {
-                        
                 }
             }
         }
-    } 
+    }
     catch (e) {
         currentBuild.result = 'FAILURE';
         throw e
-    } 
+    }
     finally {
         stage('Create Archive'){
-            archiveArtifacts allowEmptyArchive: true, artifacts: '**', excludes: '**/node_modules'; 
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**', excludes: '**/node_modules';
             //archiveArtifacts allowEmptyArchive: true, artifacts: 'record/screen_shots/newegg/*.png, record/screen_shots/bestbuy/*.png, record/screen_shots/target/*.png'; 
         }
-        
+
         stage('cleanup'){
             cleanWs();
             sh('docker system prune -a -f');
         }
     }
-} 
+}

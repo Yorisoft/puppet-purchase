@@ -14,25 +14,25 @@ async function getSecutiryCode() {
   });
   // Navigate to email.
   const page = await browser.newPage();
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   await page.goto('https://www.gmail.com', { waitUntil: 'networkidle2' });
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
 
   // Enter login credentials & signin
   // Email
   await page.$eval(utils.selectors.get('inbox_email_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail);
+  await page.type(utils.selectors.get('inbox_email_selector'), myInfo.myemail, { delay: 100 });
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxEmail.png` });
 
   // Password
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(3000);
   await page.$eval(utils.selectors.get('inbox_password_selector'), (el) => el.click());
-  await page.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass);
+  await page.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, { delay: 100 });
   await page.$eval(utils.selectors.get('inbox_singin_selector'), (el) => el.click());
   await page.screenshot({ path: `${myInfo.snapShotPath}+inboxPass.png` });
 
-  await page.waitForTimeout(500);
-  await page.reload({ waitUntil: 'networkidle2' });
+  await page.waitForTimeout({ waitUntil: 'networkidle2' });
 
   // Select email
   await page.waitForSelector(utils.selectors.get('inbox_selector'));
@@ -43,6 +43,14 @@ async function getSecutiryCode() {
   securityCode = await page.$eval(utils.selectors.get('securityCode_selector'), (element) => { return element.innerHTML });
   await page.screenshot({ path: `${myInfo.snapShotPath}+securityCode.png` });
   
+  // Delete email
+  if (`${process.env.USER_ENV}` == "testUserInfo" ) {
+    await page.focus(utils.selectors.get('delete_email_selector'));
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+email_deleted.png` });
+  }
+
   let pages = await browser.pages()
   await Promise.all(pages.map(page =>page.close()))
   await browser.close();
