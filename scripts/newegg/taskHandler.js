@@ -20,10 +20,10 @@ async function getSecutiryCode() {
     headless: false,
     defaultViewport: null,
     args: launcherArgs,
-      pathToBrowser = process.env.PUPPETEER_EXEC_PATH,
+      pathToBrowser = pathToBrowser,
     executablePath: pathToBrowser,
   });
-  
+
   // Navigate to email.
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
