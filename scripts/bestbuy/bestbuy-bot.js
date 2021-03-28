@@ -27,7 +27,6 @@ async function bestbuyBot() {
   mySpinner.setSpinnerString("|/-\\");
   mySpinner.start();
 
-
   try {
     let launcherArgs;
     let pathToBrowser;
@@ -62,7 +61,7 @@ async function bestbuyBot() {
 
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(myInfo.listingURL);
+      await page.goto(`${myInfo.listingURL}`);
       console.log(`${myInfo.listingURL}`);
       await page.screenshot({
         path: `${myInfo.snapShotPath}+listing_page.png`,
@@ -106,7 +105,7 @@ async function bestbuyBot() {
       // Navigate to cart
       console.log("\n[3/4] .. Navigating to cart ..".bgBlue);
       const cartURL = "https://www.bestbuy.com/cart";
-      await page.goto(cartURL);
+      await page.goto(`${cartURL}`);
       await page.waitForTimeout(500);
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
