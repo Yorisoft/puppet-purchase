@@ -80,9 +80,7 @@ node {
                         //echo("echo $TEST_USER_URL > $WORKSPACE/grr3.txt");
                         sh('npm run micro-bot-test');
                     }
-                },
-
-                
+                } 
             },
 
             "newegg-bot-test": {
