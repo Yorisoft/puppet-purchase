@@ -23,7 +23,7 @@ async function microcenterBot() {
     let launcherArgs;
     let pathToBrowser;
     if (process.env.USER_ENV === 'testUserInfo') {
-      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', `--window-size=1025,1025`];
       pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
     } else {
       launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
