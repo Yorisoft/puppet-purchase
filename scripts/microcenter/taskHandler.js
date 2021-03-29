@@ -4,8 +4,6 @@ const myInfo = require("./myInfo");
 const utils = require("./utils");
 
 async function getNewPageWhenLoaded(browser) {
-  await newPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-
   return new Promise((x) => browser.once('targetcreated', async (target) => {
     let newPage = await target.page();
     let newPagePromise = new Promise(() => newPage.once('domcontentloaded', () => x(newPage)));
@@ -38,6 +36,7 @@ async function logIn(browser, page) {
 
     
     let newPagePromise = getNewPageWhenLoaded(browser);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     await page.$eval(utils.selectors.get("google_signin_selector"), (el) => el.click());
     let newPage = await newPagePromise;
     await newPage.screenshot({ path: `${myInfo.snapShotPath}+google_signin_selector.png` });
