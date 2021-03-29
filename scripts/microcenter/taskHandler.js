@@ -34,7 +34,7 @@ async function logIn(browser, page) {
     await page.goto('https://account.microcenter.com/Login.aspx', { waitUntil: 'networkidle2' });
     console.log('Signing in ..'.yellow);
 
-    await browser.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     let newPagePromise = getNewPageWhenLoaded(browser);
     await page.$eval(utils.selectors.get("google_signin_selector"), (el) => el.click());
     let newPage = await newPagePromise;
