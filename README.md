@@ -57,7 +57,7 @@ Use 'export' if you're on Linux or 'SET' if you're on Windows.
 
 Some environment variables are not required for all of the bot-test, such as TEST_USER_INBOX_PASSW && TEST_USER_LOC. Look inside the _**env.userInfo**_ file that pertains to the specific bot inorder to know what variables the program is expecting. 
 
-We find it easier to export all of the variables, and just change the TEST_USER_LISTING_URL variable depending on what bot-tests is being ran. 
+We find it easier to export all of the variables, and just change the TEST_USER_LISTING_URL variable depending on what bot-tests is we expect to run. 
 
 
 ## Docker
