@@ -3,7 +3,7 @@ const colors = require("colors");
 const myInfo = require("./myInfo");
 const utils = require("./utils");
 
-function getNewPageWhenLoaded(browser) {
+async function getNewPageWhenLoaded(browser) {
   return new Promise((x) => browser.once('targetcreated', async (target) => {
     let newPage = await target.page();
     let newPagePromise = new Promise(() => newPage.once('domcontentloaded', () => x(newPage)));
@@ -13,6 +13,7 @@ function getNewPageWhenLoaded(browser) {
 }
 
 async function logIn(browser, page) {
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   // Navigate to login page
   let signingText;
   let isSignedout;
@@ -33,7 +34,7 @@ async function logIn(browser, page) {
     await page.goto('https://account.microcenter.com/Login.aspx', { waitUntil: 'networkidle2' });
     console.log('Signing in ..'.yellow);
 
-    
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     let newPagePromise = getNewPageWhenLoaded(browser);
     await page.$eval(utils.selectors.get("google_signin_selector"), (el) => el.click());
     let newPage = await newPagePromise;
@@ -52,9 +53,8 @@ async function logIn(browser, page) {
     await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 100});
     await newPage.screenshot({ path: `${myInfo.snapShotPath}+inbox_signin.png` });
     await newPage.$eval(utils.selectors.get('singin_selector_3'), (el) => el.click());
-    await newPage.waitForTimeout(3000);
+    await newPage.waitForTimeout(4000);
     //submit
-    // Giving the user time to complete the manual login process.
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
     await page.waitForSelector(utils.selectors.get("singin_selector_1"));
     await page.waitForTimeout(700); // Give time for inner text to show up
@@ -75,6 +75,8 @@ async function logIn(browser, page) {
 }
 
 async function checkoutCart(page) {
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+
   await page.$eval(utils.selectors.get("chekout_bttn_selector_1"), (el) =>
     el.click()
   );

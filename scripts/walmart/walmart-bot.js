@@ -20,49 +20,51 @@ async function walmartBot() {
   mySpinner.setSpinnerString("|/-\\");
   mySpinner.start();
 
-  let launcherArgs;
-  let pathToBrowser;
-  if(process.env.USER_ENV === 'testUserInfo'){
-    launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
-    pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
-  } else {
-    launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
-  }
+  try {
 
-  // Start of test: Launch and go to login website
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-    headless: false, // not sure about running headless.. Bot detection.
-    args: launcherArgs,
-    executablePath: pathToBrowser,
-  });
+    let launcherArgs;
+    let pathToBrowser;
+    if (process.env.USER_ENV === 'testUserInfo') {
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
+      pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
+    } else {
+      launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
+    }
 
-  const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(0);
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-  await page.goto("https://www.walmart.com", { waitUntil: "networkidle2" });
-  await taskHandler.logIn(page);
+    // Start of test: Launch and go to login website
+    const browser = await puppeteer.launch({
+      defaultViewport: null,
+      headless: false, // not sure about running headless.. Bot detection.
+      args: launcherArgs,
+      executablePath: pathToBrowser,
+    });
 
-  // TESTING - Comment out when done.
-  // For cleaning up account/pause program - usefull for test setup
-  // await page.waitForTimeout(9000000);
+    const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    await page.goto("https://www.walmart.com", { waitUntil: "networkidle2" });
+    await taskHandler.logIn(page);
 
-  // Navigate to Sony PS5 listing & add to cart
-  let amountOrdered = 0;
-  while (amountOrdered < 1) {
-    try {
+    // TESTING - Comment out when done.
+    // For cleaning up account/pause program - usefull for test setup
+    // await page.waitForTimeout(9000000);
+
+    // Navigate to Sony PS5 listing & add to cart
+    let amountOrdered = 0;
+    while (amountOrdered < 1) {
+
       console.log("\n[1/4] .. Navigating to listing page ..".bgBlue);
       console.log(`Url: ${myInfo.listingURL}`.yellow);
 
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(myInfo.listingURL, { waitUntil: "networkidle2" });
-      await page.screenshot({path: `${myInfo.snapShotPath}+listing_page.png`});
+      await page.goto(`${myInfo.listingURL}`, { waitUntil: "networkidle2" });
+      await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
       let isOutOfStock;
       let testRuns;
 
-      if (await page.$(utils.selectors.get('sold_out_selector')) !== null){
+      if (await page.$(utils.selectors.get('sold_out_selector')) !== null) {
         isOutOfStock = true;
       }
 
@@ -72,9 +74,9 @@ async function walmartBot() {
         await page.reload();
 
         await page.waitForSelector('#product-overview > div > div:nth-child(3) > div > h1');
-        await page.screenshot({path: `${myInfo.snapShotPath}+listing_page.png`});
+        await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
-        if (await page.$(utils.selectors.get('sold_out_selector')) !== null){
+        if (await page.$(utils.selectors.get('sold_out_selector')) !== null) {
           isOutOfStock = true;
         }
 
@@ -94,7 +96,7 @@ async function walmartBot() {
       console.log("\n[3/4] .. Navigating to cart ..".bgBlue);
       const cartURL = "https://www.walmart.com/cart";
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(cartURL, { waitUntil: "networkidle2" });
+      await page.goto(`${cartURL}`, { waitUntil: "networkidle2" });
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
@@ -112,21 +114,22 @@ async function walmartBot() {
         { waitUntil: "networkidle2" }
       );
       amountOrdered++;
-    } 
-    catch (error) {
-      // expected output: ReferenceError: nonExistentFunction is not defined
-      // Note - error messages will vary depending on browser
-      console.log("\n" + error);
-      throw error;
-    } 
-    finally {
-      await page.waitForTimeout(7000);
-      await page.close();
-      await browser.close();
-      await mySpinner.stop();
-      await process.exit(); 
-      return;
     }
+    await page.waitForTimeout(7000);
+    await page.close();
+    await browser.close();
+    await mySpinner.stop();
+    await process.exit();
+    return;
+  }
+  catch (error) {
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+    console.log("\n" + error);
+    throw error;
+  }
+  finally {
+
   }
 }
 

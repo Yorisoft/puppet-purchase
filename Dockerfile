@@ -20,9 +20,8 @@ RUN apt-get update -y \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update \
     && apt-get install -y google-chrome-stable --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && sudo update-alternatives --install /usr/bin/x-www-browser google-chrome-stable <priority_as_integer>
-RUN Xvfb -ac :1 -screen 1 1280x1024x16
+    && rm -rf /var/lib/apt/lists/*
+RUN sudo Xvfb -ac :1 -screen 1 1280x1024x16
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && sudo apt-get install -y nodejs \
@@ -32,17 +31,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo \
     && useradd -m jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo
 
-
-#USER jenkins 
-#RUN  whoami \
-#    && xhost + \
-#    && xhost localhost \
-#    && xauth list|grep `uname -n`\
-#    && DISPLAY=:0; export DISPLAY \
-#    && xauth add $DISPLAY . hexkey  
-
 RUN  whoami
 
 #COPY entrypoint.sh /entrypoint.sh
-#ENTRYPOINT ["Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:1"]   
-#CMD Xvfb -ac :1 -screen 1 1280x1024x16
+#ENTRYPOINT ["Xvfb -ac :1 -screen 1 1280x1024x16"]   
+#CMD Xvfb -ac :1 -screen 2 1280x1024x16
