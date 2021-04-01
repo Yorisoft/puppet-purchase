@@ -21,7 +21,7 @@ RUN apt-get update -y \
     && apt-get update \
     && apt-get install -y google-chrome-stable --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
-RUN sudo Xvfb -ac :1 -screen 1 1280x1024x16
+#RUN sudo Xvfb -ac :1 -screen 1 1280x1024x16
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && sudo apt-get install -y nodejs \
