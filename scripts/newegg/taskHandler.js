@@ -22,6 +22,7 @@ async function getSecutiryCode() {
     args: launcherArgs,
     executablePath: pathToBrowser,
   });
+  await page.setDefaultNavigationTimeout(0);
 
   // Navigate to email.
   const page = await browser.newPage();
@@ -62,7 +63,7 @@ async function getSecutiryCode() {
     await page.screenshot({ path: `${myInfo.snapShotPath}+email_deleted.png` });
   }
 
-  let pages = await browser.pages()
+  let pages = await browser.pages();
   await Promise.all(pages.map(page =>page.close()))
   await browser.close();
 
