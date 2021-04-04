@@ -3,8 +3,6 @@ const myInfo = require('./myInfo');
 const utils = require('./utils');
 const Spinner = require('cli-spinner');
 const puppeteer = require('puppeteer');
-const pluginStealth = require("puppeteer-extra-plugin-stealth");
-puppeteer.use(pluginStealth());
 const colors = require('colors');
 
 async function addToCart(page) {
