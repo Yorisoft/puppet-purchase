@@ -22,10 +22,11 @@ async function getSecutiryCode() {
     args: launcherArgs,
     executablePath: pathToBrowser,
   });
-  await page.setDefaultNavigationTimeout(0);
+  
 
   // Navigate to email.
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
   await page.goto('https://www.gmail.com', { waitUntil: 'networkidle2' });
   await page.screenshot({ path: `${myInfo.snapShotPath}+start.png` });
