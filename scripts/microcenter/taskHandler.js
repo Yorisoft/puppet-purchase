@@ -4,6 +4,7 @@ const myInfo = require("./myInfo");
 const utils = require("./utils");
 
 async function getNewPageWhenLoaded(browser) {
+  await newPage.waitForTimeout(4000);
   return new Promise((x) => browser.once('targetcreated', async (target) => {
     let newPage = await target.page();
     let newPagePromise = new Promise(() => newPage.once('domcontentloaded', () => x(newPage)));
