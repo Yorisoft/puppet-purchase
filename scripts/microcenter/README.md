@@ -13,31 +13,31 @@ Microcenter bot requires specifying the users desired store within the LISTING_U
 # EXAMPLE;
     TEST_USER_LISTING_URL=https://www.microcenter.com/product/600551/seagate-barracuda-2tb-7200rpm-sata-iii-6gb-s-35-internal-hard-drive/_**?storeid=121**_
 
-    CA - Tustin             = 101
-    CO - Denver             = 181
-    GA - Duluth             = 065
-    GA - Marietta           = 041
-    IL - Chicago            = 151
-    IL - Westmont           = 025
-    KS - Overland Park      = 191
-    MA - Cambridge          = 121
-    MD - Rockville          = 085
-    MD - Parkville          = 125
-    MI - Madison Heights    = 055
-    MN - St. Louis Park     = 045
-    MO - Brentwood          = 095
-    NJ - North Jersey       = 075
-    NY - Westbury           = 171
-    NY - Brooklyn           = 115
-    NY - Flushing           = 145
-    NY - Yonkers            = 105
-    OH - Columbus           = 141
-    OH - Mayfield Heights   = 051
-    OH - Sharonville        = 071
-    PA - St. Davids         = 061
-    TX - Houston            = 155
-    TX - Dallas             = 131
-    VA - Fairfax            = 081
+    CA - Tustin                 = 101
+    CO - Denver                 = 181
+    GA - Duluth                 = 065
+    GA - Marietta               = 041
+    IL - Chicago                = 151
+    IL - Westmont               = 025
+    KS - Overland Park          = 191
+    MA - Cambridge              = 121
+    MD - Rockville              = 085
+    MD - Parkville              = 125
+    MI - Madison Heights        = 055
+    MN - St. Louis Park         = 045
+    MO - Brentwood              = 095
+    NJ - North Jersey           = 075
+    NY - Westbury               = 171
+    NY - Brooklyn               = 115
+    NY - Flushing               = 145
+    NY - Yonkers                = 105
+    OH - Columbus               = 141
+    OH - Mayfield Heights       = 051
+    OH - Sharonville            = 071
+    PA - St. Davids             = 061
+    TX - Houston                = 155
+    TX - Dallas                 = 131
+    VA - Fairfax                = 081
 
 
 ### Testing
