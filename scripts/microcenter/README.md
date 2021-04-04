@@ -3,26 +3,46 @@
 
 __For the best experience while using microcenter puppeteer workflow, be sure to add all necesarry account info such as phone number, located in Account > Profile > Update Account Information. Anything that is required for checkout should then be added to the .env.userInfo file__
 
-As of now, Microcenter seems to demand the most out of all the other bots. During the cycle of the program, users will be required to complete a step manually, this is a step the bot cannot perform on its own. Currently, work is still being done to make it so that there are no manual steps required. This is obviously not ideal, but keep in mind this step is only required at the begining of the program - once that's complete, you can sit back and relax. 
-
-The Microcenter website also has a captcha puzzle when login in, which this program has no way of handling. To get around this, the bot uses google single-signin.
+The Microcenter website has a captcha puzzle when login in, which this program has no way of handling. To get around this, the bot uses google single-signin.
 This means that additional email credentials are required in order for the puppeteer to signin to the Microcenter account.
 Rememeber to fill in all required information inside _**scripts/< bot >/userInfo/.env.userInfo**_ 
 
 # Usage:
-__tldr below__
 
-## Store selection
-The user will need to select a microcenter location they wish the bot to monitor. This is the store the bot will check store inventory for and continue to monitor untill it notices a re-supply of stock. 
+Microcenter bot requires specifying the users desired store within the LISTING_URL or TEST_USER_LISTING_URL environment variables.
+# EXAMPLE;
+    TEST_USER_LISTING_URL=https://www.microcenter.com/product/600551/seagate-barracuda-2tb-7200rpm-sata-iii-6gb-s-35-internal-hard-drive/_**?storeid=121**_
 
-The problem: Microcenter doesnt allow for their users to define a default store in their profile. They explain that they do but user will notice when using the puppeteer bots that your location in microcenter will not be selected.
+    CA - Tustin             = 101
+    CO - Denver             = 181
+    GA - Duluth             = 065
+    GA - Marietta           = 041
+    IL - Chicago            = 151
+    IL - Westmont           = 025
+    KS - Overland Park      = 191
+    MA - Cambridge          = 121
+    MD - Rockville          = 085
+    MD - Parkville          = 125
+    MI - Madison Heights    = 055
+    MN - St. Louis Park     = 045
+    MO - Brentwood          = 095
+    NJ - North Jersey       = 075
+    NY - Westbury           = 171
+    NY - Brooklyn           = 115
+    NY - Flushing           = 145
+    NY - Yonkers            = 105
+    OH - Columbus           = 141
+    OH - Mayfield Heights   = 051
+    OH - Sharonville        = 071
+    PA - St. Davids         = 061
+    TX - Houston            = 155
+    TX - Dallas             = 131
+    VA - Fairfax            = 081
 
-Solution: Once the bot nativagates to the item listing page, at the top center of the screen, click 'change' to change to your local microcenter store. 
 
-## TLDR;
-    Users will need to select their microcenter store. When the bot finishes loggin in, it will navigate to the item listing page. Once at the item listing page, the user must click on the 'change' button located in the top center of the screen and select their store. 
+### Testing
 
-## You're done
+When running the newegg bot multtiple times, its required that the last security code email be deleted. Currently working on having newegg bot do this automatically. 
 
 ### Don't forget, Options
 
