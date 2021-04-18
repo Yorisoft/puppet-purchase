@@ -10,3 +10,5 @@ vncconfig.sh
 # Include your .evn file here
 #.env.userInfo
 .env.dev
+*.DS_Store
+package-lock.json
