@@ -87,8 +87,15 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
-                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt"); //prints to test file (nick)
-                        sh('npm run bestbuy-bot-test')
+                        try{ 
+                            //echo("echo $TEST_USER_URL > $WORKSPACE/grr.txt"); //prints to test file (nick)
+                            sh('npm run bestbuy-bot-test')
+                        } 
+                        catch (err){
+                            echo err.getMessage()
+                            throw err
+                                
+                        }
                     }
                 }
             },
@@ -101,11 +108,17 @@ node {
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
                     ]) {
-                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
-                        sh('npm run target-bot-test');
+                        try{
+                            //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
+                            sh('npm run target-bot-test');
+                        } 
+                        catch (err){
+                            echo err.getMessage()
+                            throw err
+                        }
                     }
                 }
-            },
+            }
             
             // "gamestop-bot-test": {
             //     image.inside(entryPoint) {
