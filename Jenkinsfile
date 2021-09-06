@@ -98,27 +98,27 @@ node {
                         }
                     }
                 }
-            },
-
-            "target-bot-test": {
-                image.inside(entryPoint) {
-                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_LISTING_URL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASSW'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
-                    ]) {
-                        try{
-                            //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
-                            sh('npm run target-bot-test');
-                        } 
-                        catch (err){
-                            echo err.getMessage()
-                            throw err
-                        }
-                    }
-                }
             }
+
+            // "target-bot-test": {
+            //     image.inside(entryPoint) {
+            //         withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_LISTING_URL'),
+            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASSW'),
+            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
+            //         ]) {
+            //             try{
+            //                 //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
+            //                 sh('npm run target-bot-test');
+            //             } 
+            //             catch (err){
+            //                 echo err.getMessage()
+            //                 throw err
+            //             }
+            //         }
+            //     }
+            // }
             
             // "gamestop-bot-test": {
             //     image.inside(entryPoint) {
