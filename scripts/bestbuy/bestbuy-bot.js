@@ -13,7 +13,7 @@ async function addToCart(page) {
     await page.keyboard.press("Enter");
     console.log("Item added to cart ..");
 
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
     await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });
   } catch (err) {
     console.log("\n" + err);
@@ -29,7 +29,7 @@ async function bestbuyBot() {
 
   try {
     let launcherArgs;
-    let pathToBrowser;
+    let pathToBrowser= process.env.PUPPETEER_EXEC_PATH;
     if (process.env.USER_ENV === 'testUserInfo') {
       launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
       pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
@@ -125,8 +125,7 @@ async function bestbuyBot() {
       amountOrdered++;
     }
 
-    await page.waitForTimeout(7000);
-    await page.close();
+    await browser.pages.close();
     await browser.close();
     await mySpinner.stop();
     await process.exit();
@@ -135,8 +134,12 @@ async function bestbuyBot() {
   catch (error) {
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
-    console.log("\n" + error);
-    throw error;
+    // console.log("\n" + error);
+    // await browser.pages.close();
+    // await browser.close();
+    // await mySpinner.stop();
+    // await process.exit();
+    // throw error;
   }
   finally {
 

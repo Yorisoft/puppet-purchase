@@ -8,7 +8,7 @@ async function getSecutiryCode() {
   let securityCode;
 
   let launcherArgs;
-  let pathToBrowser;
+  let pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
     if (process.env.USER_ENV === 'testUserInfo') {
       launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=700,700`];
       pathToBrowser = process.env.PUPPETEER_EXEC_PATH;

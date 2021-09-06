@@ -1,10 +1,10 @@
 let selectors = new Map();
 selectors.set('pickUp_bttn_selector', 'div.fulfillment-add-to-cart-button');
-selectors.set('add_cart_bttn_selector', 'button.btn.btn-primary.btn-lg.btn-block.btn-leading-ficon.add-to-cart-button');
-selectors.set('account_selector', 'li.utility-navigation-list-item');
+selectors.set('add_cart_bttn_selector', 'button.c-button.c-button-primary.c-button-lg.c-button-block.c-button-icon.c-button-icon-leading.add-to-cart-button');
+selectors.set('account_selector', 'li.bottom-nav-menu-item');
 selectors.set('zip_input_selector', '.zip-code-input');
-selectors.set('pick_store_selector', 'button.btn.btn-outline.btn-sm.make-this-your-store');
-selectors.set('lookup_bttn_selector', 'button.btn.btn-secondary.btn-sm');
+selectors.set('pick_store_selector', 'button.c-button.c-button-outline.c-button-sm.make-this-your-store');
+selectors.set('lookup_bttn_selector', 'button.c-button.c-button-secondary.c-button-md');
 selectors.set('email_selector', 'input#fld-e.tb-input');
 selectors.set('password_selector', 'input#fld-p1.tb-input');
 selectors.set('singin_selector', 'div.cia-form__controls');

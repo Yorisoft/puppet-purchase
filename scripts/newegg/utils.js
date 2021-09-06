@@ -1,8 +1,8 @@
 let selectors = new Map();
-selectors.set('pickUp_bttn_selector', 'div#ProductBuy.product-buy');
+selectors.set('pickUp_bttn_selector', '#ProductBuy > div > div:nth-child(2) > button');
 selectors.set('outOfStock_selector', 'div.product-inventory');
-selectors.set('securityCode_selector', 'div:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td');
-selectors.set('delete_email_selector', 'div:nth-child(2) > div.iH.bzn > div > div:nth-child(2) > div.T-I.J-J5-Ji.nX.T-I-ax7.T-I-Js-Gs.mA');
+selectors.set('securityCode_selector', 'div:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td');
+selectors.set('delete_email_selector', 'div > div.iH.bzn > div > div:nth-child(2) > div.T-I.J-J5-Ji.nX.T-I-ax7.T-I-Js-Gs.mA > div');
 selectors.set('securityCode_input_selector', 'div.form-v-code input');
 selectors.set('inbox_selector', 'html body div div div div div div div div div div div div div div div div div div div table tbody tr');
 selectors.set('inbox_singin_selector', 'button.VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.DuMIQc.qIypjc.TrZEUc');

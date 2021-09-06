@@ -21,7 +21,7 @@ async function microcenterBot() {
 
   try {
     let launcherArgs;
-    let pathToBrowser;
+    let pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
     if (process.env.USER_ENV === 'testUserInfo') {
       launcherArgs = ['--no-sandbox', '--deterministic-fetch', `--window-size=750,750`];
       pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
@@ -64,7 +64,7 @@ async function microcenterBot() {
       // Checking to see if listing is out of stock
       await page.waitForSelector(utils.selectors.get('inventory_count'));
       let stocks = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
-      let isOutOfStock = stocks.includes('Sold Out');
+      let isOutOfStock = stocks.includes("SOLD OUT");
       console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
       // While listing is out of stock: Change store, check availability 
@@ -78,7 +78,7 @@ async function microcenterBot() {
         await page.waitForTimeout(500);
         await page.waitForSelector(utils.selectors.get('inventory_count'));
         inventoryText = await page.$eval(utils.selectors.get('inventory_count'), (element) => { return element.innerText });
-        isOutOfStock = inventoryText.includes('Sold Out');
+        isOutOfStock = inventoryText.includes("SOLD OUT");
 
         if ((`${process.env.USER_ENV}` == 'testUserInfo') && (testRuns == 10)) {
           testRuns++;

@@ -4,7 +4,6 @@ const myInfo = require("./myInfo");
 const utils = require("./utils");
 
 async function getNewPageWhenLoaded(browser) {
-  await newPage.waitForTimeout(4000);
   return new Promise((x) => browser.once('targetcreated', async (target) => {
     let newPage = await target.page();
     let newPagePromise = new Promise(() => newPage.once('domcontentloaded', () => x(newPage)));
@@ -54,11 +53,13 @@ async function logIn(browser, page) {
     await newPage.type(utils.selectors.get('inbox_password_selector'), myInfo.myInboxPass, {delay: 100});
     await newPage.screenshot({ path: `${myInfo.snapShotPath}+inbox_signin.png` });
     await newPage.$eval(utils.selectors.get('singin_selector_3'), (el) => el.click());
-    await newPage.waitForTimeout(4000);
+    await newPage.waitForTimeout(20000);
     //submit
+    //await page.waitForTimeout(4000);
+    //await page.waitForTimeout({ waitUntil: 'networkidle2' });
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
     await page.waitForSelector(utils.selectors.get("singin_selector_1"));
-    await page.waitForTimeout(700); // Give time for inner text to show up
+    await page.waitForTimeout(4000); // Give time for inner text to show up
     signingText = await page.$eval(utils.selectors.get("singin_selector_1"),
       (el) => {
         return el.innerText;

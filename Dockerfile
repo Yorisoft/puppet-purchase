@@ -15,7 +15,7 @@ WORKDIR /usr/src/app
 COPY . ./
 # update, install puppeteer dependencies, and install node
 RUN apt-get update -y \
-    && apt-get install -yq libgconf-2-4 sudo curl wget xvfb \
+    && apt-get install -yq libgconf-2-4 sudo curl wget xvfb dos2unix \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update \
@@ -25,7 +25,8 @@ RUN apt-get update -y \
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && sudo apt-get install -y nodejs \
     && node -v \
-    && npm -v
+    && npm -v 
+RUN find . -type f -name "*.sh" -exec dos2unix {} \+;
 
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo \
     && useradd -m jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo

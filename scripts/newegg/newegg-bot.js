@@ -13,9 +13,9 @@ async function neweggBot() {
 
   try {
     let launcherArgs;
-    let pathToBrowser;
+    let pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
     if (process.env.USER_ENV === 'testUserInfo') {
-      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=750,750`];
+      launcherArgs = ['--no-sandbox', '--deterministic-fetch', '--disable-setuid-sandbox', `--window-size=1025,1025`];
       pathToBrowser = process.env.PUPPETEER_EXEC_PATH;
     } else {
       launcherArgs = ['--no-sandbox', `--window-size=1025,1025`];
@@ -78,8 +78,14 @@ async function neweggBot() {
       // Add listing to cart
       console.log('\n[2/4] .. Adding item to cart ..'.bgBlue);
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
-      await pickUp_bttn[0].click();
+      await page.waitForSelector(utils.selectors.get('pickUp_bttn_selector'));
+      //let pickUp_bttn = await page.$$(utils.selectors.get('pickUp_bttn_selector'));
+      await page.waitForSelector(utils.selectors.get('chekout_bttn_selector_1'));
+      await page.focus(utils.selectors.get('chekout_bttn_selector_1'));
+      await page.keyboard.press('Enter');
+
+      //await pickUp_bttn[0].click();
+      //await page.waitForTimeout(500);
       await page.waitForTimeout({ waitUntil: 'networkidle2' });
       console.log('Item added to cart ..');
       await page.screenshot({ path: `${myInfo.snapShotPath}+added_to_cart.png` });

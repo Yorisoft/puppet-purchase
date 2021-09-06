@@ -13,13 +13,14 @@ let listingURL;
 if (`${process.env.USER_ENV}` === 'testUserInfo') {
   myemail = process.env.TEST_USER_EMAIL;
   mypassw = process.env.TEST_USER_PASSW;
-  myInboxPass = process.env.TEST_USER_PASSW;
+  myInboxPass = process.env.TEST_USER_INBOX_PASSW;
   myloc = process.env.TEST_USER_LOC;
   mycvv = process.env.TEST_USER_CVV;
   listingURL = process.env.TEST_USER_LISTING_URL;
 } else {
   myemail = process.env.MY_EMAIL;
   mypassw = process.env.MY_PASSW;
+  myInboxPass = process.env.MY_INBOX_PASSW;
   myloc = process.env.MY_LOC;
   mycvv = process.env.MY_CVV;
   listingURL = process.env.LISTING_URL;
