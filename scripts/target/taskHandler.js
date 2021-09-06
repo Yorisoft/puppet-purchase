@@ -9,66 +9,66 @@ async function logIn(page) {
   let isSignedout;
   
   try {
-  console.log("Navigating to signin page ..".yellow);
-  await page.waitForSelector(utils.selectors.get("singin_selector_1"));
-  signingText = await page.$eval(
-    "span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
-    (el) => {
-      return el.innerText;
-    }
-  );
-  isSignedout = signingText === "Sign in";
-  console.log("signingText: " + signingText);
-  console.log("isSignedout: " + isSignedout);
-
-  while (isSignedout) {
-    await page.$eval(utils.selectors.get("singin_selector_1"), (el) =>
-      el.click()
-    );
-    await page.screenshot({ path: `${myInfo.snapShotPath}+login_page.png` });
-    await page.$eval(utils.selectors.get("singin_selector_2"), (el) =>
-      el.click()
-    );
-    await page.screenshot({ path: `${myInfo.snapShotPath}_login_page.png` });
-
-    // Enter login credentials & signin
-    //email
-    console.log("Signing in ..".yellow);
-    await page.$eval(utils.selectors.get("email_selector"), (el) => el.click());
-    await page.type(utils.selectors.get("email_selector"), myInfo.myemail, { delay: 100 });
-
-    //password
-    await page.$eval(utils.selectors.get("password_selector"), (el) =>
-      el.click()
-    );
-    await page.type(utils.selectors.get("password_selector"), myInfo.mypassw, { delay: 100 });
-
-    //submit
-    await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
-    await page.$eval(utils.selectors.get("singin_selector_3"), (el) =>
-      el.click()
-    );
-
-    await page.waitForTimeout(3000); // Allow text to load
-    await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
-
-    await page.waitForSelector("#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn");
-    await page.waitForTimeout(400); // Allow text to load
+    console.log("Navigating to signin page ..".yellow);
+    await page.waitForSelector(utils.selectors.get("singin_selector_1"));
     signingText = await page.$eval(
-      "#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
+      "span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
       (el) => {
         return el.innerText;
       }
     );
     isSignedout = signingText === "Sign in";
-
     console.log("signingText: " + signingText);
     console.log("isSignedout: " + isSignedout);
-  }
 
-  await page.waitForTimeout(1000);
-  console.log("Signed in succesfully ..".yellow);
-  await page.screenshot({ path: `${myInfo.snapShotPath}+login_success.png` });
+    while (isSignedout) {
+      await page.$eval(utils.selectors.get("singin_selector_1"), (el) =>
+        el.click()
+      );
+      await page.screenshot({ path: `${myInfo.snapShotPath}+login_page.png` });
+      await page.$eval(utils.selectors.get("singin_selector_2"), (el) =>
+        el.click()
+      );
+      await page.screenshot({ path: `${myInfo.snapShotPath}_login_page.png` });
+
+      // Enter login credentials & signin
+      //email
+      console.log("Signing in ..".yellow);
+      await page.$eval(utils.selectors.get("email_selector"), (el) => el.click());
+      await page.type(utils.selectors.get("email_selector"), myInfo.myemail, { delay: 100 });
+
+      //password
+      await page.$eval(utils.selectors.get("password_selector"), (el) =>
+        el.click()
+      );
+      await page.type(utils.selectors.get("password_selector"), myInfo.mypassw, { delay: 100 });
+
+      //submit
+      await page.screenshot({ path: `${myInfo.snapShotPath}+login_submit.png` });
+      await page.$eval(utils.selectors.get("singin_selector_3"), (el) =>
+        el.click()
+      );
+
+      await page.waitForTimeout(3000); // Allow text to load
+      await page.screenshot({ path: `${myInfo.snapShotPath}+login_result.png` });
+
+      await page.waitForSelector("#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn");
+      await page.waitForTimeout(400); // Allow text to load
+      signingText = await page.$eval(
+        "#account > span.styles__AccountName-sc-1kk0q5l-0.iQFCAn",
+        (el) => {
+          return el.innerText;
+        }
+      );
+      isSignedout = signingText === "Sign in";
+
+      console.log("signingText: " + signingText);
+      console.log("isSignedout: " + isSignedout);
+    }
+
+    await page.waitForTimeout(1000);
+    console.log("Signed in succesfully ..".yellow);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+login_success.png` });
   } catch(err){
     console.log('\n' + err);
     throw err;
@@ -156,7 +156,8 @@ async function checkoutCart(page) {
     }
     await page.waitForTimeout(7000);
     await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
-  } catch(err){
+  } 
+  catch(err){
       console.log('\n' + err);
       throw err;
   }

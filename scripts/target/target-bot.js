@@ -19,7 +19,6 @@ async function targetBot() {
   mySpinner.start();
 
   try {
-
     let launcherArgs;
     let pathToBrowser;
     if (process.env.USER_ENV === 'testUserInfo') {
@@ -110,13 +109,15 @@ async function targetBot() {
     await page.close();
     await browser.close();
     await mySpinner.stop();
-  } catch (err) {
+  } 
+  catch (err) {
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
 
     console.log('\n' + err);
     throw err;
-  } finally {
+  } 
+  finally {
     
     return;
   }
