@@ -125,7 +125,7 @@ async function bestbuyBot() {
       amountOrdered++;
     }
 
-    await browser.pages.close();
+    await page.close();
     await browser.close();
     await mySpinner.stop();
     await process.exit();
@@ -142,7 +142,9 @@ async function bestbuyBot() {
     // throw error;
   }
   finally {
-
+    await page.close();
+    await browser.close();
+    await mySpinner.stop();
   }
 
 }
