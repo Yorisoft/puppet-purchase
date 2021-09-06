@@ -9,8 +9,8 @@ const colors = require("colors");
 async function addToCart(page) {
   try {
     await page.waitForSelector(utils.selectors.get("add_cart_bttn_selector"));
+    await page.waitForTimeout(2000);
     await page.focus(utils.selectors.get("add_cart_bttn_selector"));
-    await page.waitForTimeout(1000);
     await page.keyboard.press("Enter");
     console.log("Item added to cart ..");
 
