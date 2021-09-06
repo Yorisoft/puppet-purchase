@@ -4,15 +4,13 @@ echo ' Should run a full cycle of bestbuy-bot.js script, then exit: 0 '
 
 USER_ENV=testUserInfo npm run bestbuy-bot
 
-exit
-
-# if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then
  
-# echo 'Finished running bestbuy-bot'
+echo 'Finished running bestbuy-bot'
 
-# else
+else
 
-# echo 'ERROR bestbuy-bot test Failed'
-# exit 2
+echo 'ERROR bestbuy-bot test Failed'
+exit 2
 
-# fi
+fi
