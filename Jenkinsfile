@@ -50,6 +50,8 @@ node {
                         sh('npm run bestbuy-bot-test')
                     } catch (err){
                         echo err.getMessage()
+                        throw err
+                        
                     }
                 }
             }
@@ -69,6 +71,7 @@ node {
                         sh('npm run target-bot-test');
                     } catch (err){
                         echo err.getMessage()
+                        throw err
                     }
                 }
             }
