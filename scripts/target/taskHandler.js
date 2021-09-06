@@ -108,7 +108,7 @@ async function findListing(page) {
 
     // Check if current store has listing
     stocks = await page.$eval(
-      utils.selectors.get("outOfStock_selector"),
+      utils.selectors.get("pickUp_bttn_selector"),
       (element) => {
         return element.innerHTML;
       }
@@ -124,42 +124,42 @@ async function findListing(page) {
   return isOutOfStock;
 } catch(err){
   console.log('\n' + err);
-  return err;
+  throw err;
 }
 }
 
 async function checkoutCart(page) {
   try {
-  await page.waitForTimeout(500);
-  await page.$eval(utils.selectors.get("chekout_bttn_selector_1"), (el) =>
-    el.click()
-  );
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_arrive.png` });
-
-  // Input credit-card  cvv
-  await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_2"));
-  if ((await page.$(utils.selectors.get("cvv_bttn_selector"))) !== null) {
-    await page.waitForTimeout(500);
-    await page.$eval(utils.selectors.get("cvv_bttn_selector"), (el) =>
+    await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_1"));
+    await page.$eval(utils.selectors.get("chekout_bttn_selector_1"), (el) =>
       el.click()
     );
-    await page.type(utils.selectors.get("cvv_bttn_selector"), myInfo.mycvv);
-    await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
-  }
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+checkout_arrive.png` });
 
-  // Checkout = 'Moment of truth..';
-  await page.focus(utils.selectors.get("chekout_bttn_selector_2"));
-  //SKIP IF RUNNING TEST
-  if (`${process.env.USER_ENV}` == "userInfo" ) {
-    await page.keyboard.press('Enter');
+    // Input credit-card  cvv
+    await page.waitForSelector(utils.selectors.get("chekout_bttn_selector_2"));
+    if ((await page.$(utils.selectors.get("cvv_bttn_selector"))) !== null) {
+      await page.waitForTimeout(500);
+      await page.$eval(utils.selectors.get("cvv_bttn_selector"), (el) =>
+        el.click()
+      );
+      await page.type(utils.selectors.get("cvv_bttn_selector"), myInfo.mycvv);
+      await page.screenshot({ path: `${myInfo.snapShotPath}+cvv_added.png` });
+    }
+
+    // Checkout = 'Moment of truth..';
+    await page.focus(utils.selectors.get("chekout_bttn_selector_2"));
+    //SKIP IF RUNNING TEST
+    if (`${process.env.USER_ENV}` == "userInfo" ) {
+      await page.keyboard.press('Enter');
+    }
+    await page.waitForTimeout(7000);
+    await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
+  } catch(err){
+      console.log('\n' + err);
+      throw err;
   }
-  await page.waitForTimeout(7000);
-  await page.screenshot({ path: `${myInfo.snapShotPath}+result_page.png` });
-} catch(err){
-  console.log('\n' + err);
-  return err;
-}
 }
 
 module.exports = {

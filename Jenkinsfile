@@ -52,6 +52,20 @@ node {
                 }
             },
 
+            "target-bot-test": {
+                image.inside(entryPoint) {
+                    withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_LISTING_URL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASSW'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
+                    string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
+                    ]) {
+                        //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
+                        sh('npm run target-bot-test');
+                    }
+                }
+            },
+            
             // "gamestop-bot-test": {
             //     image.inside(entryPoint) {
             //         withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_GAMESTOP', variable: 'TEST_USER_LISTING_URL'),
@@ -93,20 +107,6 @@ node {
             //         ]) {
             //             //echo("echo $TEST_USER_URL > $WORKSPACE/grr2.txt");
             //             sh('npm run newegg-bot-test');
-            //         }
-            //     }
-            // },
-
-            // "target-bot-test": {
-            //     image.inside(entryPoint) {
-            //         withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_LISTING_URL'),
-            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
-            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASSW'),
-            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_LOC', variable: 'TEST_USER_LOC'),
-            //         string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_CVV', variable: 'TEST_USER_CVV')
-            //         ]) {
-            //             //echo("echo $TEST_USER_URL > $WORKSPACE/grr1.txt");
-            //             sh('npm run target-bot-test');
             //         }
             //     }
             // },

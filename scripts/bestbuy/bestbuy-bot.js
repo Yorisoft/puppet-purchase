@@ -124,27 +124,21 @@ async function bestbuyBot() {
       );
       amountOrdered++;
     }
-
+    await page.waitForTimeout(7000);
     await page.close();
     await browser.close();
     await mySpinner.stop();
-    await process.exit();
-
   }
-  catch (error) {
+  catch (err) {
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
-    // console.log("\n" + error);
-    // await browser.pages.close();
-    // await browser.close();
-    // await mySpinner.stop();
-    // await process.exit();
-    // throw error;
+
+    console.log('\n' + err);
+    throw err;
   }
   finally {
-    await page.close();
-    await browser.close();
-    await mySpinner.stop();
+
+    return;
   }
 
 }

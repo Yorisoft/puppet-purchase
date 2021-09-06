@@ -62,7 +62,7 @@ async function targetBot() {
       await page.screenshot({ path: `${myInfo.snapShotPath}+listing_page.png` });
 
       // Checking to see if listing is out of stock
-      let stocks = await page.$eval(utils.selectors.get('outOfStock_selector'), (element) => { return element.innerHTML });
+      let stocks = await page.$eval( utils.selectors.get("pickUp_bttn_selector"), (element) => { return element.innerHTML });
       let isOutOfStock = stocks.includes('Out of stock');
       console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
 
@@ -88,7 +88,8 @@ async function targetBot() {
       console.log('\n[3/4] .. Navigating to cart ..'.bgBlue);
       const cartURL = 'https://www.target.com/co-cart';
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
-      await page.goto(`${cartURL}`, { waitUntil: 'networkidle2' });
+      await page.goto(`${cartURL}`);
+      await page.waitForTimeout(4000);
       await page.screenshot({ path: `${myInfo.snapShotPath}+nav_to_cart.png` });
 
       //Checkout listing
@@ -109,13 +110,15 @@ async function targetBot() {
     await page.close();
     await browser.close();
     await mySpinner.stop();
-    await process.exit();
-    return;
   } catch (err) {
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+
     console.log('\n' + err);
     throw err;
   } finally {
-
+    
+    return;
   }
 }
 
