@@ -4,6 +4,8 @@ echo ' Should run a full cycle of target-bot.js script, then exit: 0 '
 
 USER_ENV=testUserInfo npm run target-bot
 
+exit
+
 # if [ $? -eq 0 ]; then
  
 # echo 'Finished running target-bot'

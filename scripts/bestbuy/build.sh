@@ -9,3 +9,5 @@ fi
 echo "Environmnet: $USER_ENV\_environment"
 
 USER_ENV=$USER_ENV node scripts/bestbuy/bestbuy-bot.js
+
+exit

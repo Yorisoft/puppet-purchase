@@ -69,7 +69,8 @@ async function logIn(page) {
     await page.waitForTimeout(1000);
     console.log("Signed in succesfully ..".yellow);
     await page.screenshot({ path: `${myInfo.snapShotPath}+login_success.png` });
-  } catch(err){
+  } 
+  catch(err) {
     console.log('\n' + err);
     throw err;
   }
