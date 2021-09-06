@@ -115,7 +115,7 @@ async function targetBot() {
     // Note - error messages will vary depending on browser
 
     console.log('\n' + err);
-    throw err;
+    throw new Error(err);
   } 
   finally {
     
