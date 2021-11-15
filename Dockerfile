@@ -15,11 +15,11 @@ WORKDIR /usr/src/app
 COPY . ./
 # update, install puppeteer dependencies, and install node
 RUN apt-get update -y \
-    && apt-get install -yq libgconf-2-4 sudo curl wget xvfb dos2unix apt-transport-https ca-certificates \
+    && apt-get install libgconf-2-4 sudo curl wget xvfb dos2unix apt-transport-https ca-certificates -y \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable --no-install-recommends \
+    && apt-get update -y \
+    && apt-get install google-chrome-stable --no-install-recommends -y\
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
