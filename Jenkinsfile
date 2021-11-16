@@ -24,8 +24,7 @@ node {
 
         currentStage = 'Build Image';
         stage(currentStage) {
-            image = docker.build('puppet-purchase'),
-           
+            image = docker.build('puppet-purchase')
         }
 
         currentStage = 'Install npm';
