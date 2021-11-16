@@ -7,6 +7,7 @@ USER_ENV=testUserInfo npm run bestbuy-bot
 if [ $? -eq 0 ]; then
  
 echo 'Finished running bestbuy-bot'
+exit 0
 
 else
 
