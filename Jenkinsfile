@@ -24,8 +24,8 @@ node {
 
         currentStage = 'Build Image';
         stage(currentStage) {
-            image = docker.build('puppet-purchase');
-            args = '--entrypoint=';
+            image = docker.build('puppet-purchase'),
+            + "--build-arg --entrypoint=""" ;
         }
 
         currentStage = 'Install npm';
