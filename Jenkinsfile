@@ -81,7 +81,7 @@ node {
         parallel(
             // My test user or ip keeps getting temporarily banned. Need solution for testing..
             "bestuy-bot-test": {
-                image.inside() {
+                image.inside('-d=true -p 8888:808') {
                     withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_BESTBUY', variable: 'TEST_USER_LISTING_URL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_EMAIL', variable: 'TEST_USER_EMAIL'),
                     string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_PASW', variable: 'TEST_USER_PASSW'),
