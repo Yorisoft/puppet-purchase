@@ -76,9 +76,9 @@ async function bestbuyBot() {
           return element.innerHTML;
         }
       );
-      let isOutOfStock = stocks.includes("Sold Out");
+      let isInStock = stocks.includes("Add");
       let testRuns = 0;
-      while (isOutOfStock) {
+      while (!isInStock) {
         console.log("\nProduct is OUT OF STOCK".red);
 
         const npage = await browser.newPage();
@@ -88,7 +88,7 @@ async function bestbuyBot() {
           path: `${myInfo.snapShotPath}+store_locator.png`,
         });
 
-        isOutOfStock = await taskHandler.findListing(page, npage);
+        isInStock = await taskHandler.findListing(page, npage);
         await npage.close();
 
         //EXIT IF RUNNING TEST

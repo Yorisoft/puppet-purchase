@@ -65,7 +65,7 @@ async function findListing(page, npage) {
   await npage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
 
   let stocks;
-  let isOutOfStock;
+  let isInStock;
   let n = 1;
 
   try{
@@ -104,8 +104,8 @@ async function findListing(page, npage) {
         return element.innerHTML;
       }
     );
-    isOutOfStock = stocks.includes('Sold Out');
-    console.log('isOutOfStock: ' + `${isOutOfStock}`.red);
+    isInStock = stocks.includes('Add');
+    console.log('isInStock: ' + `${isInStock}`.red);
 
     let currentStore = await npage.$$('div.shop-location-card');
     let itemJsHandle = await currentStore[i + 1].getProperty('innerText');
@@ -113,11 +113,11 @@ async function findListing(page, npage) {
     console.log('@ : ' + `${storeText}`.red);
 
     // Stop switching stores if listing is found
-    if (isOutOfStock != true) {
+    if (isInStock = true) {
       break;
     }
   }
-  return isOutOfStock;
+  return isInStock;
 } catch(err){
   console.log("\n" + err);
   throw err;
