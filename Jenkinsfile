@@ -100,9 +100,6 @@ node {
                 }
             }
 
-
-
-
             // "target-bot-test": {
             //     image.inside(entryPoint) {
             //         withCredentials([string(credentialsId: 'PUPPET_PURCHASE_TEST_USER_URL_TARGET', variable: 'TEST_USER_LISTING_URL'),
